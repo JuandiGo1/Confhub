@@ -9,6 +9,9 @@ class EventModel extends Event {
     required super.date,
     required super.time,
     required super.attendees,
+    required super.description,
+    required super.speakerName,
+    required super.speakerAvatar,
     required List<SessionModel> super.sessionOrder,
     required super.tags,
   });
@@ -22,6 +25,9 @@ class EventModel extends Event {
       date: formatDate(dateTime),  // Extraer solo la fecha
       time: dateTime.toIso8601String().split('T')[1].substring(0, 5), // Extraer solo la hora
       attendees: json['attendees'],
+      description: json['description'],
+      speakerName: json['speakerName'],
+      speakerAvatar: json['speakerAvatar'],
       sessionOrder: (json['sessionOrder'] as List)
           .map((session) => SessionModel.fromJson(session))
           .toList(),
@@ -36,6 +42,9 @@ class EventModel extends Event {
       'category': category,
       'dateTime': "$date $time",
       'attendees': attendees,
+      'description': description,
+      'speakerName': speakerName,
+      'speakerAvatar': speakerAvatar,
       'sessionOrder': sessionOrder
           .map((session) => (session as SessionModel).toJson())
           .toList(),

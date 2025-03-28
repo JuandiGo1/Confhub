@@ -6,6 +6,9 @@ class Event {
   final String date;  //  solo la fecha (YYYY-MM-DD)
   final String time;  //  solo la hora (HH:MM)
   final int attendees;
+  final String description;
+  final String speakerName;
+  final String speakerAvatar;
   final List<Session> sessionOrder;
   final List<String> tags;
 
@@ -15,6 +18,9 @@ class Event {
     required this.date,
     required this.time,
     required this.attendees,
+    required this.description,
+    required this.speakerName,
+    required this.speakerAvatar,
     required this.sessionOrder,
     required this.tags,
   });

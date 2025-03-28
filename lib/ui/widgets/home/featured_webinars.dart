@@ -16,14 +16,13 @@ class FeaturedWebinars extends StatelessWidget {
     final getAllEventsUseCase = Get.find<GetAllEventsUseCase>(); // 
     
     return SizedBox(
-      height: 180, // Altura fija para el carrusel
+      height: 250, // Altura fija para el carrusel
       child: FutureBuilder<List<Event>>(
         future: getAllEventsUseCase.call(), // Llamamos al caso de uso
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator()); // Cargando...
           } else if (snapshot.hasError) {
-            print(snapshot.error);
             return const Center(child: Text('Error al cargar eventos'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No hay eventos disponibles'));

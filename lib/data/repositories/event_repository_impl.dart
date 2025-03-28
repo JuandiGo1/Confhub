@@ -17,4 +17,18 @@ class EventRepositoryImpl implements EventRepository {
       throw Exception('Error obteniendo eventos: $e');
     }
   }
+
+  @override
+  Future<List<EventModel>> getEventsForToday() async {
+    try {
+      return await localDataSource.getEventsForToday();
+    } catch (e) {
+      throw Exception('Error obteniendo eventos de hoy: $e');
+    }
+  }
+
+
+
+ 
 }
+

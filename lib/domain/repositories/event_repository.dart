@@ -4,5 +4,7 @@ import 'package:confhub/domain/entities/event.dart';
 
 abstract class EventRepository {
   Future<List<Event>> getAllEvents();
+
+  Future<List<Event>> getEventsForToday();
 }
 
