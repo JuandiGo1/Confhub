@@ -1,3 +1,6 @@
+
+import 'package:confhub/core/colors.dart';
+
 import 'package:confhub/ui/widgets/home/featured_webinars.dart';
 import 'package:confhub/ui/widgets/home/header_section.dart';
 import 'package:confhub/ui/widgets/home/upcoming_webinars.dart';
@@ -10,31 +13,37 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 224, 238, 232),
+
+      backgroundColor:  AppColors.background ,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Encabezado
-              HeaderSection(),
-              SizedBox(height: 16),
-
-              // Título
-              Text(
-                "Tenemos eventos para ti hoy!",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Encabezado
+            HeaderSection(),
+            SizedBox(height: 5),
+        
+            // Título
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                child: Text(
+                  "Tenemos eventos para ti hoy!",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
               ),
-              SizedBox(height: 16),
-
-              // Webinars Destacados
-              FeaturedWebinars(),
-              SizedBox(height: 16),
-
-              // Próximos Webinars
-              UpcomingWebinars(),
-            ],
+            ),
+            SizedBox(height: 20),
+        
+            // Webinars Destacados
+            FeaturedWebinars(),
+            SizedBox(height: 16),
+        
+            // Próximos Webinars
+            UpcomingWebinars(),
+          ],
+      
           ),
         ),
       ),

@@ -5,39 +5,58 @@ import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/use_cases/get_all_events.dart';
 import 'package:get/get.dart';
 
-
-
 class FeaturedWebinars extends StatelessWidget {
-
   const FeaturedWebinars({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>(); // 
-    
-    return SizedBox(
-      height: 250, // Altura fija para el carrusel
-      child: FutureBuilder<List<Event>>(
-        future: getAllEventsUseCase.call(), // Llamamos al caso de uso
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator()); // Cargando...
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Error al cargar eventos'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No hay eventos disponibles'));
-          }
+    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
-          final events = snapshot.data!;
+    // Define una lista de colores para los eventos
+    final List<Color> colorsCard = [
+      AppColors.primary,
+      AppColors.cardSecond,
+      AppColors.cardThird,
+    ];
 
-          return ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              return Webinarcard(title: events[index].title, date: events[index].date , category: events[index].category, color: AppColors.primary,);
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: SizedBox(
+          height: 250, // Altura fija para el carrusel
+          child: FutureBuilder<List<Event>>(
+            future: getAllEventsUseCase.call(), // Llamamos al caso de uso
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator()); // Cargando...
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error al cargar eventos'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No hay eventos disponibles'));
+              }
+
+              final events = snapshot.data!;
+
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  // Selecciona el color basado en el índice
+                  final color = colorsCard[index % colorsCard.length];
+
+                  return Webinarcard(
+                    title: events[index].title,
+                    date: events[index].date,
+                    category: events[index].category,
+                    color: color,
+                    attendees: events[index].attendees,
+                    speakerAvatar: events[index].speakerAvatar,
+                  );
+                },
+              );
             },
-          );
-        },
+          ),
+        ),
       ),
     );
   }
