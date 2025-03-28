@@ -1,4 +1,5 @@
 import 'package:confhub/dependencies.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'ui/pages/home_page.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Confhub Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          textTheme: GoogleFonts.bitterTextTheme(),
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 203, 236, 229)),
           useMaterial3: true,

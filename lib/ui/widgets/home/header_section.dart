@@ -1,3 +1,4 @@
+import 'package:confhub/core/colors.dart';
 import 'package:flutter/material.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -5,31 +6,42 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Perfil
-        Row(
-          children: [
-             Container(
-              width: 100,
-              height: 30,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("images/confhub_logo.png"),
-                  fit: BoxFit.cover
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // Perfil
+          Row(
+            children: [
+               Container(
+                width: 140,
+                height: 40,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("images/confhub.png"),
+                    fit: BoxFit.cover
+                    ),
+                ),
+               ),
+               
+            ],
+          ),
+          // Icono de notificaciones
+          Row(
+            children: [
+              IconButton(
+                icon:  Icon(Icons.event , size: 28),
+                onPressed: () {},
               ),
-             ),
-             
-          ],
-        ),
-        // Icono de notificaciones
-        IconButton(
-          icon:  Icon(Icons.settings , size: 28),
-          onPressed: () {},
-        ),
-      ],
+              IconButton(
+                icon:  Icon(Icons.settings , size: 28),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
