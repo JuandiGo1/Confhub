@@ -11,4 +11,5 @@ class AppColors {
   static const Color error = Color(0xFFB00020); // Rojo oscuro
   static const Color cardSecond = Color.fromARGB(255, 225, 195, 98); 
   static const Color cardThird = Color.fromARGB(253, 209, 156, 107); 
+
 }

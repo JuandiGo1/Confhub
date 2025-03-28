@@ -1,4 +1,6 @@
+
 import 'package:confhub/core/colors.dart';
+
 import 'package:confhub/ui/widgets/home/featured_webinars.dart';
 import 'package:confhub/ui/widgets/home/header_section.dart';
 import 'package:confhub/ui/widgets/home/upcoming_webinars.dart';
@@ -11,6 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       backgroundColor:  AppColors.background ,
       body: SafeArea(
         child: Column(
@@ -40,6 +43,8 @@ class HomePage extends StatelessWidget {
             // Próximos Webinars
             UpcomingWebinars(),
           ],
+      
+          ),
         ),
       ),
     );
