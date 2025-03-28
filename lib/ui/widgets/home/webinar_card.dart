@@ -16,12 +16,12 @@ class Webinarcard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 160,
+      width: 180,
       padding: EdgeInsets.all(16),
       margin: EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(
           color: Colors.white,
           width: 4,
