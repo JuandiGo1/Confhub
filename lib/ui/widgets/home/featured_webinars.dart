@@ -1,0 +1,45 @@
+import 'package:confhub/core/colors.dart';
+import 'package:confhub/ui/widgets/home/webinar_card.dart';
+import 'package:flutter/material.dart';
+import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/domain/use_cases/get_all_events.dart';
+import 'package:get/get.dart';
+
+
+
+class FeaturedWebinars extends StatelessWidget {
+
+  const FeaturedWebinars({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>(); // 
+    
+    return SizedBox(
+      height: 180, // Altura fija para el carrusel
+      child: FutureBuilder<List<Event>>(
+        future: getAllEventsUseCase.call(), // Llamamos al caso de uso
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator()); // Cargando...
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+            return const Center(child: Text('Error al cargar eventos'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No hay eventos disponibles'));
+          }
+
+          final events = snapshot.data!;
+
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: events.length,
+            itemBuilder: (context, index) {
+              return Webinarcard(title: events[index].title, date: events[index].date , category: events[index].category, color: AppColors.primary,);
+            },
+          );
+        },
+      ),
+    );
+  }
+}
