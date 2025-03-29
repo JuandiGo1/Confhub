@@ -21,4 +21,23 @@ class EventLocalDataSource {
       return event.date == today; // Compara las fechas formateadas
     }).toList();
   }
+
+  Future<List<String>> getCategories() async {
+    final allEvents = await getAllEvents();
+    Set<String> categories = {};
+
+    for (var event in allEvents) {
+      categories.add(event.category);
+    }
+
+    return categories.toList();
+  }
+
+  Future<List<EventModel>> getEventsByCategory(String category) async {
+    final allEvents = await getAllEvents();
+
+    return allEvents.where((event) {
+      return event.category == category; // Compara las fechas formateadas
+    }).toList();
+  }
 }
