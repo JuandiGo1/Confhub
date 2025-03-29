@@ -1,3 +1,5 @@
+import 'package:confhub/domain/use_cases/get_categories.dart';
+import 'package:confhub/domain/use_cases/get_events_category.dart';
 import 'package:get/get.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
 import 'package:confhub/data/repositories/event_repository_impl.dart';
@@ -9,4 +11,6 @@ void initDependencies() {
   Get.put<EventLocalDataSource>(EventLocalDataSource()); // Fuente de datos
   Get.put<EventRepository>(EventRepositoryImpl(Get.find())); // Repositorio
   Get.put<GetAllEventsUseCase>(GetAllEventsUseCase(Get.find())); // Caso de uso
+  Get.put<GetCategories>(GetCategories(Get.find()));
+  Get.put<GetEventsByCategory>(GetEventsByCategory(Get.find()));
 }
