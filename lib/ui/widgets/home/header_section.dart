@@ -1,4 +1,3 @@
-import 'package:confhub/core/colors.dart';
 import 'package:flutter/material.dart';
 
 class HeaderSection extends StatelessWidget {

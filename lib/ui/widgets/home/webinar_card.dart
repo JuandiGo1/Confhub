@@ -53,7 +53,7 @@ class Webinarcard extends StatelessWidget {
               Icon(Icons.people, color: colorText, size: 16),
               SizedBox(width: 4),
               Text(
-                "$attendees Asistentes",
+                "$attendees",
                 style: TextStyle(color: colorText, fontSize: 13),
               ),
             ],

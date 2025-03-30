@@ -1,11 +1,17 @@
 import 'package:confhub/core/colors.dart';
+import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/domain/use_cases/get_all_events.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'upcoming_card.dart';
 
 class UpcomingWebinars extends StatelessWidget {
   const UpcomingWebinars({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
+
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
@@ -35,7 +41,7 @@ class UpcomingWebinars extends StatelessWidget {
                       // Acción para el botón "Ver más"
                     },
                     style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(5), 
+                      padding: EdgeInsets.all(5),
                     ),
                     child: Row(
                       children: [
@@ -47,7 +53,8 @@ class UpcomingWebinars extends StatelessWidget {
                             color: AppColors.textSecondary,
                           ),
                         ),
-                        SizedBox(width: 5), // Espaciado entre el texto y el ícono
+                        SizedBox(
+                            width: 5), // Espaciado entre el texto y el ícono
                         Icon(Icons.east, color: AppColors.primary),
                       ],
                     ),
@@ -55,13 +62,42 @@ class UpcomingWebinars extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: ListView(
-                children: const [
-                  //  tarjetas de webinars
-                ],
+            SizedBox(
+              height: 220, // Altura fija para evitar el error de restricciones
+              child: FutureBuilder<List<Event>>(
+                future: getAllEventsUseCase.call(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Error al cargar eventos'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                        child: Text('No hay eventos disponibles'));
+                  }
+
+                  final events = snapshot.data!;
+
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal, // Scroll horizontal
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      final event = events[index];
+                      return SizedBox(
+                        width: 400, // Define un ancho para los elementos
+                        child: UpcomingCard(
+                          title: event.title,
+                          date: event.date,
+                          category: event.category,
+                          time: event.time,
+                          speakerAvatar: event.speakerAvatar,
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-            ),
+            )
           ],
         ),
       ),
