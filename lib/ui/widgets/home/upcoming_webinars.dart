@@ -1,5 +1,4 @@
 import 'package:confhub/core/colors.dart';
-import 'package:confhub/ui/widgets/home/upcoming_card.dart';
 import 'package:flutter/material.dart';
 
 class UpcomingWebinars extends StatelessWidget {
