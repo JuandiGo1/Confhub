@@ -21,10 +21,11 @@ class UpcomingWebinars extends StatelessWidget {
             topRight: Radius.circular(35),
           ),
         ),
+        //Interior Proximos wbe
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -62,8 +63,9 @@ class UpcomingWebinars extends StatelessWidget {
                 ],
               ),
             ),
+            //TARJETAS DE EVENTOS
             SizedBox(
-              height: 220, // Altura fija para evitar el error de restricciones
+              height: 220, // Altura fija 
               child: FutureBuilder<List<Event>>(
                 future: getAllEventsUseCase.call(),
                 builder: (context, snapshot) {
@@ -77,7 +79,7 @@ class UpcomingWebinars extends StatelessWidget {
                   }
 
                   final events = snapshot.data!;
-
+                  //MAPEANDO EVENTOS
                   return ListView.builder(
                     scrollDirection: Axis.horizontal, // Scroll horizontal
                     itemCount: events.length,

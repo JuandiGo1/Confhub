@@ -24,9 +24,9 @@ class Webinarcard extends StatelessWidget {
     final colorText =
         color == AppColors.primary ? Colors.white : AppColors.secondary;
     return Container(
-      width: 180,
+      width: 170,
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(right: 16),
+      margin: EdgeInsets.only(left: 16),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(15),
