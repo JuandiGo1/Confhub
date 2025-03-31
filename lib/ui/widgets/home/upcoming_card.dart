@@ -20,10 +20,11 @@ class UpcomingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: EdgeInsets.symmetric(horizontal: 15),
       padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
         color: Colors.white,
+        border: Border.all(color: const Color.fromARGB(255, 243, 243, 243), width: 5),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))
@@ -32,25 +33,36 @@ class UpcomingCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //Fondo verde
           Container(
-            height: 100,
+            //height: 180,
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: AppColors.background,
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title,
-                        style: TextStyle(
-                            color: AppColors.secondary,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold)),
-                    Icon(Icons.more_horiz, color: AppColors.secondary, size: 14)
+                    SizedBox(
+                      width: 220,
+                      height: 100,
+                      child: Text(title,
+                          style: TextStyle(
+                              color: AppColors.secondary,
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      icon: Icon(Icons.more_horiz, size: 25,), 
+                      color: AppColors.secondary,
+                      onPressed: () => {},
+                      )
                   ],
                 ),
                 Row(
@@ -89,12 +101,24 @@ class UpcomingCard extends StatelessWidget {
                 ],
               ),
               Text(time),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Join Now"),
-              )
+              
             ],
           ),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(AppColors.primary),
+                        
+                        ) ,
+                      child: Text("Join Now", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),),
+                      
+                    ),
+              ),
+            ],
+          )
         ],
       ),
     );

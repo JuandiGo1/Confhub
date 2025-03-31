@@ -65,7 +65,7 @@ class UpcomingWebinars extends StatelessWidget {
             ),
             //TARJETAS DE EVENTOS
             SizedBox(
-              height: 220, // Altura fija 
+              height: 320, // Altura fija 
               child: FutureBuilder<List<Event>>(
                 future: getAllEventsUseCase.call(),
                 builder: (context, snapshot) {
@@ -86,7 +86,8 @@ class UpcomingWebinars extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final event = events[index];
                       return SizedBox(
-                        width: 400, // Define un ancho para los elementos
+                        width: 370, // Define un ancho para los elementos
+                        height:  MediaQuery.of(context).size.height * 0.5,
                         child: UpcomingCard(
                           title: event.title,
                           date: event.date,
