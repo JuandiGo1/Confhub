@@ -6,6 +6,7 @@ import '../models/event_model.dart';
 class EventLocalDataSource {
   Future<List<EventModel>> getAllEvents() async {
     final String response = await rootBundle.loadString('data/events.json');
+
     final List<dynamic> data = json.decode(response);
 
     return data.map((json) => EventModel.fromJson(json)).toList();
@@ -20,5 +21,29 @@ class EventLocalDataSource {
     return allEvents.where((event) {
       return event.date == today; // Compara las fechas formateadas
     }).toList();
+  }
+
+  Future<bool> subscribeAnEvent(int eventid) async {
+    try {
+      final allEvents = await getAllEvents();
+      final eventsubs = allEvents.firstWhere((event) {
+        return event.eventid == eventid;
+      });
+
+      eventsubs.attendees += 1;
+      eventsubs.availableSpots -= 1;
+      allEvents[allEvents.indexOf(eventsubs)] = eventsubs;
+
+      final List<dynamic> data =
+          allEvents.map((event) => event.toJson()).toList();
+
+      final String eventsString = jsonEncode(data);
+
+      await EventModel.saveStringToJsonFile(eventsString, "assets/data/events.json");
+      return Future.value(true);
+    } catch (e) {
+      //return Future.value(false);
+      throw Exception("Hubo un problema: $e");
+    }
   }
 }

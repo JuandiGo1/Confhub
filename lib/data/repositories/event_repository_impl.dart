@@ -27,8 +27,12 @@ class EventRepositoryImpl implements EventRepository {
     }
   }
 
-
-
- 
+  @override
+  Future<bool> subscribeAnEvent(int eventid) async {
+    try {
+      return await localDataSource.subscribeAnEvent(eventid);
+    } catch (e) {
+      throw Exception('Error subscribiendo: $e');
+    }
+  }
 }
-

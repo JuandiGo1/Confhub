@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
- 
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
             // Encabezado
             HeaderSection(),
             SizedBox(height: 5),
-        
+
             // Título
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -35,15 +35,15 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-        
+
             // Webinars Destacados
-            FeaturedWebinars(),
+            FeaturedWebinars() ,
             SizedBox(height: 16),
-        
+
             // Próximos Webinars
             UpcomingWebinars(),
           ],
-      
+
           ),
         ),
       );
