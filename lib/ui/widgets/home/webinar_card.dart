@@ -26,7 +26,7 @@ class Webinarcard extends StatelessWidget {
     return Container(
       width: 180,
       padding: EdgeInsets.all(16),
-      margin: EdgeInsets.only(right: 16),
+      margin: EdgeInsets.only(left: 16),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(15),
@@ -43,21 +43,12 @@ class Webinarcard extends StatelessWidget {
           SizedBox(height: 8),
           Text(title,
               style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: colorText)),
+                  fontSize: 16, fontWeight: FontWeight.bold, color: colorText)),
           Spacer(),
           Text(" $date", style: TextStyle(color: colorText)),
           SizedBox(height: 8),
           // Número de asistentes
-          Row(
-            children: [
-              Icon(Icons.people, color: colorText, size: 16),
-              SizedBox(width: 4),
-              Text(
-                "$attendees Asistentes",
-                style: TextStyle(color: colorText, fontSize: 13),
-              ),
-            ],
-          ),
+          
           SizedBox(height: 8), // Espaciado entre la fecha y la nueva fila
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +59,7 @@ class Webinarcard extends StatelessWidget {
                   SizedBox(width: 4),
                   Text(
                     "Orador",
-                    style: TextStyle(color: colorText, fontSize: 16),
+                    style: TextStyle(color: colorText, fontSize: 14),
                   ),
                 ],
               ),
