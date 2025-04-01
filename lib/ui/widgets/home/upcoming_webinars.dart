@@ -13,6 +13,7 @@ class UpcomingWebinars extends StatelessWidget {
     final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
     return Expanded(
+      flex: 1,
       child: Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(230, 243, 243, 243),

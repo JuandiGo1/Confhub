@@ -19,44 +19,46 @@ class FeaturedWebinars extends StatelessWidget {
       AppColors.cardThird,
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: SizedBox(
-        height: 280, // Altura fija para el carrusel
-        child: FutureBuilder<List<Event>>(
-          future: getAllEventsUseCase.call(), // Llamamos al caso de uso
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator()); // Cargando...
-            } else if (snapshot.hasError) {
-              return const Center(child: Text('Error al cargar eventos'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('No hay eventos disponibles'));
-            }
-          
-            final events = snapshot.data!;
-          
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: events.length,
-              itemBuilder: (context, index) {
-                // Selecciona el color basado en el índice
-                final color = colorsCard[index % colorsCard.length];
-                    
-                return Padding(
-                  padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
-                  child: Webinarcard(
-                    title: events[index].title,
-                    date: events[index].date,
-                    category: events[index].category,
-                    color: color,
-                    attendees: events[index].attendees,
-                    speakerAvatar: events[index].speakerAvatar,
-                  ),
-                );
-              },
-            );
-          },
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: SizedBox(
+          height: 280, // Altura fija para el carrusel
+          child: FutureBuilder<List<Event>>(
+            future: getAllEventsUseCase.call(), // Llamamos al caso de uso
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator()); // Cargando...
+              } else if (snapshot.hasError) {
+                return const Center(child: Text('Error al cargar eventos'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No hay eventos disponibles'));
+              }
+            
+              final events = snapshot.data!;
+            
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  // Selecciona el color basado en el índice
+                  final color = colorsCard[index % colorsCard.length];
+                      
+                  return Padding(
+                    padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
+                    child: Webinarcard(
+                      title: events[index].title,
+                      date: events[index].date,
+                      category: events[index].category,
+                      color: color,
+                      attendees: events[index].attendees,
+                      speakerAvatar: events[index].speakerAvatar,
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
