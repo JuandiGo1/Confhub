@@ -28,9 +28,6 @@ class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('ConfHub'),
-        ),
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),

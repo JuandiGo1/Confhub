@@ -58,12 +58,13 @@ class FeaturedWebinars extends StatelessWidget {
                       category: events[index].category,
                       color: color,
                       attendees: events[index].attendees,
-                      speakerAvatar: events[index].speakerAvatar,
+                      speakerAvatar: events[index].speakerAvatar, 
+                      event: events[index],
                     ),
 
                   );
                 },
-              ));
+              );
             },
           ),
         ),
