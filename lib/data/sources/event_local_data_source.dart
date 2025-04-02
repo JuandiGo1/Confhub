@@ -43,6 +43,7 @@ class EventLocalDataSource {
     }).toList();
   }
 
+
 List<int> subscribedEventIds = []; // This will store just the event IDs
 
 Future<bool> subscribeAnEvent(int eventId) async {

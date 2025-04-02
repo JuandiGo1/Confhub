@@ -1,13 +1,9 @@
 import 'package:confhub/dependencies.dart';
 import 'package:confhub/ui/pages/event_lines.dart';
-import 'package:confhub/ui/pages/categories_page.dart';
 import 'package:confhub/ui/pages/content_page.dart';
-import 'package:confhub/ui/pages/event_detail_page.dart';
-import 'package:confhub/ui/pages/my_events_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'ui/pages/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
