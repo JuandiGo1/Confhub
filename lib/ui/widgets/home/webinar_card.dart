@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/entities/event.dart';
