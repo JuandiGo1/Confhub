@@ -1,9 +1,12 @@
+import 'package:confhub/domain/use_cases/get_events_category.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:confhub/ui/widgets/timeline/event_timeline_widget.dart';
 import 'package:confhub/ui/widgets/timeline/day_header.dart';
 import 'package:confhub/ui/widgets/timeline/event_card.dart';
 import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/domain/use_cases/get_suscribed_events.dart';
+import 'package:get/get.dart';
 
 class MyEventsPage extends StatefulWidget {
   const MyEventsPage({super.key});
@@ -22,8 +25,12 @@ class _MyEventsPageState extends State<MyEventsPage> {
   }
 
   Future<List<Event>> _fetchEvents() async {
-    return _mockEvents(); 
-  }
+  final GetEventsUseCase  = Get.find<GetSuscribedEventsUseCase>();
+    List<Event> events = await GetEventsUseCase.call();
+    // Sort events by date in ascending order (earliest first)
+    events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    return events;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +82,7 @@ class __MyEventsPageContentState extends State<_MyEventsPageContent> {
 
   void _updateMonthOnScroll() {
     // Find the first visible item's month
-    final firstVisibleIndex = (_scrollController.position.pixels / 200).floor();
+    final firstVisibleIndex = (_scrollController.position.pixels / 125).floor();
     if (firstVisibleIndex >= 0 && firstVisibleIndex < widget.events.length) {
       final newMonthYear = DateFormat('MMMM yyyy')
           .format(widget.events[firstVisibleIndex].dateTime);
@@ -137,144 +144,3 @@ class __MyEventsPageContentState extends State<_MyEventsPageContent> {
     );
   }
 }
-
- /// A simple mock of events with different dates.
-  List<Event> _mockEvents() {
-    return [
-      Event(
-        title: "Test",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: 1)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 10,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Data",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: 1)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 10,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Mock",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: 1)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 20,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ), Event(
-        title: "Test",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: -5)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 10,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Data",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: 1)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 10,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Mock",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: -1)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 20,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Mock",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: -5)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 20,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Mock",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: -10)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 20,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      Event(
-        title: "Mock",
-        category: "Frontend",
-        date: DateTime.now().subtract(const Duration(days: -17)).toString().split(' ')[0],
-        time: "10:00",
-        attendees: 50,
-        availableSpots: 20,
-        description: "Aprende los fundamentos de Flutter",
-        location: "Bogotá, Colombia",
-        eventid: 1,
-        speakerName: "Juan Perez",
-        speakerAvatar: "https://avatar.iran.liara.run/username?username=Juan+Perez",
-        sessionOrder: [],
-        tags: ["flutter", "mobile"],
-      ),
-      // Add more mock events as needed
-    ];
-  }

@@ -3,6 +3,7 @@ import 'package:confhub/domain/entities/session.dart';
 class Event {
   String title;
   String category;
+  DateTime dateTime;
   String date; //  solo la fecha (YYYY-MM-DD)
   String time; //  solo la hora (HH:MM)
   int attendees;
@@ -18,6 +19,7 @@ class Event {
   Event({
     required this.title,
     required this.category,
+    required this.dateTime,
     required this.date,
     required this.time,
     required this.attendees,
@@ -30,8 +32,5 @@ class Event {
     required this.availableSpots,
     required this.eventid,
   });
-  // Helper method to get DateTime object from date and time
-  DateTime get dateTime {
-    return DateTime.parse('$date ${time.padLeft(5, '0')}:00');
-  }
 }
+
