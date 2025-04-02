@@ -47,7 +47,7 @@ class Webinarcard extends StatelessWidget {
             ));
 
         Get.put<EventPageController>(EventPageController(
-            attendees: event.attendees, spots: event.availableSpots));
+            initialAttendees: event.attendees, initialSpots: event.availableSpots));
       },
       child: Container(
         width: 180,

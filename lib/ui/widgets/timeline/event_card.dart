@@ -104,8 +104,8 @@ class EventCard extends StatelessWidget {
 
     if (!Get.isRegistered<EventPageController>()) {
       Get.put(EventPageController(
-        attendees: event.attendees,
-        spots: event.availableSpots,
+        initialAttendees: event.attendees,
+        initialSpots: event.availableSpots,
       ));
     }
   }

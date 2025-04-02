@@ -34,6 +34,10 @@ class EventDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventPageController controller = Get.find();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initializeForEvent(eventId);
+    });
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -102,7 +106,7 @@ class EventDetailPage extends StatelessWidget {
           Positioned.fill(
               top: 175,
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 20, right: 30),
                 decoration: BoxDecoration(
                     color: AppColors.background,
                     borderRadius: BorderRadius.only(
@@ -126,7 +130,7 @@ class EventDetailPage extends StatelessWidget {
                         Container(
                             padding: EdgeInsets.only(top: 100),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
                                   children: [
@@ -140,9 +144,7 @@ class EventDetailPage extends StatelessWidget {
                                             color: AppColors.textPrimary)))
                                   ],
                                 ),
-                                SizedBox(
-                                  width: 150,
-                                ),
+                                SizedBox(width: 30),
                                 Column(
                                   children: [
                                     Text('Disponibles',
@@ -179,28 +181,28 @@ class EventDetailPage extends StatelessWidget {
                                 ])),
                         Container(
                             padding: EdgeInsets.only(top: 45),
-                            child: Row(
+                             child: Obx(() {
+                            final isSubscribed = controller.isSubscribed(eventId);
+                            return Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                    onTap: () {
-                                      controller.toggleSubscription(eventId);
-                                      },
-                                      child: Obx(() => Icon(
-                                        controller.isSubscribed(eventId) 
-                                          ? Icons.favorite 
-                                          : Icons.favorite_border,
-                                        color: controller.isSubscribed(eventId) ? Colors.red : null,
-                                      )),
+                                    onTap: () => controller.toggleSubscription(eventId),
+                                    child: Icon(
+                                      isSubscribed ? Icons.favorite : Icons.favorite_border,
+                                      color: isSubscribed ? Colors.red : null,
                                     ),
+                                  ),
                                     SizedBox(width: 8),
-                                    Obx(() => Text(
-                                      controller.isSubscribed(eventId) ? "Desuscribir" : "Suscribir",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors.textPrimary,
-                                      ),))
-                                ]))
+                                    Text(
+                                    isSubscribed ? "Desuscribir" : "Suscribir",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ]);
+                          }))
                       ],
                     )),
               ))

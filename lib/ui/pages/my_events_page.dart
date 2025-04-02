@@ -40,6 +40,9 @@ class _MyEventsPageState extends State<MyEventsPage> {
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
+        if (snapshot.data!.isEmpty) {
+          return const Center(child: Text('No hay eventos suscritos'));
+        }
         return _MyEventsPageContent(events: snapshot.data!);
       },
     );
@@ -141,3 +144,4 @@ class __MyEventsPageContentState extends State<_MyEventsPageContent> {
     );
   }
 }
+

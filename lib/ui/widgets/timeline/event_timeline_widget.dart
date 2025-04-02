@@ -15,7 +15,7 @@ class EventTimelineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100, // Match your card height
+      height: 220, // Match your card height
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
