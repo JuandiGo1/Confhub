@@ -1,4 +1,5 @@
-import 'package:confhub/ui/pages/categories_page.dart';
+import 'package:confhub/core/colors.dart';
+import 'package:confhub/ui/pages/event_lines.dart';
 import 'package:confhub/ui/pages/home_page.dart';
 import 'package:confhub/ui/pages/my_events_page.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,11 @@ class ContentPage extends StatefulWidget {
 class _ContentPageState extends State<ContentPage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    CategoriesPage(),
+    EventLines(),
     MyEventsPage(),
+    
   ];
 
   void _onItemTapped(int index) {
@@ -47,7 +49,7 @@ class _ContentPageState extends State<ContentPage> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: AppColors.primary,
           onTap: _onItemTapped,
         ));
   }
