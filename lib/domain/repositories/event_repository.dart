@@ -6,5 +6,12 @@ abstract class EventRepository {
   Future<List<Event>> getAllEvents();
 
   Future<List<Event>> getEventsForToday();
-}
 
+
+  Future<List<String>> getCategories();
+
+  Future<List<Event>> getEventsByCategory(String category);
+
+  Future<bool> subscribeAnEvent(int eventid);
+
+}

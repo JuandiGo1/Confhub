@@ -1,16 +1,19 @@
 import 'package:confhub/domain/entities/session.dart';
 
 class Event {
-  final String title;
-  final String category;
-  final String date;  //  solo la fecha (YYYY-MM-DD)
-  final String time;  //  solo la hora (HH:MM)
-  final int attendees;
-  final String description;
-  final String speakerName;
-  final String speakerAvatar;
-  final List<Session> sessionOrder;
-  final List<String> tags;
+  String title;
+  String category;
+  String date; //  solo la fecha (YYYY-MM-DD)
+  String time; //  solo la hora (HH:MM)
+  int attendees;
+  int availableSpots;
+  String description;
+  String location;
+  int eventid;
+  String speakerName;
+  String speakerAvatar;
+  List<Session> sessionOrder;
+  List<String> tags;
 
   Event({
     required this.title,
@@ -23,7 +26,8 @@ class Event {
     required this.speakerAvatar,
     required this.sessionOrder,
     required this.tags,
+    required this.location,
+    required this.availableSpots,
+    required this.eventid,
   });
 }
-
-
