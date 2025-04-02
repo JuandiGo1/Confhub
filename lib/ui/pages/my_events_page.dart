@@ -26,8 +26,6 @@ class _MyEventsPageState extends State<MyEventsPage> {
   Future<List<Event>> _fetchEvents() async {
   final GetEventsUseCase  = Get.find<GetSuscribedEventsUseCase>();
     List<Event> events = await GetEventsUseCase.call();
-    // Sort events by date in ascending order (earliest first)
-    events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return events;
 }
 

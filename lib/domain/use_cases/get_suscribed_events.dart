@@ -7,6 +7,9 @@ class GetSuscribedEventsUseCase {
   GetSuscribedEventsUseCase(this.repository);
 
   Future<List<Event>> call() async {
-    return await repository.getSubscribedEventsInDateRange(DateTime.now().subtract(Duration(days: 60)), DateTime.now().add(Duration(days: 60)));
+    final events = await repository.getSubscribedEventsInDateRange(DateTime.now().subtract(Duration(days: 60)), DateTime.now().add(Duration(days: 60)));
+    events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+    return events;
   }
 }
+

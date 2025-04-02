@@ -1,14 +1,21 @@
 import 'dart:developer';
 import 'package:confhub/domain/use_cases/subscribe_an_event.dart';
+import 'package:confhub/domain/use_cases/unsuscribe_an_event.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class EventPageController extends GetxController {
+  final SubscribeEventUseCase subscribeUseCase;
+  final UnsubscribeEventUseCase unsubscribeUseCase;
+
   final int attendees;
   final int spots;
   final RxList<int> subscribedEvents = <int>[].obs; // Track subscribed events
 
-  EventPageController({required this.attendees, required this.spots}) {
+  EventPageController({required this.attendees, required this.spots,     
+  required this.subscribeUseCase,
+    required this.unsubscribeUseCase,
+}) {
     updateNumbers();
   }
   
@@ -26,7 +33,7 @@ class EventPageController extends GetxController {
   }
 
   Future<void> toggleSubscription(int eventId) async {
-    final subscribeAnEventUseCase = Get.find<SubscribeAnEventUseCase>();
+    final subscribeAnEventUseCase = Get.find<SubscribeEventUseCase>();
     
     if (isSubscribed(eventId)) {
       // Unsubscribe logic

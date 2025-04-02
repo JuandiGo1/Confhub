@@ -1,13 +1,13 @@
+// unsubscribe_event_use_case.dart
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
-// subscribe_event_use_case.dart
-class SubscribeEventUseCase {
+class UnsubscribeEventUseCase {
   final EventRepository repository;
 
-  SubscribeEventUseCase(this.repository);
+  UnsubscribeEventUseCase(this.repository);
 
   Future<bool> call(int eventId) async {
-    return await repository.subscribeToEvent(eventId);
+    return await repository.unsubscribeFromEvent(eventId);
   }
 }
