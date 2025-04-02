@@ -22,6 +22,20 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
+  Future<List<EventModel>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate) async {
+    try {
+      final allEvents = await localDataSource.getAllEvents();
+      return allEvents.where((event) {
+        final eventDate = event.dateTime;
+        return event.attendees > 0 && eventDate.isAfter(startDate) && eventDate.isBefore(endDate);
+      }).toList();
+    } catch (e) {
+      log('Error obteniendo eventos suscritos en el rango de fechas: $e');
+      return [];
+    }
+  }
+
+  @override
   Future<List<EventModel>> getEventsForToday() async {
     try {
       return await localDataSource.getEventsForToday();

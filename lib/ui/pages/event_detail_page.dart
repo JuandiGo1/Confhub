@@ -113,7 +113,7 @@ class EventDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Description',
+                        Text('Descripción',
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColors.primary,
@@ -130,7 +130,7 @@ class EventDetailPage extends StatelessWidget {
                               children: [
                                 Column(
                                   children: [
-                                    Text('Attendees',
+                                    Text('Asistentes',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: AppColors.primary)),
@@ -145,7 +145,7 @@ class EventDetailPage extends StatelessWidget {
                                 ),
                                 Column(
                                   children: [
-                                    Text('Available',
+                                    Text('Disponibles',
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: AppColors.primary)),
@@ -163,7 +163,7 @@ class EventDetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(Icons.campaign),
-                                  Text("Speaker",
+                                  Text("Orador",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: AppColors.primary,
@@ -183,26 +183,23 @@ class EventDetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                      onDoubleTap: () {
-                                        controller.countSubSub(eventId);
+                                    onTap: () {
+                                      controller.toggleSubscription(eventId);
                                       },
-                                      onTap: () {
-                                        controller.countSubPlus(eventId);
-                                      },
-                                      child: Obx(() => controller.iconChange
-                                          ? Icon(Icons.favorite)
-                                          : Icon(Icons.favorite_border))),
-                                  Obx(() => controller.iconChange
-                                      ? Text("Unsubscribe",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.textPrimary,
-                                          ))
-                                      : Text("Subscribe",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.textPrimary,
-                                          )))
+                                      child: Obx(() => Icon(
+                                        controller.isSubscribed(eventId) 
+                                          ? Icons.favorite 
+                                          : Icons.favorite_border,
+                                        color: controller.isSubscribed(eventId) ? Colors.red : null,
+                                      )),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Obx(() => Text(
+                                      controller.isSubscribed(eventId) ? "Desuscribir" : "Suscribir",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColors.textPrimary,
+                                      ),))
                                 ]))
                       ],
                     )),

@@ -9,6 +9,7 @@ class EventModel extends Event {
   EventModel({
     required super.title,
     required super.category,
+    required super.dateTime,
     required super.date,
     required super.time,
     required super.attendees,
@@ -28,6 +29,7 @@ class EventModel extends Event {
     return EventModel(
         title: json['title'],
         category: json['category'],
+        dateTime: dateTime,
         date: formatDate(dateTime), // Extraer solo la fecha
         time: dateTime
             .toIso8601String()
