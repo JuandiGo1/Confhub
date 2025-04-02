@@ -62,8 +62,8 @@ class EventLocalDataSource {
       await EventModel.saveStringToJsonFile(eventsString, "assets/data/events.json");
       return Future.value(true);
     } catch (e) {
-      //return Future.value(false);
-      throw Exception("Hubo un problema: $e");
+      return Future.value(false);
+      //throw Exception("Hubo un problema: $e");
     }
 
   }
