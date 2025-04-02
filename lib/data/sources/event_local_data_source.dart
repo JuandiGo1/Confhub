@@ -43,28 +43,50 @@ class EventLocalDataSource {
     }).toList();
   }
 
-  Future<bool> subscribeAnEvent(int eventid) async {
-    try {
-      final allEvents = await getAllEvents();
-      final eventsubs = allEvents.firstWhere((event) {
-        return event.eventid == eventid;
-      });
+List<int> subscribedEventIds = []; // This will store just the event IDs
 
-      eventsubs.attendees += 1;
-      eventsubs.availableSpots -= 1;
-      allEvents[allEvents.indexOf(eventsubs)] = eventsubs;
-
-      final List<dynamic> data =
-          allEvents.map((event) => event.toJson()).toList();
-
-      final String eventsString = jsonEncode(data);
-
-      await EventModel.saveStringToJsonFile(eventsString, "assets/data/events.json");
-      return Future.value(true);
-    } catch (e) {
-      //return Future.value(false);
-      throw Exception("Hubo un problema: $e");
+Future<bool> subscribeAnEvent(int eventId) async {
+  try {
+ 
+    if (subscribedEventIds.contains(eventId)) {
+      return false;
     }
 
+    // Update the event data (if you still want to maintain this)
+    final allEvents = await getAllEvents();
+    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
+    
+    eventSubs.attendees += 1;
+    eventSubs.availableSpots -= 1;
+    
+    // Add to subscribed events list
+    subscribedEventIds.add(eventId);
+    
+    return true;
+  } catch (e) {
+    throw Exception("Hubo un problema: $e");
   }
+}
+
+bool isSubscribed(int eventId) {
+  return subscribedEventIds.contains(eventId);
+}
+
+Future<bool> unsubscribeFromEvent(int eventId) async {
+  try {
+   
+    final allEvents = await getAllEvents();
+    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
+    
+    eventSubs.attendees -= 1;
+    eventSubs.availableSpots += 1;
+    
+    // Remove from subscribed events list
+    subscribedEventIds.remove(eventId);
+    
+    return true;
+  } catch (e) {
+    throw Exception("Hubo un problema: $e");
+  }
+}
 }

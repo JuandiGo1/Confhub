@@ -1,4 +1,3 @@
-import 'package:confhub/domain/use_cases/get_events_category.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:confhub/ui/widgets/timeline/event_timeline_widget.dart';
