@@ -30,4 +30,8 @@ class Event {
     required this.availableSpots,
     required this.eventid,
   });
+  // Helper method to get DateTime object from date and time
+  DateTime get dateTime {
+    return DateTime.parse('$date ${time.padLeft(5, '0')}:00');
+  }
 }
