@@ -1,4 +1,3 @@
-import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
 // subscribe_event_use_case.dart

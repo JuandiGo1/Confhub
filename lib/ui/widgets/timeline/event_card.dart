@@ -65,7 +65,7 @@ class EventCard extends StatelessWidget {
               trailing: event.availableSpots > 0
                   ? Chip(
                       label: Text(
-                        '${event.availableSpots} Disponibles',
+                        '${event.availableSpots -1} Disponibles',
                         style: TextStyle(color: Colors.white),
                       ),
                       backgroundColor: AppColors.secondary,
