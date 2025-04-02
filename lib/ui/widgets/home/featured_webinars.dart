@@ -21,9 +21,11 @@ class FeaturedWebinars extends StatelessWidget {
 
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: SizedBox(
-          height: 800, // Altura fija para el carrusel
+
+          height: 280, // Altura fija para el carrusel
+
           child: FutureBuilder<List<Event>>(
             future: getAllEventsUseCase.call(), // Llamamos al caso de uso
             builder: (context, snapshot) {
@@ -35,25 +37,30 @@ class FeaturedWebinars extends StatelessWidget {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No hay eventos disponibles'));
               }
-
+            
               final events = snapshot.data!;
 
-              return Expanded(
-                  child: ListView.builder(
+            
+              return ListView.builder(
+
                 scrollDirection: Axis.horizontal,
                 itemCount: events.length,
                 itemBuilder: (context, index) {
                   // Selecciona el color basado en el índice
                   final color = colorsCard[index % colorsCard.length];
 
-                  return  Webinarcard(
-                    title: events[index].title,
-                    date: events[index].date,
-                    category: events[index].category,
-                    color: color,
-                    attendees: events[index].attendees,
-                    speakerAvatar: events[index].speakerAvatar,
-                    event:events[index]
+                      
+                  return Padding(
+                    padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
+                    child: Webinarcard(
+                      title: events[index].title,
+                      date: events[index].date,
+                      category: events[index].category,
+                      color: color,
+                      attendees: events[index].attendees,
+                      speakerAvatar: events[index].speakerAvatar,
+                    ),
+
                   );
                 },
               ));
