@@ -4,6 +4,7 @@ import 'package:confhub/domain/use_cases/unsuscribe_an_event.dart';
 import 'package:confhub/domain/use_cases/get_is_subscribed.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
 class EventPageController extends GetxController {
   final int initialAttendees;
   final int initialSpots;

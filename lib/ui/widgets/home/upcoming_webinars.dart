@@ -25,7 +25,7 @@ class UpcomingWebinars extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: EdgeInsets.only(top: 15,bottom: 10, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -64,41 +64,45 @@ class UpcomingWebinars extends StatelessWidget {
               ),
             ),
             //TARJETAS DE EVENTOS
-            SizedBox(
-              height: 320, // Altura fija 
-              child: FutureBuilder<List<Event>>(
-                future: getAllEventsUseCase.call(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(child: Text('Error al cargar eventos'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                        child: Text('No hay eventos disponibles'));
-                  }
-
-                  final events = snapshot.data!;
-                  //MAPEANDO EVENTOS
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal, // Scroll horizontal
-                    itemCount: events.length,
-                    itemBuilder: (context, index) {
-                      final event = events[index];
-                      return SizedBox(
-                        width: 370, // Define un ancho para los elementos
-                        height:  MediaQuery.of(context).size.height * 0.8,
-                        child: UpcomingCard(
-                          title: event.title,
-                          date: event.date,
-                          category: event.category,
-                          time: event.time,
-                          speakerAvatar: event.speakerAvatar,
-                        ),
-                      );
-                    },
-                  );
-                },
+            Expanded(
+              child: SizedBox(
+                 // Altura fija 
+                child: FutureBuilder<List<Event>>(
+                  future: getAllEventsUseCase.call(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return const Center(child: Text('Error al cargar eventos'));
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                          child: Text('No hay eventos disponibles'));
+                    }
+              
+                    final events = snapshot.data!;
+                    //MAPEANDO EVENTOS
+                    return ListView.builder(
+                      
+                      scrollDirection: Axis.horizontal, // Scroll horizontal
+                      itemCount: events.length,
+                      itemBuilder: (context, index) {
+                        final event = events[index];
+                        return SizedBox(
+                          width: 370, // Define un ancho para los elementos
+                          height:  MediaQuery.of(context).size.height * 0.8,
+                          child: UpcomingCard(
+                            title: event.title,
+                            date: event.date,
+                            category: event.category,
+                            time: event.time,
+                            speakerAvatar: event.speakerAvatar,
+                            event: event,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             )
           ],

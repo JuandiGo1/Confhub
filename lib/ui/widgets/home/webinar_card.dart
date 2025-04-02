@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
@@ -88,14 +86,14 @@ class Webinarcard extends StatelessWidget {
                       "Orador",
                       style: TextStyle(color: colorText, fontSize: 14),
                     ),
-                    SizedBox(width: 5),
-                    CircleAvatar(
-                      radius: 10,
-                      backgroundImage: NetworkImage(speakerAvatar),
-                      backgroundColor: Colors.grey[200],
-                    )
                   ],
                 ),
+                
+                CircleAvatar(
+                  radius: 15,
+                  backgroundImage: NetworkImage(speakerAvatar),
+                  backgroundColor: Colors.grey[200],
+                )
               ],
             ),
           ],
