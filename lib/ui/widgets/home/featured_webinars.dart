@@ -23,12 +23,15 @@ class FeaturedWebinars extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: SizedBox(
+
           height: 280, // Altura fija para el carrusel
+
           child: FutureBuilder<List<Event>>(
             future: getAllEventsUseCase.call(), // Llamamos al caso de uso
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator()); // Cargando...
+                return const Center(
+                    child: CircularProgressIndicator()); // Cargando...
               } else if (snapshot.hasError) {
                 return const Center(child: Text('Error al cargar eventos'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -36,13 +39,16 @@ class FeaturedWebinars extends StatelessWidget {
               }
             
               final events = snapshot.data!;
+
             
               return ListView.builder(
+
                 scrollDirection: Axis.horizontal,
                 itemCount: events.length,
                 itemBuilder: (context, index) {
                   // Selecciona el color basado en el índice
                   final color = colorsCard[index % colorsCard.length];
+
                       
                   return Padding(
                     padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
@@ -52,8 +58,10 @@ class FeaturedWebinars extends StatelessWidget {
                       category: events[index].category,
                       color: color,
                       attendees: events[index].attendees,
-                      speakerAvatar: events[index].speakerAvatar,
+                      speakerAvatar: events[index].speakerAvatar, 
+                      event: events[index],
                     ),
+
                   );
                 },
               );

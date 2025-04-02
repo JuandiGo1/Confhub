@@ -1,9 +1,12 @@
 [
   {
+    "eventid":1245678,
     "title": "Introducción a Node.js y Express",
     "category": "Backend",
+    "location":"Barranquilla, Colombia",
     "dateTime": "2025-04-10T14:00:00Z",
     "attendees": 120,
+    "availableSpots":10,
     "description": "Descubre el mundo del desarrollo backend con Node.js y Express. Aprenderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
     "speakerName": "Carlos Ríos",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Carlos+Rios",
@@ -15,10 +18,13 @@
     "tags": ["Node.js", "Express", "APIs"]
   },
   {
+    "eventid":45678542,
     "title": "React Avanzado: Hooks y Context API",
     "category": "Frontend",
+    "location":"Bogota, Colombia",
     "dateTime": "2025-04-12T16:00:00Z",
     "attendees": 95,
+    "availableSpots":1,
     "description": "Lleva tus habilidades en React al siguiente nivel con este taller sobre Hooks y Context API. Aprenderás cómo usar hooks avanzados, gestionar el estado de manera eficiente con Context API y optimizar el rendimiento de tus aplicaciones.",
     "speakerName": "Andrea Gómez",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Andrea+Gomez",
@@ -30,10 +36,13 @@
     "tags": ["React", "Hooks", "Context API"]
   },
   {
+    "eventid":456454533,
     "title": "Flutter desde Cero: Construyendo Apps Móviles",
     "category": "Mobile",
+    "location":"Medellin, Colombia",
     "dateTime": "2025-04-15T18:00:00Z",
     "attendees": 85,
+    "availableSpots":0,
     "description": "Aprende a desarrollar aplicaciones móviles desde cero con Flutter. En este taller, cubriremos los fundamentos de Flutter, el diseño de interfaces con Widgets y cómo integrar APIs para crear apps dinámicas e interactivas.",
     "speakerName": "Luis Martínez",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Luis+Martinez",
@@ -45,10 +54,13 @@
     "tags": ["Flutter", "Dart", "UI/UX"]
   },
   {
+    "eventid":34567754,
     "title": "Machine Learning con Python",
     "category": "IA",
+    "location":"Cucuta, Colombia",
     "dateTime": "2025-04-20T15:00:00Z",
     "attendees": 200,
+    "availableSpots":50,
     "description": "Sumérgete en el mundo del Machine Learning con Python. Aprenderás los fundamentos del aprendizaje automático, el uso de librerías clave como Scikit-Learn y TensorFlow, y construirás tu propio modelo de Machine Learning desde cero.",
     "speakerName": "Mariana Torres",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Mariana+Torres",
@@ -60,10 +72,13 @@
     "tags": ["Python", "Machine Learning", "IA"]
   },
   {
+    "eventid":45423672,
     "title": "AWS para Desarrolladores: Desplegando Aplicaciones",
     "category": "Cloud",
+    "location":"Barranquilla, Colombia",
     "dateTime": "2025-04-25T17:00:00Z",
     "attendees": 150,
+    "availableSpots":30,
     "description": "Aprende a desplegar aplicaciones en la nube con AWS. Exploraremos conceptos clave de AWS, la implementación de aplicaciones con AWS Lambda y el manejo de bases de datos en la nube.",
     "speakerName": "Fernando Ruiz",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Fernando+Ruiz",
@@ -75,10 +90,13 @@
     "tags": ["AWS", "Cloud Computing", "DevOps"]
   },
   {
+    "eventid":26178945,
     "title": "Scrum y Agile en Equipos de Desarrollo",
     "category": "Metodologías Ágiles",
+    "location":"Miami, EUA",
     "dateTime": "2025-04-28T14:00:00Z",
     "attendees": 90,
+    "availableSpots":0,
     "description": "Descubre cómo aplicar metodologías ágiles en equipos de desarrollo con Scrum. Aprende sobre los roles en un equipo ágil, cómo gestionar proyectos de manera eficiente y qué herramientas utilizar para la gestión ágil.",
     "speakerName": "Sofía Herrera",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Sofia+Herrera",
@@ -90,10 +108,13 @@
     "tags": ["Scrum", "Agile", "Gestión de proyectos"]
   },
   {
+    "eventid":111345663,
     "title": "Construcción de APIs REST con FastAPI",
     "category": "Backend",
     "dateTime": "2025-05-05T19:00:00Z",
+    "location":"Bogota, Colombia",
     "attendees": 80,
+    "availableSpots":1,
     "description": "Aprende a desarrollar APIs REST modernas y eficientes con FastAPI. Exploraremos desde la creación de una API básica hasta la autenticación y seguridad en el backend.",
     "speakerName": "Daniel Paredes",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Daniel+Paredes",
@@ -104,11 +125,13 @@
     ],
     "tags": ["FastAPI", "Python", "Backend"]
   },
-  {
+  {"eventid":13458921,
     "title": "Vue.js desde Cero: Creando SPAs",
     "category": "Frontend",
+    "location":"Buenos Aires, Argentina",
     "dateTime": "2025-05-10T13:00:00Z",
     "attendees": 70,
+    "availableSpots":20,
     "description": "Aprende a desarrollar aplicaciones de una sola página (SPAs) con Vue.js. Desde los fundamentos hasta la gestión del estado con Vuex y la creación de aplicaciones interactivas.",
     "speakerName": "Ricardo López",
     "speakerAvatar": "https://avatar.iran.liara.run/username?username=Ricardo+Lopez",

@@ -13,7 +13,6 @@ class UpcomingWebinars extends StatelessWidget {
     final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
     return Expanded(
-      flex: 1,
       child: Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(230, 243, 243, 243),
@@ -88,7 +87,7 @@ class UpcomingWebinars extends StatelessWidget {
                       final event = events[index];
                       return SizedBox(
                         width: 370, // Define un ancho para los elementos
-                        height:  MediaQuery.of(context).size.height * 0.5,
+                        height:  MediaQuery.of(context).size.height * 0.8,
                         child: UpcomingCard(
                           title: event.title,
                           date: event.date,
