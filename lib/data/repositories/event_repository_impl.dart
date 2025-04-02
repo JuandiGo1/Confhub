@@ -32,6 +32,16 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
+  Future<List<String>> getCategories() async {
+    return await localDataSource.getCategories();
+  }
+
+  @override
+  Future<List<EventModel>> getEventsByCategory(String category) async {
+    return await localDataSource.getEventsByCategory(category);
+  }
+  
+  @override
   Future<bool> subscribeAnEvent(int eventid) async {
     try {
       return await localDataSource.subscribeAnEvent(eventid);

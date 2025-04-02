@@ -23,6 +23,26 @@ class EventLocalDataSource {
     }).toList();
   }
 
+
+  Future<List<String>> getCategories() async {
+    final allEvents = await getAllEvents();
+    Set<String> categories = {};
+
+    for (var event in allEvents) {
+      categories.add(event.category);
+    }
+
+    return categories.toList();
+  }
+
+  Future<List<EventModel>> getEventsByCategory(String category) async {
+    final allEvents = await getAllEvents();
+
+    return allEvents.where((event) {
+      return event.category == category; // Compara las fechas formateadas
+    }).toList();
+  }
+
   Future<bool> subscribeAnEvent(int eventid) async {
     try {
       final allEvents = await getAllEvents();
@@ -45,5 +65,6 @@ class EventLocalDataSource {
       //return Future.value(false);
       throw Exception("Hubo un problema: $e");
     }
+
   }
 }

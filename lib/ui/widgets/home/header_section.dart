@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -13,28 +15,28 @@ class HeaderSection extends StatelessWidget {
           // Perfil
           Row(
             children: [
-               Container(
+              Container(
                 width: 140,
                 height: 40,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("images/confhub.png"),
-                    fit: BoxFit.cover
-                    ),
+                      image: AssetImage("images/confhub.png"),
+                      fit: BoxFit.cover),
                 ),
-               ),
-               
+              ),
             ],
           ),
           // Icono de notificaciones
           Row(
             children: [
               IconButton(
-                icon:  Icon(Icons.event , size: 28),
-                onPressed: () {},
+                icon: Icon(Icons.event, size: 28),
+                onPressed: () {
+                  Get.toNamed('/enventLines');
+                },
               ),
               IconButton(
-                icon:  Icon(Icons.settings , size: 28),
+                icon: Icon(Icons.settings, size: 28),
                 onPressed: () {},
               ),
             ],
