@@ -2,6 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+extension StringExtensions on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
+}
+
 class DayHeader extends StatelessWidget {
   final DateTime eventDate;
   final bool isToday;
@@ -14,8 +20,7 @@ class DayHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dayName = DateFormat('EEEE').format(eventDate);
-    
+    final dayName = DateFormat('EEEE', 'es_ES').format(eventDate).capitalize();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(

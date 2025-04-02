@@ -1,4 +1,3 @@
-// presentation/widgets/event_timeline_widget.dart
 import 'package:flutter/material.dart';
 
 class EventTimelineWidget extends StatelessWidget {
@@ -15,31 +14,53 @@ class EventTimelineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (!isFirst)
-          Container(
-            height: 60,
-            width: 2,
-            color: Colors.grey,
-          ),
-        isFirst
-            ? Icon(
-                Icons.circle,
-                size: 12,
-                color: isToday ? Colors.blue : Colors.grey,
-              )
-            : Container(
-                height: 12,
-                width: 12,
+    return SizedBox(
+      height: 100, // Match your card height
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Top line (only if not first item)
+          if (!isFirst)
+            Expanded(
+              child: Container(
+                width: 2,
+                color: Colors.grey,
               ),
-        if (!isLast)
+            ),
+          
+          // Always include this container to maintain alignment
+          // Show circle if first item, empty space otherwise
           Container(
-            height: 60,
-            width: 2,
-            color: Colors.grey,
+            width: 12,
+            height: 12,
+            alignment: Alignment.center,
+            child: isFirst
+                ? Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: isToday ? Colors.blue : Colors.grey,
+                      border: isToday ? null : Border.all(color: Colors.grey, width: 2),
+                    ),
+                  )
+                : Container(
+                    width: 2,
+                    height: 12,
+                    color: Colors.grey,
+                  ),
           ),
-      ],
+          
+          // Bottom line (only if not last item)
+          if (!isLast)
+            Expanded(
+              child: Container(
+                width: 2,
+                color: Colors.grey,
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
