@@ -26,8 +26,6 @@ class _MyEventsPageState extends State<MyEventsPage> {
   Future<List<Event>> _fetchEvents() async {
   final GetEventsUseCase  = Get.find<GetSuscribedEventsUseCase>();
     List<Event> events = await GetEventsUseCase.call();
-    // Sort events by date in ascending order (earliest first)
-    events.sort((a, b) => a.dateTime.compareTo(b.dateTime));
     return events;
 }
 
@@ -41,6 +39,9 @@ class _MyEventsPageState extends State<MyEventsPage> {
         }
         if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
+        }
+        if (snapshot.data!.isEmpty) {
+          return const Center(child: Text('No hay eventos suscritos'));
         }
         return _MyEventsPageContent(events: snapshot.data!);
       },
@@ -143,3 +144,4 @@ class __MyEventsPageContentState extends State<_MyEventsPageContent> {
     );
   }
 }
+

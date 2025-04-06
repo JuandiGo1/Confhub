@@ -65,7 +65,7 @@ class EventCard extends StatelessWidget {
               trailing: event.availableSpots > 0
                   ? Chip(
                       label: Text(
-                        '${event.availableSpots} Disponibles',
+                        '${event.availableSpots -1} Disponibles',
                         style: TextStyle(color: Colors.white),
                       ),
                       backgroundColor: AppColors.secondary,
@@ -104,8 +104,8 @@ class EventCard extends StatelessWidget {
 
     if (!Get.isRegistered<EventPageController>()) {
       Get.put(EventPageController(
-        attendees: event.attendees,
-        spots: event.availableSpots,
+        initialAttendees: event.attendees,
+        initialSpots: event.availableSpots,
       ));
     }
   }
