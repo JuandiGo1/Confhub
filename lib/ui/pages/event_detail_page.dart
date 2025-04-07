@@ -33,45 +33,46 @@ class EventDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EventPageController controller = Get.find();
+    EventPageController controller = Get.find<EventPageController>();
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
         backgroundColor: colorName,
       ),
       backgroundColor: AppColors.background,
-      body: Stack(
+      body: SingleChildScrollView(
+          child: Stack(
         children: [
-          Expanded(
-              child: Container(
-                  padding: EdgeInsets.all(20),
-                  height: 750,
-                  decoration: BoxDecoration(color: colorName),
-                  child: Row(children: [
-                    Expanded(
-                        child: Center(
-                            child: Column(children: [
+          Container(
+              padding: EdgeInsets.all(20),
+              height: 750,
+              decoration: BoxDecoration(color: colorName),
+              child: Row(children: [
+                Expanded(
+                    child: Center(
+                        child: Column(children: [
+                  Text(
+                    eventTitle,
+                    style:
+                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
-                        eventTitle,
+                        eventLocation,
                         style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold),
+                            fontSize: 15,
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w700),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            eventLocation,
-                            style: TextStyle(
-                                fontSize: 15, color: AppColors.textPrimary),
-                          ),
-                        ],
-                      )
-                    ]))),
-                  ]))),
+                    ],
+                  )
+                ]))),
+              ])),
           Positioned.fill(
               top: 130,
-              child: Expanded(
-                  child: Container(
+              child: Container(
                 height: 200,
                 decoration: BoxDecoration(
                     color: AppColors.textPrimary,
@@ -86,19 +87,23 @@ class EventDetailPage extends StatelessWidget {
                         Text(
                           eventDate,
                           style: TextStyle(
-                              fontSize: 15, color: AppColors.background),
+                              fontSize: 15,
+                              color: AppColors.background,
+                              fontWeight: FontWeight.w700),
                         ),
                         SizedBox(
                           width: 220,
                         ),
                         Text(eventTime,
                             style: TextStyle(
-                                fontSize: 15, color: AppColors.background))
+                                fontSize: 15,
+                                color: AppColors.background,
+                                fontWeight: FontWeight.w700))
                       ]),
                     )
                   ],
                 ),
-              ))),
+              )),
           Positioned.fill(
               top: 175,
               child: Container(
@@ -115,14 +120,14 @@ class EventDetailPage extends StatelessWidget {
                       children: [
                         Text('Descripción',
                             style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.primary,
-                            )),
+                                fontSize: 20,
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700)),
                         Text(eventDescription,
                             style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.textPrimary,
-                            )),
+                                fontSize: 15,
+                                color: AppColors.textPrimary,
+                                fontWeight: FontWeight.w700)),
                         Container(
                             padding: EdgeInsets.only(top: 100),
                             child: Row(
@@ -133,11 +138,13 @@ class EventDetailPage extends StatelessWidget {
                                     Text('Asistentes',
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.primary)),
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.w700)),
                                     Obx(() => Text("${controller.gattendees}",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.textPrimary)))
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
                                   ],
                                 ),
                                 SizedBox(
@@ -148,11 +155,13 @@ class EventDetailPage extends StatelessWidget {
                                     Text('Disponibles',
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.primary)),
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.w700)),
                                     Obx(() => Text("${controller.gspots}",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.textPrimary)))
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
                                   ],
                                 )
                               ],
@@ -165,17 +174,17 @@ class EventDetailPage extends StatelessWidget {
                                   Icon(Icons.campaign),
                                   Text("Orador",
                                       style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.primary,
-                                      )),
+                                          fontSize: 15,
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.w700)),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Text(eventSpeakerName,
                                       style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.primary,
-                                      )),
+                                          fontSize: 15,
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.w700)),
                                 ])),
                         Container(
                             padding: EdgeInsets.only(top: 45),
@@ -185,27 +194,33 @@ class EventDetailPage extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       controller.toggleSubscription(eventId);
-                                      },
-                                      child: Obx(() => Icon(
-                                        controller.isSubscribed(eventId) 
-                                          ? Icons.favorite 
-                                          : Icons.favorite_border,
-                                        color: controller.isSubscribed(eventId) ? Colors.red : null,
-                                      )),
-                                    ),
-                                    SizedBox(width: 8),
-                                    Obx(() => Text(
-                                      controller.isSubscribed(eventId) ? "Desuscribir" : "Suscribir",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: AppColors.textPrimary,
-                                      ),))
+                                    },
+                                    child: Obx(() => Icon(
+                                          controller.isSubscribed(eventId)
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color:
+                                              controller.isSubscribed(eventId)
+                                                  ? Colors.red
+                                                  : null,
+                                        )),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Obx(() => Text(
+                                        controller.isSubscribed(eventId)
+                                            ? "Desuscribir"
+                                            : "Suscribir",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700),
+                                      ))
                                 ]))
                       ],
                     )),
               ))
         ],
-      ),
+      )),
     );
   }
 }
