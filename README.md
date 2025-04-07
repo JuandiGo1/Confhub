@@ -36,5 +36,3 @@
 
 ---
 
-## 📦 Estructura del proyecto
-
