@@ -16,9 +16,9 @@ import 'package:mockito/mockito.dart';
 class MockEventPageController extends GetxService
     with Mock
     implements EventPageController {
-  var _spots = "1".obs;
-  var _attendees = "100".obs;
-  @override
+  final _spots = "1".obs;
+  final _attendees = "100".obs;
+
   final RxList<int> subscribedEvents = <int>[].obs; // Track subscribed events
   @override
   String get gspots => _spots.value;
@@ -27,6 +27,10 @@ class MockEventPageController extends GetxService
 
   @override
   bool isSubscribed(int eventId) => subscribedEvents.contains(eventId);
+
+  @override
+  Future<void> initializeForEvent(int eventId) async {
+  }
 
   @override
   Future<void> toggleSubscription(int eventId) async {
