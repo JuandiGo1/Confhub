@@ -53,6 +53,7 @@ class FeaturedWebinars extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
                     child: Webinarcard(
+                      key: Key('event-${events[index].title.replaceAll(" ", "-")}'), //
                       title: events[index].title,
                       date: events[index].date,
                       category: events[index].category,
