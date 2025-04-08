@@ -33,12 +33,11 @@ class EventDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     EventPageController controller = Get.find<EventPageController>();
-        WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.initializeForEvent(eventId);
     });
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -145,7 +144,7 @@ class EventDetailPage extends StatelessWidget {
                                             fontSize: 20,
                                             color: AppColors.primary,
                                             fontWeight: FontWeight.w700)),
-                                    Obx(() => Text("${controller.gattendees}",
+                                    Obx(() => Text(controller.gattendees,
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: AppColors.textPrimary,
@@ -160,7 +159,7 @@ class EventDetailPage extends StatelessWidget {
                                             fontSize: 20,
                                             color: AppColors.primary,
                                             fontWeight: FontWeight.w700)),
-                                    Obx(() => Text("${controller.gspots}",
+                                    Obx(() => Text(controller.gspots,
                                         style: TextStyle(
                                             fontSize: 20,
                                             color: AppColors.textPrimary,
@@ -190,38 +189,37 @@ class EventDetailPage extends StatelessWidget {
                                           fontWeight: FontWeight.w700)),
                                 ])),
                         Container(
-                            padding: EdgeInsets.only(top: 45),
-                             child: Obx(() {
-                            final isSubscribed = controller.isSubscribed(eventId);
+                          padding: EdgeInsets.only(top: 45),
+                          child: Obx(() {
+                            final isSubscribed =
+                                controller.isSubscribed(eventId);
                             return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-
-                                    onTap: () {
-                                      controller.toggleSubscription(eventId);
-                                    },
-                                    child: Obx(() => Icon(
-                                         isSubscribed
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: isSubscribed
-                                                  ? Colors.red
-                                                  : null,
-                                        )),
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.toggleSubscription(eventId);
+                                  },
+                                  child: Icon(
+                                    isSubscribed
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: isSubscribed ? Colors.red : null,
                                   ),
-                                  SizedBox(width: 8),
-                                  Obx(() => Text(
-                                       isSubscribed
-                                            ? "Desuscribir"
-                                            : "Suscribir",
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.textPrimary,
-                                            fontWeight: FontWeight.w700),
-                                      ))
-                                ]))
-
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  isSubscribed ? "Desuscribir" : "Suscribir",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
+                              ],
+                            );
+                          }),
+                        ),
                       ],
                     )),
               ))
