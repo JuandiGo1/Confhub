@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/utils.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -31,9 +29,7 @@ class HeaderSection extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.event, size: 28),
-                onPressed: () {
-                  Get.toNamed('/enventLines');
-                },
+                onPressed: () {},
               ),
               IconButton(
                 icon: Icon(Icons.settings, size: 28),
