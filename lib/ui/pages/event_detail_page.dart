@@ -33,45 +33,51 @@ class EventDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EventPageController controller = Get.find();
+
+    EventPageController controller = Get.find<EventPageController>();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initializeForEvent(eventId);
+    });
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
         backgroundColor: colorName,
       ),
       backgroundColor: AppColors.background,
-      body: Stack(
+      body: SingleChildScrollView(
+          child: Stack(
         children: [
-          Expanded(
-              child: Container(
-                  padding: EdgeInsets.all(20),
-                  height: 750,
-                  decoration: BoxDecoration(color: colorName),
-                  child: Row(children: [
-                    Expanded(
-                        child: Center(
-                            child: Column(children: [
+          Container(
+              padding: EdgeInsets.all(20),
+              height: 750,
+              decoration: BoxDecoration(color: colorName),
+              child: Row(children: [
+                Expanded(
+                    child: Center(
+                        child: Column(children: [
+                  Text(
+                    eventTitle,
+                    style:
+                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
-                        eventTitle,
+                        eventLocation,
                         style: TextStyle(
-                            fontSize: 25.0, fontWeight: FontWeight.bold),
+                            fontSize: 15,
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.w700),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            eventLocation,
-                            style: TextStyle(
-                                fontSize: 15, color: AppColors.textPrimary),
-                          ),
-                        ],
-                      )
-                    ]))),
-                  ]))),
+                    ],
+                  )
+                ]))),
+              ])),
           Positioned.fill(
               top: 130,
-              child: Expanded(
-                  child: Container(
+              child: Container(
                 height: 200,
                 decoration: BoxDecoration(
                     color: AppColors.textPrimary,
@@ -86,23 +92,27 @@ class EventDetailPage extends StatelessWidget {
                         Text(
                           eventDate,
                           style: TextStyle(
-                              fontSize: 15, color: AppColors.background),
+                              fontSize: 15,
+                              color: AppColors.background,
+                              fontWeight: FontWeight.w700),
                         ),
                         SizedBox(
                           width: 220,
                         ),
                         Text(eventTime,
                             style: TextStyle(
-                                fontSize: 15, color: AppColors.background))
+                                fontSize: 15,
+                                color: AppColors.background,
+                                fontWeight: FontWeight.w700))
                       ]),
                     )
                   ],
                 ),
-              ))),
+              )),
           Positioned.fill(
               top: 175,
               child: Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 20, right: 30),
                 decoration: BoxDecoration(
                     color: AppColors.background,
                     borderRadius: BorderRadius.only(
@@ -113,46 +123,48 @@ class EventDetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Description',
+                        Text('Descripción',
                             style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.primary,
-                            )),
+                                fontSize: 20,
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700)),
                         Text(eventDescription,
                             style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.textPrimary,
-                            )),
+                                fontSize: 15,
+                                color: AppColors.textPrimary,
+                                fontWeight: FontWeight.w700)),
                         Container(
                             padding: EdgeInsets.only(top: 100),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
                                   children: [
-                                    Text('Attendees',
+                                    Text('Asistentes',
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.primary)),
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.w700)),
                                     Obx(() => Text("${controller.gattendees}",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.textPrimary)))
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
                                   ],
                                 ),
-                                SizedBox(
-                                  width: 150,
-                                ),
+                                SizedBox(width: 30),
                                 Column(
                                   children: [
-                                    Text('Available',
+                                    Text('Disponibles',
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.primary)),
+                                            color: AppColors.primary,
+                                            fontWeight: FontWeight.w700)),
                                     Obx(() => Text("${controller.gspots}",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            color: AppColors.textPrimary)))
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
                                   ],
                                 )
                               ],
@@ -163,52 +175,58 @@ class EventDetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(Icons.campaign),
-                                  Text("Speaker",
+                                  Text("Orador",
                                       style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.primary,
-                                      )),
+                                          fontSize: 15,
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.w700)),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Text(eventSpeakerName,
                                       style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.primary,
-                                      )),
+                                          fontSize: 15,
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.w700)),
                                 ])),
                         Container(
                             padding: EdgeInsets.only(top: 45),
-                            child: Row(
+                             child: Obx(() {
+                            final isSubscribed = controller.isSubscribed(eventId);
+                            return Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
-                                      onDoubleTap: () {
-                                        controller.countSubSub(eventId);
-                                      },
-                                      onTap: () {
-                                        controller.countSubPlus(eventId);
-                                      },
-                                      child: Obx(() => controller.iconChange
-                                          ? Icon(Icons.favorite)
-                                          : Icon(Icons.favorite_border))),
-                                  Obx(() => controller.iconChange
-                                      ? Text("Unsubscribe",
-                                          style: TextStyle(
+
+                                    onTap: () {
+                                      controller.toggleSubscription(eventId);
+                                    },
+                                    child: Obx(() => Icon(
+                                         isSubscribed
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: isSubscribed
+                                                  ? Colors.red
+                                                  : null,
+                                        )),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Obx(() => Text(
+                                       isSubscribed
+                                            ? "Desuscribir"
+                                            : "Suscribir",
+                                        style: TextStyle(
                                             fontSize: 20,
                                             color: AppColors.textPrimary,
-                                          ))
-                                      : Text("Subscribe",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: AppColors.textPrimary,
-                                          )))
+                                            fontWeight: FontWeight.w700),
+                                      ))
                                 ]))
+
                       ],
                     )),
               ))
         ],
-      ),
+      )),
     );
   }
 }

@@ -1,13 +1,12 @@
-// ignore: unused_import
-import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
-class SubscribeAnEventUseCase {
+// subscribe_event_use_case.dart
+class SubscribeEventUseCase {
   final EventRepository repository;
 
-  SubscribeAnEventUseCase(this.repository);
+  SubscribeEventUseCase(this.repository);
 
-  Future<bool> call(int eventid) async {
-    return await repository.subscribeAnEvent(eventid);
+  Future<bool> call(int eventId) async {
+    return await repository.subscribeToEvent(eventId);
   }
 }

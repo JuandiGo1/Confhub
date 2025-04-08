@@ -9,7 +9,11 @@ import 'package:confhub/domain/repositories/event_repository.dart';
 class EventRepositoryImpl implements EventRepository {
   final EventLocalDataSource localDataSource;
 
+  final List<int> _subscribedEvents = []; // In-memory cache
+
   EventRepositoryImpl(this.localDataSource);
+
+  
 
   @override
   Future<List<EventModel>> getAllEvents() async {
@@ -19,6 +23,42 @@ class EventRepositoryImpl implements EventRepository {
       log('Error obteniendo eventos: $e');
       return [];
     }
+  }
+
+  @override
+  Future<List<EventModel>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate) async {
+    try {
+      final allEvents = await localDataSource.getAllEvents();
+      print(_subscribedEvents);
+      return allEvents.where((event) {
+        final eventDate = event.dateTime;
+        return _subscribedEvents.contains(event.eventid) && eventDate.isAfter(startDate) && eventDate.isBefore(endDate);
+      }).toList();
+    } catch (e) {
+      log('Error obteniendo eventos suscritos en el rango de fechas: $e');
+      return [];
+    }
+  }
+
+  
+
+  @override
+  Future<bool> subscribeToEvent(int eventId) async {
+    if (!_subscribedEvents.contains(eventId)) {
+      _subscribedEvents.add(eventId);
+      return true;
+    }
+    return false;
+  }
+
+    @override
+  Future<bool> unsubscribeFromEvent(int eventId) async {
+    return _subscribedEvents.remove(eventId);
+  }
+
+  @override
+  Future<bool> isSubscribed(int eventId) async {
+    return _subscribedEvents.contains(eventId);
   }
 
   @override

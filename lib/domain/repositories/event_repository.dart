@@ -5,8 +5,15 @@ import 'package:confhub/domain/entities/event.dart';
 abstract class EventRepository {
   Future<List<Event>> getAllEvents();
 
-  Future<List<Event>> getEventsForToday();
+  Future<List<Event>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate);
 
+  Future<bool> subscribeToEvent(int eventId);
+
+  Future<bool> unsubscribeFromEvent(int eventId);
+  
+  Future<bool> isSubscribed(int eventId);
+  
+  Future<List<Event>> getEventsForToday();
 
   Future<List<String>> getCategories();
 
