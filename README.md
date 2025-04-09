@@ -5,7 +5,7 @@
 ---
 
 ## Video Demostración
-[![Watch the video](https://i.sstatic.net/Vp2cE.png)](https://youtu.be/w-xyymeiW-s)
+[![Watch the video](https://github.com/user-attachments/assets/4f667f72-4713-4250-a399-f486fd3e3210)](https://youtu.be/w-xyymeiW-s)
 https://youtu.be/w-xyymeiW-s
 
 ## 🚀 Funcionalidades principales
