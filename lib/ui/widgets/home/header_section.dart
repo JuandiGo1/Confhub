@@ -21,7 +21,7 @@ class HeaderSection extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/confhub.png"),
+                      image: AssetImage("assets/images/confhub.png"),
                       fit: BoxFit.cover),
                 ),
               ),

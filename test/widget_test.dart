@@ -11,6 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
+import 'package:confhub/data/sources/event_local_data_source.dart';
+import 'package:confhub/data/models/event_model.dart';
+import 'package:confhub/data/repositories/event_repository_impl.dart';
+import 'package:confhub/ui/widgets/timeline/event_card.dart';
+import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/core/utils/date_formatter.dart';
+
 
 
 class MockEventPageController extends GetxService
@@ -53,6 +60,8 @@ class MockEventPageController extends GetxService
     }
   }
 }
+
+
 
 void main() {
   setUp(() {
@@ -102,4 +111,43 @@ void main() {
     expect(find.text('100'), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
   });
+  testWidgets('Tapping EventCard navigates to EventDetailPage', (WidgetTester tester) async {
+    final testEvent = Event(
+      eventid: 1245678,
+      title: 'Test Event',
+      description: 'Description',
+      speakerAvatar: '',
+      speakerName: 'Speaker',
+      dateTime: DateTime.now(),
+      date: '2025-04-08',
+      location: 'Room A',
+      time: '10:00 AM',
+      attendees: 5,
+      availableSpots: 10,
+      category: 'Tech',
+      tags: [],
+      sessionOrder: [],
+    );
+
+    await tester.pumpWidget(
+      GetMaterialApp(
+        home: Scaffold(
+          body: EventCard(event: testEvent, isToday: true),
+        ),
+      ),
+    );
+
+    expect(find.text('Test Event'), findsOneWidget);
+  
+    await tester.tap(find.byType(EventCard));
+    await tester.pumpAndSettle();
+
+    // Verifying navigation
+    expect(Get.currentRoute.contains('EventDetailPage'), true); 
+  });
 }
+
+
+
+
+

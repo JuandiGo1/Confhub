@@ -5,7 +5,7 @@ import '../models/event_model.dart';
 
 class EventLocalDataSource {
   Future<List<EventModel>> getAllEvents() async {
-    final String response = await rootBundle.loadString('data/events.json');
+    final String response = await rootBundle.loadString('assets/data/events.json');
 
     final List<dynamic> data = json.decode(response);
 

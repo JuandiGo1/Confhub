@@ -4,7 +4,7 @@
     "title": "Introducción a Node.js y Express",
     "category": "Backend",
     "location":"Barranquilla, Colombia",
-    "dateTime": "2025-04-08T14:00:00Z",
+    "dateTime": "2025-04-09T14:00:00Z",
     "attendees": 120,
     "availableSpots":10,
     "description": "Descubre el mundo del desarrollo backend con Node.js y Express. Aprenderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
@@ -158,5 +158,22 @@
       { "name": "Creación de Single Page Applications", "duration": 40 }
     ],
     "tags": ["Vue.js", "SPAs", "JavaScript"]
-  }
+  }, 
+  {"eventid":13478923,
+  "title": "React con TypeScript: Creando componentes",
+  "category": "Frontend",
+  "location":"Medellin, Colombia",
+  "dateTime": "2025-05-20T11:00:00Z",
+  "attendees": 50,
+  "availableSpots":10,
+  "description": "Aprende a crear componentes con React y TypeScript. Aprenderás sobre los fundamentos de TypeScript y cómo aplicarlos en la creación de componentes React.",
+  "speakerName": "Andrea Gómez",
+  "speakerAvatar": "https://avatar.iran.liara.run/username?username=Andrea+Gomez",
+  "sessionOrder": [
+    { "name": "Fundamentos de TypeScript", "duration": 25 },
+    { "name": "Creando componentes con React y TypeScript", "duration": 30 },
+    { "name": "Mejorando la experiencia del usuario", "duration": 35 }
+  ],
+  "tags": ["React", "TypeScript", "Frontend"]
+}
 ]

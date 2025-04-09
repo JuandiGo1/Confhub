@@ -35,8 +35,8 @@ class EventTimelineWidget extends StatelessWidget {
           flex: isFirst ? 0 : 1,
           child: isFirst
               ? const SizedBox()
-              : Transform.translate(
-                  offset: const Offset(0, -20),
+                : Transform.translate(
+                  offset: Offset(0, -MediaQuery.of(context).size.height * 0.03),
                   child: Container(width: 2, color: Colors.grey),
                 ),
         ),
