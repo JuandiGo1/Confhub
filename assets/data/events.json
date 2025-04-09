@@ -4,7 +4,7 @@
     "title": "Introducción a Node.js y Express",
     "category": "Backend",
     "location":"Barranquilla, Colombia",
-    "dateTime": "2025-04-02T14:00:00Z",
+    "dateTime": "2025-04-08T14:00:00Z",
     "attendees": 120,
     "availableSpots":10,
     "description": "Descubre el mundo del desarrollo backend con Node.js y Express. Aprenderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
