@@ -1,7 +1,9 @@
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/ui/controllers/event_page_controller.dart';
+import 'package:confhub/ui/pages/event_detail_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 
 class UpcomingCard extends StatelessWidget {
   final String title;
@@ -127,8 +129,28 @@ class UpcomingCard extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    
+                    //Para entrega 2 modularizar esta funcionalidad
+                    Get.to(
+                      () => EventDetailPage(
+                        eventTitle: event.title,
+                        eventId: event.eventid,
+                        eventDate: event.date,
+                        eventAttendees: event.attendees,
+                        eventCategory: event.category,
+                        eventDescription: event.description,
+                        eventSpeakerAvatar: event.speakerAvatar,
+                        eventTime: event.time,
+                        eventSpeakerName: event.speakerName,
+                        eventLocation: event.location,
+                        eventSpots: event.availableSpots,
 
+                      ),
+                      transition: Transition.cupertino,
+                    );
+
+                    Get.put<EventPageController>(EventPageController(
+                        initialAttendees: event.attendees,
+                        initialSpots: event.availableSpots));
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStatePropertyAll(AppColors.primary),
@@ -136,7 +158,7 @@ class UpcomingCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "Join Now",
+                      "Unirse Ahora",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.w600),
                     ),
