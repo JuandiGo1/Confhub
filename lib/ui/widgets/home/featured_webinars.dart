@@ -44,6 +44,8 @@ class FeaturedWebinars extends StatelessWidget {
               return ListView.builder(
 
                 scrollDirection: Axis.horizontal,
+                physics:
+                      BouncingScrollPhysics(),
                 itemCount: events.length,
                 itemBuilder: (context, index) {
                   // Selecciona el color basado en el índice
