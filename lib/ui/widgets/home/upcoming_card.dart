@@ -60,7 +60,7 @@ class UpcomingCard extends StatelessWidget {
                         child: Text(title,
                             style: TextStyle(
                                 color: AppColors.secondary,
-                                fontSize: 18,
+                                fontSize: (MediaQuery.of(context).size.width > 700) ? 18 : 16,
                                 fontWeight: FontWeight.bold)),
                       ),
                       GestureDetector(

@@ -190,51 +190,66 @@ class EventDetailPage extends StatelessWidget {
                                           fontWeight: FontWeight.w700)),
                                 ])),
                         Container(
-                          padding: EdgeInsets.only(top: 45),
-                          child: Obx(() {
-                            final isSubscribed =
-                                controller.isSubscribed(eventId);
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                            padding: EdgeInsets.only(top: 45),
+                            child: Obx(() {
+                              final isSubscribed =
+                                  controller.isSubscribed(eventId);
+                              return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        final spots =
+                                            int.tryParse(controller.gspots) ??
+                                                0;
+                                        final isSubscribed =
+                                            controller.isSubscribed(eventId);
 
-                               GestureDetector(
-                                  onTap: () {
-                                    final spots = int.tryParse(controller.gspots) ?? 0;
-                                    final isSubscribed = controller.isSubscribed(eventId);
-
-                                    if (isSubscribed || spots > 0) {
-                                      controller.toggleSubscription(eventId);
-                                    } else {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: const Text('No hay cupos disponibles para este evento.'),
-                                          backgroundColor: Colors.redAccent,
-                                          duration: const Duration(seconds: 2),
-                                        ),
-                                      );
-                                    }
-                                  },
-
-                                  child: Icon(
-                                    isSubscribed ? Icons.favorite : Icons.favorite_border,
-                                    color: isSubscribed
-                                        ? Colors.red
-                                        : (int.tryParse(controller.gspots) ?? 0) == 0
-                                            ? Colors.grey
-                                            : null,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  isSubscribed ? "Desuscribir" : "Suscribir",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: AppColors.textPrimary,
-                                  )
-                                ),
-                            ]);
-                          }))
+                                        if (isSubscribed || spots > 0) {
+                                          controller
+                                              .toggleSubscription(eventId);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: const Text(
+                                                  'No hay cupos disponibles para este evento.'),
+                                              backgroundColor: Colors.redAccent,
+                                              duration:
+                                                  const Duration(seconds: 2),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            isSubscribed
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color: isSubscribed
+                                                ? Colors.red
+                                                : (int.tryParse(controller
+                                                                .gspots) ??
+                                                            0) ==
+                                                        0
+                                                    ? Colors.grey
+                                                    : null,
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(
+                                              isSubscribed
+                                                  ? "Desuscribir"
+                                                  : "Suscribir",
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: AppColors.textPrimary,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ]);
+                            }))
                       ],
                     )),
               ))

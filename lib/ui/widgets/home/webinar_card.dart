@@ -1,4 +1,5 @@
 import 'package:confhub/core/colors.dart';
+import 'package:confhub/core/utils/test_utils.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
 import 'package:confhub/ui/pages/event_detail_page.dart';
@@ -45,7 +46,8 @@ class Webinarcard extends StatelessWidget {
             ));
 
         Get.put<EventPageController>(EventPageController(
-            initialAttendees: event.attendees, initialSpots: event.availableSpots));
+            initialAttendees: event.attendees,
+            initialSpots: event.availableSpots));
       },
       child: Container(
         width: 180,
@@ -88,10 +90,12 @@ class Webinarcard extends StatelessWidget {
                     ),
                   ],
                 ),
-                
                 CircleAvatar(
                   radius: 15,
-                  backgroundImage: NetworkImage(speakerAvatar),
+                  backgroundImage: AppEnvironment.isTest
+                      ? const AssetImage('assets/images/username.png')
+                          as ImageProvider
+                      : NetworkImage(speakerAvatar),
                   backgroundColor: Colors.grey[200],
                 )
               ],

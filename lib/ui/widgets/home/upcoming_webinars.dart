@@ -33,7 +33,7 @@ class UpcomingWebinars extends StatelessWidget {
                   Text(
                     "Próximos Webinars",
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize:(MediaQuery.of(context).size.width > 800) ? 25 : 23,
                       fontWeight: FontWeight.bold,
                       color: AppColors.title,
                     ),
@@ -50,7 +50,7 @@ class UpcomingWebinars extends StatelessWidget {
                         Text(
                           "Ver más",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: (MediaQuery.of(context).size.width > 900) ? 18 : 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.textSecondary,
                           ),
