@@ -5,8 +5,8 @@
 ---
 
 ## Video Demostración
-[![Watch the video](https://github.com/user-attachments/assets/4f667f72-4713-4250-a399-f486fd3e3210)](https://youtu.be/w-xyymeiW-s)
-https://youtu.be/w-xyymeiW-s
+[![Watch the video](https://i9.ytimg.com/vi/w-xyymeiW-s/mqdefault.jpg?sqp=CMCs2L8G&rs=AOn4CLBg08dJunI8m2BHBjfRhD8Xxb-HcA&retry=3)](https://youtu.be/w-xyymeiW-s)
+
 
 ## 🚀 Funcionalidades principales
 
