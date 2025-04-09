@@ -49,11 +49,7 @@ class EventCategory extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 10,
                       children: categories.map((e) {
-                        return CardEvent(
-                            eventAmount: e.attendees,
-                            title: e.title,
-                            date: e.date,
-                            color: colorCode);
+                        return CardEvent(event: e, color: colorCode);
                       }).toList()),
                 ),
               );

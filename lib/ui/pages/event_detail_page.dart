@@ -15,6 +15,8 @@ class EventDetailPage extends StatelessWidget {
   final String eventSpeakerAvatar;
   final String eventLocation;
   final int eventSpots;
+  final Color colorName;
+
   const EventDetailPage(
       {super.key,
       required this.eventId,
@@ -27,9 +29,8 @@ class EventDetailPage extends StatelessWidget {
       required this.eventSpeakerName,
       required this.eventSpeakerAvatar,
       required this.eventLocation,
-      required this.eventSpots});
-
-  final Color colorName = AppColors.primary;
+      required this.eventSpots,
+      this.colorName = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
