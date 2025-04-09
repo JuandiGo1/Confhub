@@ -31,8 +31,8 @@ class SeparatorWithDot extends StatelessWidget {
             ),
             SizedBox(width: 4),
             Container(
-              width: 8,
-              height: 8,
+              width: 9,
+              height: 9,
               decoration: BoxDecoration(
                 color: dotColor,
                 shape: BoxShape.circle,

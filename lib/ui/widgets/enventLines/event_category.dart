@@ -16,18 +16,29 @@ class EventCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 5,
       children: [
-        Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Icon(Icons.sell_outlined, color: const Color.fromARGB(255, 7, 70, 1), size: 23,),
+            ),
+            SizedBox(width: 10),
+            Text(
               category,
-              style: TextStyle(fontSize: 25, color: AppColors.textPrimary),
-            )),
-        SeparatorWithDot(
-          lineColor: Colors.black,
-          dotColor: Colors.black,
-          thickness: 2,
+              style: TextStyle(color: const Color.fromARGB(255, 0, 0, 0), fontSize:23, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: SeparatorWithDot(
+            lineColor: AppColors.title,
+            dotColor: Colors.black,
+            thickness: 5,
+          ),
         ),
         FutureBuilder(
             future: getEventsByCategory.call(category),
