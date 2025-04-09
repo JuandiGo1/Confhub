@@ -1,4 +1,7 @@
+import 'package:confhub/ui/pages/event_lines.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -29,7 +32,10 @@ class HeaderSection extends StatelessWidget {
             children: [
               IconButton(
                 icon: Icon(Icons.event, size: 28),
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => EventLines());
+
+                },
               ),
               IconButton(
                 icon: Icon(Icons.settings, size: 28),

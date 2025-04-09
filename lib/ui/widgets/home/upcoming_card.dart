@@ -40,7 +40,7 @@ class UpcomingCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //Fondo verde
-          Expanded(
+          Flexible(
             child: Container(
               //height: 180,
               padding: EdgeInsets.all(10),
@@ -78,24 +78,26 @@ class UpcomingCard extends StatelessWidget {
                   Spacer(),
                   Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: AppColors.secondary,
-                          borderRadius: BorderRadius.circular(30),
+                      if (MediaQuery.of(context).size.height > 700) ...[
+                        Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: AppColors.secondary,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.sell_outlined,
+                                  color: Colors.white, size: 12),
+                              Text(
+                                category,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.sell_outlined,
-                                color: Colors.white, size: 12),
-                            Text(
-                              category,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            )
-                          ],
-                        ),
-                      ),
+                      ],
                     ],
                   ),
                 ],
@@ -143,7 +145,6 @@ class UpcomingCard extends StatelessWidget {
                         eventSpeakerName: event.speakerName,
                         eventLocation: event.location,
                         eventSpots: event.availableSpots,
-
                       ),
                       transition: Transition.cupertino,
                     );
