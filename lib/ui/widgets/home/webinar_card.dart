@@ -43,6 +43,10 @@ class Webinarcard extends StatelessWidget {
               eventSpeakerName: event.speakerName,
               eventLocation: event.location,
               eventSpots: event.availableSpots,
+              eventavgScore: event.avgScore,
+              eventstatus: event.status,
+              eventSessionOrder: event.sessionOrder,
+              numberReviews: event.numberReviews,
             ));
 
         Get.put<EventPageController>(EventPageController(

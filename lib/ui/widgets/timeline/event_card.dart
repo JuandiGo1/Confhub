@@ -21,7 +21,7 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultColor = isToday ? AppColors.background : Colors.white;
-    
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -129,6 +129,10 @@ class EventCard extends StatelessWidget {
         eventSpeakerName: event.speakerName,
         eventLocation: event.location,
         eventSpots: event.availableSpots,
+        eventavgScore: event.avgScore,
+        eventstatus: event.status,
+        eventSessionOrder: event.sessionOrder,
+        numberReviews: event.numberReviews,
       ),
       transition: Transition.cupertino,
     );

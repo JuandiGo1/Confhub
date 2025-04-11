@@ -44,12 +44,17 @@ class CardEvent extends StatelessWidget {
             eventLocation: event.location,
             eventSpots: event.availableSpots,
             colorName: mColor,
+            eventavgScore: event.avgScore,
+            eventstatus: event.status,
+            eventSessionOrder: event.sessionOrder,
+            numberReviews: event.numberReviews,
           ),
           transition: Transition.cupertino,
         );
-        
+
         Get.put<EventPageController>(EventPageController(
-            initialAttendees: event.attendees, initialSpots: event.availableSpots));
+            initialAttendees: event.attendees,
+            initialSpots: event.availableSpots));
       },
       child: Container(
         width: 160,
@@ -78,9 +83,9 @@ class CardEvent extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color:  mColor == AppColors.primary
-                                ? Colors.white
-                                : AppColors.title, // Color del borde
+                    color: mColor == AppColors.primary
+                        ? Colors.white
+                        : AppColors.title, // Color del borde
                     width: 2.0, // Grosor del borde
                   ),
                 ),
@@ -90,16 +95,14 @@ class CardEvent extends StatelessWidget {
                 child: Text(
                   event.date,
                   style: TextStyle(
-                    color:  mColor == AppColors.primary
-                                  ? Colors.white
-                                  : AppColors.title,
-                    backgroundColor: Colors.transparent,
-                    fontWeight: FontWeight.w600
-                  ),
+                      color: mColor == AppColors.primary
+                          ? Colors.white
+                          : AppColors.title,
+                      backgroundColor: Colors.transparent,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ),
-            
           ],
         ),
       ),

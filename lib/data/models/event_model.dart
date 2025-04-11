@@ -21,6 +21,9 @@ class EventModel extends Event {
     required List<SessionModel> super.sessionOrder,
     required super.tags,
     required super.eventid,
+    required super.avgScore,
+    required super.status,
+    required super.numberReviews
   });
 
   // Convertir JSON a EventModel
@@ -45,7 +48,10 @@ class EventModel extends Event {
             .map((session) => SessionModel.fromJson(session))
             .toList(),
         tags: List<String>.from(json['tags']),
-        eventid: json['eventid']);
+        eventid: json['eventid'],
+        avgScore: json['avgScore'],
+        status: json['status'],
+        numberReviews: json['numberReviews']);
   }
 
   // Convertir EventModel a JSON
@@ -65,6 +71,9 @@ class EventModel extends Event {
       'tags': tags,
       'location': location,
       'eventid': eventid,
+      'avgScore':avgScore,
+      'status':status,
+      'numberReviews':numberReviews
     };
   }
 

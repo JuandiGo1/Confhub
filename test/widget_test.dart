@@ -71,7 +71,7 @@ void main() {
   testWidgets('test the subscription buttom', (WidgetTester tester) async {
     WidgetsFlutterBinding.ensureInitialized();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const GetMaterialApp(
+    await tester.pumpWidget( GetMaterialApp(
         home: EventDetailPage(
             eventId: 1245678,
             eventTitle: "Introducción a Node.js y Express",
@@ -85,7 +85,11 @@ void main() {
             eventSpeakerAvatar:
                 "https://avatar.iran.liara.run/username?username=Carlos+Rios",
             eventLocation: "Barranquilla, Colombia",
-            eventSpots: 1)));
+            eventSpots: 1,
+            eventavgScore: 0,
+            eventstatus: "Por empezar",
+            eventSessionOrder:   [SessionModel(name: 'Firter',duration: 1,)],
+            numberReviews: 0,)));
 
     // Verify that attendees starts at initial values.
     expect(find.text('100'), findsOneWidget);
@@ -138,10 +142,13 @@ void main() {
         description: "Una conferencia sobre Flutter",
         dateTime: DateTime.parse("2025-05-05T19:00:00Z"),
         tags: ["Flutter", "Mobile", "Dart"],
+        avgScore: 0,
+        status: "Por empezar",
         sessionOrder: [SessionModel(
-          name: 'Firter', 
+          name: 'Firter',
           duration: 1,
         )],
+        numberReviews: 0,
       )
     ];
 
@@ -186,7 +193,10 @@ void main() {
       availableSpots: 10,
       category: 'Tech',
       tags: [],
+      avgScore: 4.2,
+      status:"Por empezar",
       sessionOrder: [],
+      numberReviews: 0,
     );
 
     await tester.pumpWidget(
@@ -198,11 +208,11 @@ void main() {
     );
 
     expect(find.text('Test Event'), findsOneWidget);
-  
+
     await tester.tap(find.byType(EventCard));
     await tester.pumpAndSettle();
 
     // Verifying navigation
-    expect(Get.currentRoute.contains('EventDetailPage'), true); 
+    expect(Get.currentRoute.contains('EventDetailPage'), true);
   });
 }

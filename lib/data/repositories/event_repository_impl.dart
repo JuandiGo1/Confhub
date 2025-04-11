@@ -13,7 +13,7 @@ class EventRepositoryImpl implements EventRepository {
 
   EventRepositoryImpl(this.localDataSource);
 
-  
+
 
   @override
   Future<List<EventModel>> getAllEvents() async {
@@ -29,7 +29,7 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate) async {
     try {
       final allEvents = await localDataSource.getAllEvents();
-      print(_subscribedEvents);
+      log("$_subscribedEvents");
       return allEvents.where((event) {
         final eventDate = event.dateTime;
         return _subscribedEvents.contains(event.eventid) && eventDate.isAfter(startDate) && eventDate.isBefore(endDate);
@@ -40,7 +40,7 @@ class EventRepositoryImpl implements EventRepository {
     }
   }
 
-  
+
 
   @override
   Future<bool> subscribeToEvent(int eventId) async {
@@ -80,7 +80,7 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getEventsByCategory(String category) async {
     return await localDataSource.getEventsByCategory(category);
   }
-  
+
   @override
   Future<bool> subscribeAnEvent(int eventid) async {
     try {
