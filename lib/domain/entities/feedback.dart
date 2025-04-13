@@ -1,4 +1,3 @@
-
 class Feedback {
   String title;
   String comment;
@@ -7,6 +6,9 @@ class Feedback {
   String time; //  solo la hora (HH:MM)
   int eventid;
   double score;
+  int likes;
+  int dislikes;
+  int feedbackid;
 
   Feedback({
     required this.title,
@@ -16,5 +18,8 @@ class Feedback {
     required this.eventid,
     required this.score,
     required this.time,
+    required this.likes,
+    required this.dislikes,
+    required this.feedbackid,
   });
 }

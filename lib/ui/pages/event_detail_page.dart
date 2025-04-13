@@ -1,6 +1,7 @@
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/entities/session.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
+import 'package:confhub/ui/controllers/feedback_page_controller.dart';
 import 'package:confhub/ui/pages/feedback_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -287,6 +288,8 @@ class EventDetailPage extends StatelessWidget {
                                             eventid: eventId,
                                             principal: colorName,
                                           ));
+                                      Get.put<FeedbackPageController>(
+                                          FeedbackPageController());
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

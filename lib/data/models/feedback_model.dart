@@ -14,6 +14,9 @@ class FeedbackModel extends Feedback {
     required super.time,
     required super.score,
     required super.eventid,
+    required super.likes,
+    required super.dislikes,
+    required super.feedbackid,
 
   });
 
@@ -24,13 +27,17 @@ class FeedbackModel extends Feedback {
         title: json['title'],
         comment: json['comment'],
         dateTime: dateTime,
-        date: formatDate(dateTime), // Extraer solo la fecha
+        date: formatDate2(dateTime), // Extraer solo la fecha
         time: dateTime
             .toIso8601String()
             .split('T')[1]
             .substring(0, 5), // Extraer solo la hora
         score: json['score'],
-        eventid: json['eventid'],);
+        eventid: json['eventid'],
+        likes: json['likes'],
+        dislikes: json['dislikes'],
+        feedbackid: json['id']
+        );
   }
 
   // Convertir Feedback a JSON
@@ -41,7 +48,9 @@ class FeedbackModel extends Feedback {
       'dateTime': "$date $time",
       'score': score,
       'eventid': eventid,
-
+      'likes':likes,
+      'dislikes':dislikes,
+      'id':feedbackid,
     };
   }
 }

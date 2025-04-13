@@ -29,4 +29,24 @@ class FeedbackRepositoryImpl implements FeedbackRepository {
       return <Feedback>[];
     }
   }
+
+  @override
+  Future<bool> likeAFeedback(int eventid) async {
+    try {
+      return await localDataSource.likeAFeedback(eventid);
+    } catch (e) {
+      log('Error obteniendo Feedbacks: $e');
+      return Future.value(true);
+    }
+  }
+
+  @override
+  Future<bool> dislikeAFeedback(int eventid) async{
+        try {
+      return await localDataSource.dislikeAFeedback(eventid);
+    } catch (e) {
+      log('Error obteniendo Feedbacks: $e');
+      return Future.value(true);
+    }
+  }
 }
