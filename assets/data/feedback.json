@@ -1,0 +1,352 @@
+[
+  {
+    "eventid": 83492175,
+    "id": 7294618503927456,
+    "title": "Muy buen enfoque para principiantes.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 4,
+    "dateTime": "2025-04-10T12:00:00Z",
+    "likes": 10,
+    "dislikes": 2
+  },
+  {
+    "eventid": 83492175,
+    "id": 9361047582610394,
+    "title": "Excelente explicación de hooks.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 5,
+    "dateTime": "2025-04-10T13:15:00Z",
+    "likes": 2,
+    "dislikes": 0
+  },
+  {
+    "eventid": 83492175,
+    "id": 1560293847612935,
+    "title": "Me hubiese gustado más ejemplos prácticos.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 3,
+    "dateTime": "2025-04-10T14:30:00Z",
+    "likes": 4,
+    "dislikes": 1
+  },
+  {
+    "eventid": 83492175,
+    "id": 8274916530274195,
+    "title": "Muy claro todo, gracias.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 5,
+    "dateTime": "2025-04-10T15:00:00Z",
+    "likes": 2,
+    "dislikes": 0
+  },
+  {
+    "eventid": 83492175,
+    "id": 6391045827491657,
+    "title": "Faltó tiempo para preguntas.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 4,
+    "dateTime": "2025-04-10T16:00:00Z",
+    "likes": 7,
+    "dislikes": 2
+  },
+  {
+    "eventid": 712398645,
+    "id": 2748519603748291,
+    "title": "Me encantó el enfoque visual.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 5,
+    "dateTime": "2025-04-07T10:00:00Z",
+    "likes": 14,
+    "dislikes": 4
+  },
+  {
+    "eventid": 712398645,
+    "id": 9816452037184920,
+    "title": "Muy interactivo, aprendí mucho.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 4,
+    "dateTime": "2025-04-07T11:30:00Z",
+    "likes": 1,
+    "dislikes": 2
+  },
+  {
+    "eventid": 712398645,
+    "id": 3719582047613982,
+    "title": "El speaker sabe mucho del tema.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 5,
+    "dateTime": "2025-04-07T12:15:00Z",
+    "likes": 6,
+    "dislikes": 1
+  },
+  {
+    "eventid": 712398645,
+    "id": 6102938475601928,
+    "title": "Faltó hablar de herramientas UX modernas.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 3,
+    "dateTime": "2025-04-07T13:00:00Z",
+    "likes": 4,
+    "dislikes": 1
+  },
+  {
+    "eventid": 712398645,
+    "id": 8371940265817394,
+    "title": "Contenido completo y bien presentado.",
+    "comment": "Muy buena reflexión que resalta puntos clave. Para que tenga un mayor impacto, podría complementarse con sugerencias específicas.",
+    "score": 5,
+    "dateTime": "2025-04-07T14:00:00Z",
+    "likes": 10,
+    "dislikes": 5
+  },
+  {
+    "eventid": 547823109,
+    "id": 1490273658192037,
+    "title": "Muy útil para entender PostgreSQL.",
+    "comment": "Muy buena reflexión que resalta puntos clave. Para que tenga un mayor impacto, podría complementarse con sugerencias específicas.",
+    "score": 5,
+    "dateTime": "2025-04-05T09:00:00Z",
+    "likes": 5,
+    "dislikes": 1
+  },
+  {
+    "eventid": 547823109,
+    "id": 5273819406291873,
+    "title": "Demasiado técnico en algunas partes.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 3,
+    "dateTime": "2025-04-05T10:30:00Z",
+    "likes": 7,
+    "dislikes": 1
+  },
+  {
+    "eventid": 547823109,
+    "id": 7103948261739485,
+    "title": "Gran taller, lo recomendaría.",
+    "comment": "Muy buena reflexión que resalta puntos clave. Para que tenga un mayor impacto, podría complementarse con sugerencias específicas.",
+    "score": 5,
+    "dateTime": "2025-04-05T11:15:00Z",
+    "likes": 5,
+    "dislikes": 0
+  },
+  {
+    "eventid": 547823109,
+    "id": 2019384756102938,
+    "title": "La explicación fue clara y precisa.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 4,
+    "dateTime": "2025-04-05T12:00:00Z",
+    "likes": 3,
+    "dislikes": 0
+  },
+  {
+    "eventid": 547823109,
+    "id": 9127834560129384,
+    "title": "Me gustaría ver más sobre índices.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 4,
+    "dateTime": "2025-04-05T13:30:00Z",
+    "likes": 5,
+    "dislikes": 1
+  },
+  {
+    "eventid": 9301284,
+    "id": 6273819405618273,
+    "title": "Me encantó ver pruebas en vivo.",
+    "comment": "Muy buena reflexión que resalta puntos clave. Para que tenga un mayor impacto, podría complementarse con sugerencias específicas.",
+    "score": 5,
+    "dateTime": "2025-04-03T14:00:00Z",
+    "likes": 15,
+    "dislikes": 0
+  },
+  {
+    "eventid": 9301284,
+    "id": 8102938475601928,
+    "title": "Un poco corto, pero muy bueno.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 4,
+    "dateTime": "2025-04-03T15:00:00Z",
+    "likes": 17,
+    "dislikes": 2
+  },
+  {
+    "eventid": 9301284,
+    "id": 4928374651029384,
+    "title": "Lo recomendaría a otros testers.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 5,
+    "dateTime": "2025-04-03T16:00:00Z",
+    "likes": 4,
+    "dislikes": 5
+  },
+  {
+    "eventid": 9301284,
+    "id": 3819274650192837,
+    "title": "Le faltó profundidad en integración continua.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 3,
+    "dateTime": "2025-04-03T17:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 9301284,
+    "id": 7102938475601928,
+    "title": "Muy bien estructurado.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 4,
+    "dateTime": "2025-04-03T18:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 87123956,
+    "id": 9172834560192834,
+    "title": "Muy práctico y útil para el trabajo.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 5,
+    "dateTime": "2025-04-01T10:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 87123956,
+    "id": 5016273849501627,
+    "title": "Excelente introducción a Kubernetes.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 5,
+    "dateTime": "2025-04-01T11:30:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 87123956,
+    "id": 3827465019283746,
+    "title": "Necesita más ejemplos reales.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 4,
+    "dateTime": "2025-04-01T12:45:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 87123956,
+    "id": 7283746501928374,
+    "title": "Muy técnico para principiantes.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 3,
+    "dateTime": "2025-04-01T13:15:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 87123956,
+    "id": 9162738450192873,
+    "title": "Muy bien organizado.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 4,
+    "dateTime": "2025-04-01T14:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 671245897,
+    "id": 2617384950162738,
+    "title": "¡Me encantó aprender Git desde cero!",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 5,
+    "dateTime": "2025-03-30T09:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 671245897,
+    "id": 8273645019283746,
+    "title": "Muy útil para trabajo en equipo.",
+    "comment": "La observación realizada es válida y apunta a aspectos relevantes. Ampliarla con detalles adicionales mejoraría aún más la retroalimentación ofrecida.",
+    "score": 4,
+    "dateTime": "2025-03-30T10:30:00Z",
+    "likes": 5,
+    "dislikes": 0
+  },
+  {
+    "eventid": 671245897,
+    "id": 6192837465019283,
+    "title": "Faltaron ejemplos con conflictos.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 3,
+    "dateTime": "2025-03-30T11:15:00Z",
+    "likes": 4,
+    "dislikes": 0
+  },
+  {
+    "eventid": 671245897,
+    "id": 4928374650192834,
+    "title": "El speaker respondió todas las dudas.",
+    "comment": "Este comentario destaca un punto importante del evento. Sin embargo, podría beneficiarse de más ejemplos concretos o aplicaciones prácticas que permitan entenderlo mejor.",
+    "score": 5,
+    "dateTime": "2025-03-30T12:00:00Z",
+    "likes": 1,
+    "dislikes": 0
+  },
+  {
+    "eventid": 671245897,
+    "id": 1092837465019283,
+    "title": "Recomendado para nuevos desarrolladores.",
+    "comment": "Muy buena reflexión que resalta puntos clave. Para que tenga un mayor impacto, podría complementarse con sugerencias específicas.",
+    "score": 4,
+    "dateTime": "2025-03-30T13:00:00Z",
+    "likes": 0,
+    "dislikes": 0
+  },
+  {
+    "eventid": 89314270,
+    "id": 5018273645019283,
+    "title": "Explicaciones claras y aplicables.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 5,
+    "dateTime": "2025-03-28T08:00:00Z",
+    "likes": 2,
+    "dislikes": 0
+  },
+  {
+    "eventid": 89314270,
+    "id": 7465019283746501,
+    "title": "Muy buenos ejemplos de SOLID.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 5,
+    "dateTime": "2025-03-28T09:15:00Z",
+    "likes": 0,
+    "dislikes": 1
+  },
+  {
+    "eventid": 89314270,
+    "id": 9283746501928374,
+    "title": "Faltó algo de código en vivo.",
+    "comment": "Una idea acertada que refleja la experiencia vivida. Si se profundizara un poco más, sería de gran ayuda para futuras mejoras.",
+    "score": 4,
+    "dateTime": "2025-03-28T10:30:00Z",
+    "likes": 2,
+    "dislikes": 0
+  },
+  {
+    "eventid": 89314270,
+    "id": 1928374650192837,
+    "title": "Excelente contenido para mejorar buenas prácticas.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 5,
+    "dateTime": "2025-03-28T11:45:00Z",
+    "likes": 1,
+    "dislikes": 0
+  },
+  {
+    "eventid": 89314270,
+    "id": 3746501928374650,
+    "title": "Muy útil, aplicable en mi proyecto actual.",
+    "comment": "El contenido del comentario es positivo y aporta valor. Sería aún más útil si se incluyeran situaciones reales o contextos donde se aplicó lo aprendido.",
+    "score": 4,
+    "dateTime": "2025-03-28T12:30:00Z",
+    "likes": 1,
+    "dislikes": 0
+  }
+]

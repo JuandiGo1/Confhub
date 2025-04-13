@@ -15,6 +15,9 @@ class Event {
   String speakerAvatar;
   List<Session> sessionOrder;
   List<String> tags;
+  double avgScore;
+  String status;
+  int numberReviews;
 
   Event({
     required this.title,
@@ -31,6 +34,8 @@ class Event {
     required this.location,
     required this.availableSpots,
     required this.eventid,
+    required this.avgScore,
+    required this.status,
+    required this.numberReviews,
   });
 }
-
