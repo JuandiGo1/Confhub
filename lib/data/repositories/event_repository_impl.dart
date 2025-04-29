@@ -4,21 +4,23 @@ import 'dart:developer';
 
 import 'package:confhub/data/models/event_model.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
+import 'package:confhub/data/sources/event_remote_data_source.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
 class EventRepositoryImpl implements EventRepository {
-  final EventLocalDataSource localDataSource;
+  //final EventLocalDataSource localDataSource;
+  final EventRemoteDataSource remoteDataSource;
 
   final List<int> _subscribedEvents = []; // In-memory cache
 
-  EventRepositoryImpl(this.localDataSource);
+  EventRepositoryImpl(this.remoteDataSource);
 
 
 
   @override
   Future<List<EventModel>> getAllEvents() async {
     try {
-      return await localDataSource.getAllEvents();
+      return await remoteDataSource.getAllEvents();
     } catch (e) {
       log('Error obteniendo eventos: $e');
       return [];
@@ -28,7 +30,7 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<List<EventModel>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate) async {
     try {
-      final allEvents = await localDataSource.getAllEvents();
+      final allEvents = await remoteDataSource.getAllEvents();
       log("$_subscribedEvents");
       return allEvents.where((event) {
         final eventDate = event.dateTime;
@@ -64,7 +66,7 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<List<EventModel>> getEventsForToday() async {
     try {
-      return await localDataSource.getEventsForToday();
+      return await remoteDataSource.getEventsForToday();
     } catch (e) {
       log('Error obteniendo eventos de hoy: $e');
       return [];
@@ -73,18 +75,18 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<List<String>> getCategories() async {
-    return await localDataSource.getCategories();
+    return await remoteDataSource.getCategories();
   }
 
   @override
   Future<List<EventModel>> getEventsByCategory(String category) async {
-    return await localDataSource.getEventsByCategory(category);
+    return await remoteDataSource.getEventsByCategory(category);
   }
 
   @override
   Future<bool> subscribeAnEvent(int eventid) async {
     try {
-      return await localDataSource.subscribeAnEvent(eventid);
+      return await remoteDataSource.subscribeAnEvent(eventid);
     } catch (e) {
       throw Exception('Error subscribiendo: $e');
     }
