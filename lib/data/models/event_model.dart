@@ -28,7 +28,7 @@ class EventModel extends Event {
 
   // Convertir JSON a EventModel
   factory EventModel.fromJson(Map<String, dynamic> json) {
-    DateTime dateTime = DateTime.parse(json['dateTime']);
+    DateTime dateTime = DateTime.parse(json['datetime']);
     return EventModel(
         title: json['title'],
         category: json['category'],
@@ -39,19 +39,19 @@ class EventModel extends Event {
             .split('T')[1]
             .substring(0, 5), // Extraer solo la hora
         attendees: json['attendees'],
-        availableSpots: json['availableSpots'],
+        availableSpots: json['availablespots'],
         description: json['description'],
-        speakerName: json['speakerName'],
-        speakerAvatar: json['speakerAvatar'],
-        location: json['location'],
-        sessionOrder: (json['sessionOrder'] as List)
+        speakerName: json['speakername'],
+        speakerAvatar: json['speakeravatar'],
+        location: json['location_'],
+        sessionOrder: (json['sessionorder'] as List)
             .map((session) => SessionModel.fromJson(session))
             .toList(),
         tags: List<String>.from(json['tags']),
         eventid: json['eventid'],
-        avgScore: json['avgScore'],
+        avgScore: json['avgscore'],
         status: json['status'],
-        numberReviews: json['numberReviews']);
+        numberReviews: json['numberreviews']);
   }
 
   // Convertir EventModel a JSON

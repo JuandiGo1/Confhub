@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import '../models/event_model.dart';
 
@@ -10,6 +11,8 @@ class EventRemoteDataSource {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
+      final evento = data[0];
+      log("Eventos obtenidos: $evento");
       return data.map((json) => EventModel.fromJson(json)).toList();
     } else {
       throw Exception('Error cargando eventos desde API');
