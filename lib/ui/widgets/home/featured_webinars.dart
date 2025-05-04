@@ -1,4 +1,5 @@
 import 'package:confhub/core/colors.dart';
+import 'package:confhub/domain/use_cases/get_today_events.dart';
 import 'package:confhub/ui/widgets/home/webinar_card.dart';
 import 'package:flutter/material.dart';
 import 'package:confhub/domain/entities/event.dart';
@@ -10,7 +11,7 @@ class FeaturedWebinars extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
+    final getTodayEventsUseCase = Get.find<GetTodayEventsUseCase>();
 
     // Define una lista de colores para los eventos
     final List<Color> colorsCard = [
@@ -27,7 +28,7 @@ class FeaturedWebinars extends StatelessWidget {
           height: 280, // Altura fija para el carrusel
 
           child: FutureBuilder<List<Event>>(
-            future: getAllEventsUseCase.call(), // Llamamos al caso de uso
+            future: getTodayEventsUseCase.call(), // Llamamos al caso de uso
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
