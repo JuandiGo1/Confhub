@@ -50,10 +50,13 @@ class CalendarPage extends StatelessWidget {
                 itemCount: eventos.length,
                 itemBuilder: (_, index) {
                   final Event event = eventos[index];
-                  return EventCard(
-                    event: event,
-                    isToday: isSameDay(
-                        controller.selectedDate.value, DateTime.now()),
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: EventCard(
+                      event: event,
+                      isToday: isSameDay(
+                          controller.selectedDate.value, DateTime.now()),
+                    ),
                   );
                 },
               ),
