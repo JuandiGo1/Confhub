@@ -10,7 +10,10 @@ class EventLines extends StatelessWidget {
   final getCategories = Get.find<GetCategories>();
   final EventLinesController controller = Get.find<EventLinesController>();
 
-  EventLines({super.key});
+  EventLines({super.key}){
+    // Llama a fetchEventsByCategory para cargar todos los eventos inicialmente
+    controller.fetchEventsByCategory();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +44,7 @@ class EventLines extends StatelessWidget {
                     future: getCategories.call(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Loading');
+                        return Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Text('Error.');
                       }
@@ -71,6 +74,8 @@ class EventLines extends StatelessWidget {
                                   onSelected: (isSelected) {
                                     if (isSelected) {
                                       controller.selectCategory(category);
+                                    } else{
+                                      controller.selectCategory('');
                                     }
                                   },
                                   selectedColor: AppColors

@@ -1,4 +1,4 @@
-import 'package:confhub/core/colors.dart';
+
 import 'package:confhub/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 

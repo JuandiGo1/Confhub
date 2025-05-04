@@ -1,9 +1,11 @@
+import 'package:confhub/domain/use_cases/get_all_events.dart';
 import 'package:get/get.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/use_cases/get_events_category.dart';
 
 class EventLinesController extends GetxController {
   final GetEventsByCategory getEventsByCategory;
+  final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
   EventLinesController({required this.getEventsByCategory});
 
@@ -22,8 +24,15 @@ class EventLinesController extends GetxController {
     hasError.value = false;
 
     try {
-      final events = await getEventsByCategory.call(selectedCategory.value);
-      filteredEvents.assignAll(events);
+      if (selectedCategory.value.isEmpty) {
+        // Si no hay categoría seleccionada, obtener todos los eventos
+        final events = await getAllEventsUseCase.call();
+        filteredEvents.assignAll(events);
+      } else {
+        // Si hay una categoría seleccionada, obtener eventos por categoría
+        final events = await getEventsByCategory.call(selectedCategory.value);
+        filteredEvents.assignAll(events);
+      }
     } catch (e) {
       hasError.value = true;
     } finally {
