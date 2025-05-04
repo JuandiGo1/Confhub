@@ -3,6 +3,8 @@ import 'package:confhub/domain/use_cases/get_categories.dart';
 import 'package:confhub/domain/use_cases/get_events_category.dart';
 import 'package:confhub/ui/controllers/event_lines_controller.dart';
 import 'package:confhub/ui/widgets/dotted_bg.dart';
+import 'package:confhub/ui/widgets/enventLines/card_event.dart';
+import 'package:confhub/ui/widgets/home/upcoming_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -56,8 +58,9 @@ class EventLines extends StatelessWidget {
                             children: categories.map((category) {
                               return Obx(() => ChoiceChip(
                                     label: Text(category),
-                                    selected: controller.selectedCategory.value ==
-                                        category,
+                                    selected:
+                                        controller.selectedCategory.value ==
+                                            category,
                                     onSelected: (isSelected) {
                                       if (isSelected) {
                                         controller.selectCategory(category);
@@ -77,9 +80,13 @@ class EventLines extends StatelessWidget {
                             } else {
                               return Column(
                                 children: controller.filteredEvents
-                                    .map((event) => ListTile(
-                                          title: Text(event.title),
-                                          subtitle: Text(event.date),
+                                    .map((event) => CardEvent(
+                                          title: event.title,
+                                          date: event.date,
+                                          time: event.time,
+                                          category: event.category,
+                                          speakerAvatar: event.speakerAvatar,
+                                          event: event,
                                         ))
                                     .toList(),
                               );
