@@ -1,3 +1,4 @@
+import 'package:confhub/core/colors.dart';
 import 'package:confhub/ui/widgets/timeline/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,8 +8,9 @@ import '../controllers/calendar_controller.dart';
 
 class CalendarPage extends StatelessWidget {
   CalendarController get controller => Get.put(
-    CalendarController(Get.find()), // Asume que ya hiciste Get.put(GetAllEventsUseCase())
-  );
+        CalendarController(
+            Get.find()), // Asume que ya hiciste Get.put(GetAllEventsUseCase())
+      );
 
   const CalendarPage({super.key});
 
@@ -27,7 +29,11 @@ class CalendarPage extends StatelessWidget {
                 onDaySelected: controller.onDaySelected,
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: AppColors.backgroundSecondary,
+                    shape: BoxShape.circle,
+                  ),
+                  todayDecoration: BoxDecoration(
+                    color: AppColors.background, // Día actual
                     shape: BoxShape.circle,
                   ),
                 ),
