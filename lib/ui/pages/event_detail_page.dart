@@ -54,7 +54,7 @@ class EventDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(eventTitle),
+        title: Text(""),
         backgroundColor: colorName,
       ),
       backgroundColor: const Color.fromARGB(230, 243, 243, 243),
@@ -297,28 +297,31 @@ class EventDetailPage extends StatelessWidget {
                               );
                             }
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                isSubscribed
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: isSubscribed
-                                    ? Colors.red
-                                    : (int.tryParse(controller.gspots) ?? 0) == 0
-                                        ? Colors.grey
-                                        : colorName,
-                              ),
-                              SizedBox(width: 8),
-                              Text(
-                                isSubscribed ? "Desuscribir" : "Suscribir",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: colorName,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  isSubscribed
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isSubscribed
+                                      ? Colors.red
+                                      : (int.tryParse(controller.gspots) ?? 0) == 0
+                                          ? Colors.grey
+                                          : colorName,
                                 ),
-                              ),
-                            ],
+                                SizedBox(width: 8),
+                                Text(
+                                  isSubscribed ? "Desuscribir" : "Suscribir",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: colorName,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
