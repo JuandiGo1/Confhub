@@ -119,7 +119,7 @@ class EventLines extends StatelessWidget {
 
                                   return CardEvent(
                                     event: event,
-                                    BgCardColor:
+                                    bgCardColor:
                                         bgColor, // Pasar el color calculado
                                   );
                                 }).toList(),
