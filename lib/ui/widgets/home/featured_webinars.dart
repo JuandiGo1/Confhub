@@ -12,7 +12,7 @@ class FeaturedWebinars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final getTodayEventsUseCase = Get.find<GetTodayEventsUseCase>();
-    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
+    //final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
     // Define una lista de colores para los eventos
     final List<Color> colorsCard = [

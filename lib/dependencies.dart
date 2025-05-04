@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
 import 'package:confhub/data/repositories/event_repository_impl.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
+import 'package:confhub/ui/controllers/event_lines_controller.dart';
 
 void initDependencies() {
   // Inyección de dependencias
@@ -24,7 +25,7 @@ void initDependencies() {
   Get.put<EventRemoteDataSource>(EventRemoteDataSource());
   Get.put<EventRepository>(EventRepositoryImpl(Get.find())); // Repositorio
   Get.put<GetAllEventsUseCase>(GetAllEventsUseCase(Get.find())); // Caso de uso
-  Get.put<GetTodayEventsUseCase>(GetTodayEventsUseCase(Get.find())); 
+  Get.put<GetTodayEventsUseCase>(GetTodayEventsUseCase(Get.find()));
   Get.put<GetCategories>(GetCategories(Get.find()));
   Get.put<GetEventsByCategory>(GetEventsByCategory(Get.find()));
   Get.put<GetSuscribedEventsUseCase>(GetSuscribedEventsUseCase(Get.find()));
@@ -37,4 +38,8 @@ void initDependencies() {
       GetAllFeedbacksFromAnEventUseCase(Get.find()));
   Get.put<LikeAFeedbackUseCase>(LikeAFeedbackUseCase(Get.find()));
   Get.put<DislikeAFeedbackUseCase>(DislikeAFeedbackUseCase(Get.find()));
+  
+  Get.put<EventLinesController>(
+    EventLinesController(getEventsByCategory: Get.find<GetEventsByCategory>()),
+  );
 }

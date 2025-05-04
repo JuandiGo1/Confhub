@@ -1,4 +1,4 @@
-import 'package:confhub/core/colors.dart';
+
 import 'package:confhub/core/utils/test_utils.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
