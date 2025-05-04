@@ -10,3 +10,4 @@ class GetTodayEventsUseCase {
     return await repository.getEventsForToday();
   }
 }
+ 

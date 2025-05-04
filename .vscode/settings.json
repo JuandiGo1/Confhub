@@ -1,4 +1,10 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "cmake.sourceDirectory": "C:/Users/ediso/OneDrive/Documentos/Git/Confhub/linux"
+    "cmake.sourceDirectory": "C:/Users/ediso/OneDrive/Documentos/Git/Confhub/linux",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    }
 }
