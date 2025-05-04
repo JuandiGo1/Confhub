@@ -6,20 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CardEvent extends StatelessWidget {
-  final String title;
-  final String date;
-  final String time;
-  final String category;
-  final String speakerAvatar;
+
   final Event event;
 
   const CardEvent({
     super.key,
-    required this.title,
-    required this.date,
-    required this.time,
-    required this.category,
-    required this.speakerAvatar,
+
     required this.event,
   });
 
@@ -55,7 +47,7 @@ class CardEvent extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        title,
+                        event.title,
                         style: TextStyle(
                           color: AppColors.secondary,
                           fontSize: (MediaQuery.of(context).size.width > 700)
@@ -80,83 +72,98 @@ class CardEvent extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-              
               ],
             ),
           ),
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.schedule,
-                        color: AppColors.textPrimary, size: 20),
-                    SizedBox(width: 4),
+                    Row(
+                      children: [
+                        Icon(Icons.schedule,
+                            color: AppColors.textPrimary, size: 20),
+                        SizedBox(width: 4),
+                        Text(
+                          event.date,
+                          style: TextStyle(
+                              color: AppColors.textPrimary, fontSize: 16),
+                        ),
+                      ],
+                    ),
                     Text(
-                      date,
-                      style: TextStyle(
-                          color: AppColors.textPrimary, fontSize: 16),
+                      event.time,
+                      style:
+                          TextStyle(color: AppColors.textPrimary, fontSize: 16),
                     ),
                   ],
                 ),
-                Text(
-                  time,
-                  style: TextStyle(
-                      color: AppColors.textPrimary, fontSize: 16),
-                ),
+                Row(
+                  children: [
+                    Icon(Icons.location_on_outlined,
+                        color: AppColors.textPrimary, size: 20),
+                    SizedBox(width: 4),
+                    Text(
+                      event.location,
+                      style:
+                          TextStyle(color: AppColors.textPrimary, fontSize: 16),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
           SizedBox(height: 10),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: ElevatedButton(
-              onPressed: () {
-                // Navegar a la página de detalles del evento
-                Get.to(
-                  () => EventDetailPage(
-                    eventTitle: event.title,
-                    eventId: event.eventid,
-                    eventDate: event.date,
-                    eventAttendees: event.attendees,
-                    eventCategory: event.category,
-                    eventDescription: event.description,
-                    eventSpeakerAvatar: event.speakerAvatar,
-                    eventTime: event.time,
-                    eventSpeakerName: event.speakerName,
-                    eventLocation: event.location,
-                    eventSpots: event.availableSpots,
-                    eventavgScore: event.avgScore,
-                    eventstatus: event.status,
-                    eventSessionOrder: event.sessionOrder,
-                    numberReviews: event.numberReviews,
-                  ),
-                  transition: Transition.cupertino,
-                );
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    //Para entrega 2 modularizar esta funcionalidad
+                    Get.to(
+                      () => EventDetailPage(
+                        eventTitle: event.title,
+                        eventId: event.eventid,
+                        eventDate: event.date,
+                        eventAttendees: event.attendees,
+                        eventCategory: event.category,
+                        eventDescription: event.description,
+                        eventSpeakerAvatar: event.speakerAvatar,
+                        eventTime: event.time,
+                        eventSpeakerName: event.speakerName,
+                        eventLocation: event.location,
+                        eventSpots: event.availableSpots,
+                        eventavgScore: event.avgScore,
+                        eventstatus: event.status,
+                        eventSessionOrder: event.sessionOrder,
+                        numberReviews: event.numberReviews,
+                      ),
+                      transition: Transition.cupertino,
+                    );
 
-                Get.put<EventPageController>(EventPageController(
-                    initialAttendees: event.attendees,
-                    initialSpots: event.availableSpots));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                    Get.put<EventPageController>(EventPageController(
+                        initialAttendees: event.attendees,
+                        initialSpots: event.availableSpots));
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(AppColors.primary),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Unirse Ahora",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                  ),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  "Unirse Ahora",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
+            ],
+          )
         ],
       ),
     );

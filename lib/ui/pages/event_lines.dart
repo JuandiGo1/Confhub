@@ -102,11 +102,6 @@ class EventLines extends StatelessWidget {
                               return Column(
                                 children: controller.filteredEvents
                                     .map((event) => CardEvent(
-                                          title: event.title,
-                                          date: event.date,
-                                          time: event.time,
-                                          category: event.category,
-                                          speakerAvatar: event.speakerAvatar,
                                           event: event,
                                         ))
                                     .toList(),
