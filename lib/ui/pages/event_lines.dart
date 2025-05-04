@@ -10,7 +10,7 @@ class EventLines extends StatelessWidget {
   final getCategories = Get.find<GetCategories>();
   final EventLinesController controller = Get.find<EventLinesController>();
 
-  EventLines({super.key}){
+  EventLines({super.key}) {
     // Llama a fetchEventsByCategory para cargar todos los eventos inicialmente
     controller.fetchEventsByCategory();
   }
@@ -74,7 +74,7 @@ class EventLines extends StatelessWidget {
                                   onSelected: (isSelected) {
                                     if (isSelected) {
                                       controller.selectCategory(category);
-                                    } else{
+                                    } else {
                                       controller.selectCategory('');
                                     }
                                   },
@@ -106,10 +106,23 @@ class EventLines extends StatelessWidget {
                             } else {
                               return Column(
                                 children: controller.filteredEvents
-                                    .map((event) => CardEvent(
-                                          event: event,
-                                        ))
-                                    .toList(),
+                                    .asMap()
+                                    .entries
+                                    .map((entry) {
+                                  final index = entry.key;
+                                  final event = entry.value;
+
+                                  // Alternar colores según el índice
+                                  final bgColor = (index % 2 != 0)
+                                      ? const Color.fromARGB(255, 217, 240, 255)
+                                      : AppColors.background;
+
+                                  return CardEvent(
+                                    event: event,
+                                    BgCardColor:
+                                        bgColor, // Pasar el color calculado
+                                  );
+                                }).toList(),
                               );
                             }
                           }),

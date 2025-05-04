@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CardEvent extends StatelessWidget {
-
+  final BgCardColor;
   final Event event;
 
   const CardEvent({
     super.key,
-
+    required this.BgCardColor,
     required this.event,
   });
 
@@ -31,11 +31,11 @@ class CardEvent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min, // Ajusta la altura al contenido
         children: [
-          // Fondo verde
+          // Fondo 
           Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.background,
+              color: BgCardColor,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -49,7 +49,7 @@ class CardEvent extends StatelessWidget {
                       child: Text(
                         event.title,
                         style: TextStyle(
-                          color: AppColors.secondary,
+                          color: BgCardColor==AppColors.background? AppColors.secondary: const Color.fromARGB(255, 16, 60, 88),
                           fontSize: (MediaQuery.of(context).size.width > 700)
                               ? 18
                               : 16,
