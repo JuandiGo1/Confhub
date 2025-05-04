@@ -21,7 +21,6 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getAllEvents() async {
     try {
       final events =await remoteDataSource.getAllEvents();
-      log("Eventos obtenidos: $events");
       return events;
     } catch (e) {
       log('Error obteniendo eventos: $e');

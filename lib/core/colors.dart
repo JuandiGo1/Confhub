@@ -11,8 +11,8 @@ class AppColors {
   static const Color textSecondary = Color(0xFF757575); // Gris oscuro
   static const Color error = Color(0xFFB00020); // Rojo oscuro
 
-  static const Color cardSecond = Colors.amber;
-  static const Color cardThird = Colors.deepOrange;
+  static const Color cardSecond = Color.fromARGB(255, 233, 209, 130); 
+  static const Color cardThird = Color.fromARGB(252, 206, 170, 136); 
 
 
 }

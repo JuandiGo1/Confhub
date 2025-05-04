@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:confhub/core/utils/date_formatter.dart';
 import 'package:http/http.dart' as http;
 import '../models/event_model.dart';
 
@@ -11,8 +12,6 @@ class EventRemoteDataSource {
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);
-      final evento = data[0];
-      log("Eventos obtenidos: $evento");
       return data.map((json) => EventModel.fromJson(json)).toList();
     } else {
       throw Exception('Error cargando eventos desde API');
@@ -21,8 +20,9 @@ class EventRemoteDataSource {
 
   Future<List<EventModel>> getEventsForToday() async {
     final allEvents = await getAllEvents();
-    final today = DateTime.now().toIso8601String().split('T')[0];
+    final today = formatDate(DateTime.now());
 
+    // Filtrar eventos cuya fecha coincida con la fecha actual
     return allEvents.where((event) {
       return event.date == today; // Compara las fechas formateadas
     }).toList();

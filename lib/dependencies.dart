@@ -6,6 +6,7 @@ import 'package:confhub/domain/use_cases/dislike_a_feedback.dart';
 import 'package:confhub/domain/use_cases/get_all_feedbacks_from_an_event.dart';
 import 'package:confhub/domain/use_cases/get_categories.dart';
 import 'package:confhub/domain/use_cases/get_events_category.dart';
+import 'package:confhub/domain/use_cases/get_today_events.dart';
 import 'package:confhub/domain/use_cases/like_a_feedback.dart';
 import 'package:confhub/domain/use_cases/subscribe_an_event.dart';
 import 'package:confhub/domain/use_cases/unsuscribe_an_event.dart';
@@ -23,6 +24,7 @@ void initDependencies() {
   Get.put<EventRemoteDataSource>(EventRemoteDataSource());
   Get.put<EventRepository>(EventRepositoryImpl(Get.find())); // Repositorio
   Get.put<GetAllEventsUseCase>(GetAllEventsUseCase(Get.find())); // Caso de uso
+  Get.put<GetTodayEventsUseCase>(GetTodayEventsUseCase(Get.find())); 
   Get.put<GetCategories>(GetCategories(Get.find()));
   Get.put<GetEventsByCategory>(GetEventsByCategory(Get.find()));
   Get.put<GetSuscribedEventsUseCase>(GetSuscribedEventsUseCase(Get.find()));
