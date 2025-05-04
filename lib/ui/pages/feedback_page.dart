@@ -15,13 +15,21 @@ class FeedbackPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double starSize = 30.0;
+    final Color starColor = AppColors.textPrimary;
     final getAllFeedbacksFromAEUseCase =
         Get.find<GetAllFeedbacksFromAnEventUseCase>();
     final textSize = 10.0;
     final controller = Get.find<FeedbackPageController>();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    final TextEditingController controller2 = TextEditingController();
+    final TextEditingController controller3 = TextEditingController();
     return Scaffold(
         appBar: AppBar(
-          title: Text("Calificaciones y comentarios"),
+          title: Text(
+            "Calificaciones y comentarios",
+            style: TextStyle(fontSize: 20),
+          ),
           backgroundColor: principal,
         ),
         backgroundColor: AppColors.background,
@@ -40,13 +48,12 @@ class FeedbackPage extends StatelessWidget {
                             style: TextStyle(fontSize: textSize)),
                         GestureDetector(
                             onTap: () {
-
                               if (controller.filtro1 == "Recientes") {
                                 controller.changeFiltro1("Antiguos");
                               } else {
                                 controller.changeFiltro1("Recientes");
                               }
-                               controller.changeFiltro(controller.filtro1);
+                              controller.changeFiltro(controller.filtro1);
                             },
                             child: Container(
                                 padding: EdgeInsets.only(
@@ -77,7 +84,6 @@ class FeedbackPage extends StatelessWidget {
                                 ))),
                         GestureDetector(
                             onTap: () {
-
                               if (controller.filtro2 == "MejorVal") {
                                 controller.changeFiltro2("PeorVal");
                               } else {
@@ -107,7 +113,9 @@ class FeedbackPage extends StatelessWidget {
                                     weight: 20,
                                   ),
                                   Text(
-                                    controller.filtro2 == "MejorVal" ? "Mejor valoradas":"Peor valoradas",
+                                    controller.filtro2 == "MejorVal"
+                                        ? "Mejor valoradas"
+                                        : "Peor valoradas",
                                     style: TextStyle(fontSize: textSize),
                                   ),
                                 ],
@@ -117,56 +125,233 @@ class FeedbackPage extends StatelessWidget {
                     );
                   }))),
           Expanded(
-            child: Obx (() => SizedBox(
-              // Altura fija
-              child: FutureBuilder<List<app.Feedback>>(
-                future: getAllFeedbacksFromAEUseCase.call(eventid, controller.filtroSelected),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Center(
-                        child: Text('Error al cargar feedbacks'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                        child: Text('No hay feedbacks disponibles'));
-                  }
+            child: Obx(() => SizedBox(
+                  // Altura fija
+                  child: FutureBuilder<List<app.Feedback>>(
+                    future: getAllFeedbacksFromAEUseCase.call(
+                        eventid, controller.filtroSelected),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Error al cargar feedbacks'));
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                            child: Text('No hay feedbacks disponibles'));
+                      }
 
-                  final feedbacks = snapshot.data!;
-                  //MAPEANDO Feedbacks
-                  return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    itemCount: feedbacks.length,
-                    itemBuilder: (context, index) {
-                      final feedback = feedbacks[index];
+                      final feedbacks = snapshot.data!;
+                      //MAPEANDO Feedbacks
+                      return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: BouncingScrollPhysics(),
+                        itemCount: feedbacks.length,
+                        itemBuilder: (context, index) {
+                          final feedback = feedbacks[index];
 
-                      Get.put<FeedbackCardController>(
-                          FeedbackCardController(
-                              initialLikes: feedback.likes,
-                              initialDislikes: feedback.dislikes),
-                          tag: "${feedback.feedbackid}");
+                          Get.put<FeedbackCardController>(
+                              FeedbackCardController(
+                                  initialLikes: feedback.likes,
+                                  initialDislikes: feedback.dislikes),
+                              tag: "${feedback.feedbackid}");
 
-                      return SizedBox(
-                          width: 370, // Define un ancho para los elementos
-                          child: FeedbackCard(
-                            title: feedback.title,
-                            comment: feedback.comment,
-                            date: feedback.date,
-                            time: feedback.time,
-                            eventid: eventid,
-                            score: feedback.score,
-                            colorFBC: principal,
-                            likes: feedback.likes,
-                            dislikes: feedback.dislikes,
-                            feedbackid: feedback.feedbackid,
-                          ));
+                          return SizedBox(
+                              width: 370, // Define un ancho para los elementos
+                              child: FeedbackCard(
+                                title: feedback.title,
+                                comment: feedback.comment,
+                                date: feedback.date,
+                                time: feedback.time,
+                                eventid: eventid,
+                                score: feedback.score,
+                                colorFBC: principal,
+                                likes: feedback.likes,
+                                dislikes: feedback.dislikes,
+                                feedbackid: feedback.feedbackid,
+                              ));
+                        },
+                      );
                     },
-                  );
-                },
-              ),
-            )),
-          )
+                  ),
+                )),
+          ),
+          Center(
+              child: ElevatedButton.icon(
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            height: 400,
+                            child: Center(
+                                child: Form(
+                                    key: _formKey,
+                                    child: Container(
+                                        padding: EdgeInsets.only(
+                                            top: 20, left: 20, right: 20),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Califica y deja tu comentario",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Obx(() {
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .updateActualScore(
+                                                                1);
+                                                      },
+                                                      child: Icon(
+                                                        controller.actualScore >=
+                                                                1
+                                                            ? Icons.star
+                                                            : Icons.star_border,
+                                                        color: starColor,
+                                                        size: starSize,
+                                                      )),
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .updateActualScore(
+                                                                2);
+                                                      },
+                                                      child: Icon(
+                                                        controller.actualScore >=
+                                                                2
+                                                            ? Icons.star
+                                                            : Icons.star_border,
+                                                        color: starColor,
+                                                        size: starSize,
+                                                      )),
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .updateActualScore(
+                                                                3);
+                                                      },
+                                                      child: Icon(
+                                                        controller.actualScore >=
+                                                                3
+                                                            ? Icons.star
+                                                            : Icons.star_border,
+                                                        color: starColor,
+                                                        size: starSize,
+                                                      )),
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .updateActualScore(
+                                                                4);
+                                                      },
+                                                      child: Icon(
+                                                        controller.actualScore >=
+                                                                4
+                                                            ? Icons.star
+                                                            : Icons.star_border,
+                                                        color: starColor,
+                                                        size: starSize,
+                                                      )),
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller
+                                                            .updateActualScore(
+                                                                5);
+                                                      },
+                                                      child: Icon(
+                                                        controller.actualScore >=
+                                                                5
+                                                            ? Icons.star
+                                                            : Icons.star_border,
+                                                        color: starColor,
+                                                        size: starSize,
+                                                      )),
+                                                ],
+                                              );
+                                            }),
+                                            TextFormField(
+                                              controller: controller2,
+                                              style: TextStyle(fontSize: 12),
+                                              decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  hintText:
+                                                      "Ingresa el título de tu comentario"),
+                                              validator: (String? value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return "El título es necesario";
+                                                }
+                                                if (value.length > 70) {
+                                                  return "Por favor ingresa un título más corto";
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            TextFormField(
+                                              controller: controller3,
+                                              maxLines: 5,
+                                              style: TextStyle(fontSize: 12),
+                                              decoration: InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  hintText:
+                                                      "Ingresa el comentario"),
+                                              validator: (String? value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return "Por favor ingresa algo";
+                                                }
+                                                if (value.length > 300) {
+                                                  return "Por favor ingresa un comentario más corto";
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      if (_formKey.currentState!
+                                                          .validate()) {
+                                                        // mandar al controlador
+
+                                                        // cerrar el modal despues de enviar
+                                                        Navigator.pop(context);
+                                                      }
+                                                    },
+                                                    child: Text("Comentar")),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text("Cancelar")),
+                                              ],
+                                            ),
+                                          ],
+                                        )))),
+                          );
+                        });
+                  },
+                  icon: Icon(
+                    Icons.reviews,
+                    color: principal,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.background,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                  label: Text("Deja tu opinión",
+                      style: TextStyle(
+                          fontSize: 10, color: AppColors.textPrimary))))
         ]));
   }
 }

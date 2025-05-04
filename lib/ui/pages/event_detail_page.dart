@@ -49,7 +49,7 @@ class EventDetailPage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.initializeForEvent(eventId);
     });
-
+    final starSize = 10.0;
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -108,7 +108,7 @@ class EventDetailPage extends StatelessWidget {
                               fontWeight: FontWeight.w700),
                         ),
                         SizedBox(
-                          width: 220,
+                          width: 180,
                         ),
                         Text(eventTime,
                             style: TextStyle(
@@ -224,7 +224,8 @@ class EventDetailPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Column(
+                                Expanded(
+                                    child: Column(
                                   children: [
                                     Text('Asistentes',
                                         style: TextStyle(
@@ -237,9 +238,10 @@ class EventDetailPage extends StatelessWidget {
                                             color: AppColors.textPrimary,
                                             fontWeight: FontWeight.w700)))
                                   ],
-                                ),
-                                SizedBox(width: 120),
-                                Column(
+                                )),
+                                SizedBox(width: 90),
+                                Expanded(
+                                    child: Column(
                                   children: [
                                     Text('Disponibles',
                                         style: TextStyle(
@@ -252,7 +254,7 @@ class EventDetailPage extends StatelessWidget {
                                             color: AppColors.textPrimary,
                                             fontWeight: FontWeight.w700)))
                                   ],
-                                )
+                                ))
                               ],
                             )),
                         Container(
@@ -295,15 +297,16 @@ class EventDetailPage extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(15))),
-                                      width: 350,
-                                      child: Row(
+                                      width: 450,
+                                      child: Expanded(
+                                          child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             'Calificación promedio:',
                                             style: TextStyle(
-                                                fontSize: 15,
+                                                fontSize: 10,
                                                 color: colorName,
                                                 fontWeight: FontWeight.w700),
                                           ),
@@ -315,66 +318,81 @@ class EventDetailPage extends StatelessWidget {
                                                   ? Icon(
                                                       Icons.star_half,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                                   : Icon(
                                                       Icons.star,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                               : Icon(
                                                   Icons.star_border,
                                                   color: colorName,
+                                                  size: starSize,
                                                 ),
                                           eventavgScore > 1
                                               ? eventavgScore <= 1.5
                                                   ? Icon(
                                                       Icons.star_half,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                                   : Icon(
                                                       Icons.star,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                               : Icon(
                                                   Icons.star_border,
                                                   color: colorName,
+                                                  size: starSize,
                                                 ),
                                           eventavgScore > 2
                                               ? eventavgScore <= 2.5
                                                   ? Icon(
                                                       Icons.star_half,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                                   : Icon(
                                                       Icons.star,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                               : Icon(Icons.star_border,
-                                                  color: colorName),
+                                                  color: colorName,
+                                                  size: starSize,),
                                           eventavgScore > 3
                                               ? eventavgScore <= 3.5
                                                   ? Icon(Icons.star_half,
-                                                      color: colorName)
+                                                      color: colorName,
+                                                      size: starSize,)
                                                   : Icon(Icons.star,
-                                                      color: colorName)
+                                                      color: colorName,
+                                                      size: starSize,)
                                               : Icon(Icons.star_border,
-                                                  color: colorName),
+                                                  color: colorName,
+                                                  size: starSize,),
                                           eventavgScore > 4
                                               ? eventavgScore <= 4.5
                                                   ? Icon(
                                                       Icons.star_half,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                                   : Icon(
                                                       Icons.star,
                                                       color: colorName,
+                                                      size: starSize,
                                                     )
                                               : Icon(Icons.star_border,
-                                                  color: colorName),
+                                                  color: colorName,
+                                                  size: starSize,),
                                           SizedBox(width: 10),
                                           Text(
                                             'Criticas',
                                             style: TextStyle(
-                                                fontSize: 15,
+                                                fontSize: 10,
                                                 color: colorName,
                                                 fontWeight: FontWeight.w700),
                                           ),
@@ -382,7 +400,7 @@ class EventDetailPage extends StatelessWidget {
                                           Icon(Icons.reviews,
                                               color: AppColors.textPrimary)
                                         ],
-                                      ),
+                                      )),
                                     )),
                               )
                             : Text(""),
