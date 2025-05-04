@@ -80,25 +80,7 @@ class CardEvent extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                if (MediaQuery.of(context).size.height > 700)
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: AppColors.secondary,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.sell_outlined,
-                            color: Colors.white, size: 12),
-                        SizedBox(width: 4),
-                        Text(
-                          category,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
+              
               ],
             ),
           ),

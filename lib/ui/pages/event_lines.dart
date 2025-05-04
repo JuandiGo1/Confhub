@@ -1,18 +1,14 @@
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/use_cases/get_categories.dart';
-import 'package:confhub/domain/use_cases/get_events_category.dart';
 import 'package:confhub/ui/controllers/event_lines_controller.dart';
 import 'package:confhub/ui/widgets/dotted_bg.dart';
 import 'package:confhub/ui/widgets/enventLines/card_event.dart';
-import 'package:confhub/ui/widgets/home/upcoming_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventLines extends StatelessWidget {
   final getCategories = Get.find<GetCategories>();
-  final EventLinesController controller = Get.put(
-    EventLinesController(getEventsByCategory: Get.find<GetEventsByCategory>()),
-  );
+  final EventLinesController controller = Get.find<EventLinesController>();
 
   EventLines({super.key});
 
@@ -55,18 +51,43 @@ class EventLines extends StatelessWidget {
                         children: [
                           Wrap(
                             spacing: 8,
+                            runSpacing: 6,
                             children: categories.map((category) {
                               return Obx(() => ChoiceChip(
-                                    label: Text(category),
-                                    selected:
-                                        controller.selectedCategory.value ==
-                                            category,
-                                    onSelected: (isSelected) {
-                                      if (isSelected) {
-                                        controller.selectCategory(category);
-                                      }
-                                    },
-                                  ));
+                                  label: Text(
+                                    category,
+                                    style: TextStyle(
+                                      color: controller
+                                                  .selectedCategory.value ==
+                                              category
+                                          ? Colors
+                                              .white // Color del texto cuando está seleccionado
+                                          : const Color.fromARGB(255, 66, 66,
+                                              66), // Color del texto cuando NO está seleccionado
+                                    ),
+                                  ),
+                                  selected: controller.selectedCategory.value ==
+                                      category,
+                                  onSelected: (isSelected) {
+                                    if (isSelected) {
+                                      controller.selectCategory(category);
+                                    }
+                                  },
+                                  selectedColor: AppColors
+                                      .backgroundSecondary, // Color cuando está seleccionado
+                                  backgroundColor: const Color.fromARGB(
+                                      255,
+                                      243,
+                                      241,
+                                      241), // Color de fondo cuando no está seleccionado
+
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Bordes redondeados
+                                    side: BorderSide(
+                                        color: AppColors
+                                            .secondary), // Borde con color
+                                  )));
                             }).toList(),
                           ),
                           SizedBox(height: 20),
