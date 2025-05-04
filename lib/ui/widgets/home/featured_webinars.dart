@@ -12,12 +12,12 @@ class FeaturedWebinars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final getTodayEventsUseCase = Get.find<GetTodayEventsUseCase>();
+    final getAllEventsUseCase = Get.find<GetAllEventsUseCase>();
 
     // Define una lista de colores para los eventos
     final List<Color> colorsCard = [
+      const Color.fromARGB(255, 53, 80, 126),
       AppColors.primary,
-      AppColors.cardSecond,
-      AppColors.cardThird,
     ];
 
     return Expanded(
