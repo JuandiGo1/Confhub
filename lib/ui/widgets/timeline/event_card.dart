@@ -33,83 +33,87 @@ class EventCard extends StatelessWidget {
         child: Hero(
           tag: 'event-${event.eventid}',
           child: Card(
-  elevation: 2,
-  color: cardColor ?? defaultColor,
-  child: Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(
-          backgroundColor: AppColors.background,
-          backgroundImage: NetworkImage(event.speakerAvatar),
-          onBackgroundImageError: (_, __) => const Icon(Icons.person),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                event.title,
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${event.time} - ${event.location}',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 14,
-                ),
-              ),
-              if (event.speakerName.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Text(
-                    'Orador: ${event.speakerName}',
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 12,
+            elevation: 2,
+            color: cardColor ?? defaultColor,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColors.background,
+                    backgroundImage: NetworkImage(event.speakerAvatar),
+                    onBackgroundImageError: (_, __) => const Icon(Icons.person),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          event.title,
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '${event.time} - ${event.location}',
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 14,
+                          ),
+                        ),
+                        if (event.speakerName.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              'Orador: ${event.speakerName}',
+                              style: TextStyle(
+                                color: AppColors.textSecondary,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                ),
-            ],
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: event.availableSpots - 1 > 0
+                          ? AppColors.secondary
+                          : AppColors.error,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          event.availableSpots - 1 > 0
+                              ? Icons.event_available
+                              : Icons.event_busy,
+                          color: Colors.white,
+                          size: 14,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          event.availableSpots - 1 > 0
+                              ? '${event.availableSpots - 1} libres'
+                              : 'Lleno',
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        Container(
-  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-  decoration: BoxDecoration(
-    color: event.availableSpots-1 > 0 ? AppColors.secondary : AppColors.error,
-    borderRadius: BorderRadius.circular(16),
-  ),
-  child: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Icon(
-        event.availableSpots-1 > 0 ? Icons.event_available : Icons.event_busy,
-        color: Colors.white,
-        size: 14,
-      ),
-      const SizedBox(width: 6),
-      Text(
-        event.availableSpots-1 > 0
-            ? '${event.availableSpots - 1} libres'
-            : 'Lleno',
-        style: const TextStyle(color: Colors.white, fontSize: 14),
-      ),
-    ],
-  ),
-),
-
-      ],
-    ),
-  ),
-),
-
         ),
       ),
     );

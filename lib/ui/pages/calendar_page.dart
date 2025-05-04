@@ -1,3 +1,4 @@
+import 'package:confhub/ui/widgets/timeline/event_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,9 +44,10 @@ class CalendarPage extends StatelessWidget {
                 itemCount: eventos.length,
                 itemBuilder: (_, index) {
                   final Event event = eventos[index];
-                  return ListTile(
-                    title: Text(event.title),
-                    subtitle: Text(event.description),
+                  return EventCard(
+                    event: event,
+                    isToday: isSameDay(
+                        controller.selectedDate.value, DateTime.now()),
                   );
                 },
               ),
