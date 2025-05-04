@@ -32,19 +32,18 @@ class FeedbackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double starSize = 20.0;
+    final double starSize = 10.0;
     final Color starColor = Colors.yellowAccent;
     final feedbackController =
         Get.find<FeedbackCardController>(tag: "$feedbackid");
 
     return Container(
         margin: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15),
-        height: 150,
+        height: 70 + (comment.length * 0.4) + (title.length > 45 ? 40 : 20) ,
         child: Stack(
           children: [
              Container(
-              height: 150,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(left:10, right: 10, bottom: 20, top:5),
               decoration: BoxDecoration(
                   color: Colors.deepPurple,
                   borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -52,20 +51,23 @@ class FeedbackCard extends StatelessWidget {
                 Expanded(
                     flex: 3,
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             title,
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 10,
                                 color: AppColors.textPrimary,
                                 fontWeight: FontWeight.bold),
                           ),
                         ])),
                 Expanded(
                     child: Column(children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
                     score >= 1
                         ? Icon(
                             Icons.star_rounded,
@@ -106,15 +108,14 @@ class FeedbackCard extends StatelessWidget {
               ]),
             ),
             Positioned.fill(
-                top: 40,
+                top: title.length > 45 ? 40 : 20,
                 child: Container(
-                    padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                    height: 100,
+                    padding: EdgeInsets.only(left: 20, right: 20, top: 10),
                     decoration: BoxDecoration(
                         color: colorFBC,
                         borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             comment,
