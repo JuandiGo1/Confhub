@@ -51,7 +51,6 @@ class EventDetailPage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.initializeForEvent(eventId);
     });
-    final starSize = 20.0;
 
     return Scaffold(
       appBar: AppBar(
@@ -75,7 +74,7 @@ class EventDetailPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 25.0,
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 218, 218, 218),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
