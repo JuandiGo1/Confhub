@@ -137,7 +137,9 @@ class EventDetailPage extends StatelessWidget {
                             crossAxisAlignment: WrapCrossAlignment
                                 .center, // Alineación vertical
                             children: [
+                              // Calificacion promedio
                               Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
                                     'Calificación promedio:',
@@ -150,8 +152,7 @@ class EventDetailPage extends StatelessWidget {
                                   SizedBox(width: 8),
                                   ...buildStars(
                                       eventavgScore,
-                                      const Color.fromARGB(
-                                          255, 224, 186, 15),
+                                      const Color.fromARGB(255, 224, 186, 15),
                                       20.0),
                                 ],
                               ),
@@ -176,6 +177,7 @@ class EventDetailPage extends StatelessWidget {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text(
                                       "Añadir crítica",
