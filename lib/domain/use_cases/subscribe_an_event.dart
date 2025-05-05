@@ -7,6 +7,7 @@ class SubscribeEventUseCase {
   SubscribeEventUseCase(this.repository);
 
   Future<bool> call(int eventId) async {
-    return await repository.subscribeToEvent(eventId);
+    print('Subscribiendo al evento con ID: $eventId');
+    return await repository.subscribeAnEvent(eventId);
   }
 }

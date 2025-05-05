@@ -52,7 +52,9 @@ class EventRemoteDataSource {
     final url = Uri.parse("$baseUrl/subscribe/$eventId");
 
     try {
+      print("Calling subscribe event with id $eventId");
       final response = await http.patch(url);
+      print("Response: ${response.statusCode} - ${response.body}");
 
       if (response.statusCode == 200) {
         subscribedEventIds.add(eventId);
@@ -72,6 +74,7 @@ class EventRemoteDataSource {
   }
 
   Future<bool> unsubscribeFromEvent(int eventId) async {
+    print("Calling unsubscribe event with id $eventId");
     final url = Uri.parse("$baseUrl/unsubscribe/$eventId");
 
     try {

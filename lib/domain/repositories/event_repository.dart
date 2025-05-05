@@ -7,7 +7,8 @@ abstract class EventRepository {
 
   Future<List<Event>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate);
 
-  Future<bool> subscribeToEvent(int eventId);
+
+  Future<bool> subscribeAnEvent(int eventid);
 
   Future<bool> unsubscribeFromEvent(int eventId);
   
@@ -18,7 +19,5 @@ abstract class EventRepository {
   Future<List<String>> getCategories();
 
   Future<List<Event>> getEventsByCategory(String category);
-
-  Future<bool> subscribeAnEvent(int eventid);
 
 }
