@@ -6,6 +6,7 @@ import 'package:confhub/ui/pages/feedback_page.dart';
 import 'package:confhub/ui/widgets/eventDetails/session_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:confhub/core/utils/build_stars.dart';
 
 class EventDetailPage extends StatelessWidget {
   final int eventId;
@@ -50,7 +51,7 @@ class EventDetailPage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.initializeForEvent(eventId);
     });
-    final starSize = 10.0;
+    final starSize = 20.0;
 
     return Scaffold(
       appBar: AppBar(
@@ -121,13 +122,86 @@ class EventDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Descripción',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorName,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Calificación promedio
+                      if (eventstatus == "Finalizado")
+                        Wrap(
+                            spacing:
+                                10, // Espaciado horizontal entre los elementos
+                            runSpacing:
+                                10, // Espaciado vertical entre las filas
+                            alignment: WrapAlignment
+                                .spaceBetween, // Alineación horizontal
+                            crossAxisAlignment: WrapCrossAlignment
+                                .center, // Alineación vertical
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'Calificación promedio:',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.textPrimary,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  ...buildStars(
+                                      eventavgScore,
+                                      const Color.fromARGB(
+                                          255, 224, 186, 15),
+                                      20.0),
+                                ],
+                              ),
+                              // Botón de añadir crítica
+                              TextButton(
+                                onPressed: () {
+                                  Get.to(() => FeedbackPage(
+                                        eventid: eventId,
+                                        principal: colorName,
+                                      ));
+                                  Get.put<FeedbackPageController>(
+                                      FeedbackPageController());
+                                },
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: BorderSide(
+                                        color:
+                                            colorName), // Borde del color principal
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Añadir crítica",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: colorName, // Color del texto
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    SizedBox(width: 3),
+                                    Icon(Icons.reviews, color: colorName)
+                                  ],
+                                ),
+                              ),
+                            ]),
+                      SizedBox(height: 10),
+                      Text(
+                        'Descripción',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: colorName,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -243,39 +317,6 @@ class EventDetailPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
 
-                  // Botón de calificación
-                  if (eventstatus == "Finalizado")
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.to(() => FeedbackPage(
-                                eventid: eventId,
-                                principal: colorName,
-                              ));
-                          Get.put<FeedbackPageController>(
-                              FeedbackPageController());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorName,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          child: Text(
-                            "Calificar Evento",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-
                   // Botón de suscripción
                   if (eventstatus == "Por empezar")
                     Obx(() {
@@ -298,7 +339,7 @@ class EventDetailPage extends StatelessWidget {
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -308,7 +349,9 @@ class EventDetailPage extends StatelessWidget {
                                       : Icons.favorite_border,
                                   color: isSubscribed
                                       ? Colors.red
-                                      : (int.tryParse(controller.gspots) ?? 0) == 0
+                                      : (int.tryParse(controller.gspots) ??
+                                                  0) ==
+                                              0
                                           ? Colors.grey
                                           : colorName,
                                 ),
