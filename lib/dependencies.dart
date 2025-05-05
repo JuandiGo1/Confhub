@@ -23,7 +23,9 @@ void initDependencies() {
   // Inyección de dependencias
   Get.put<EventLocalDataSource>(EventLocalDataSource()); // Fuente de datos
   Get.put<EventRemoteDataSource>(EventRemoteDataSource());
-  Get.put<EventRepository>(EventRepositoryImpl(Get.find())); // Repositorio
+  final eventRepo = EventRepositoryImpl(Get.find());
+  eventRepo.loadSubscribedEvents();
+  Get.put<EventRepository>(eventRepo);// Repositorio
   Get.put<GetAllEventsUseCase>(GetAllEventsUseCase(Get.find())); // Caso de uso
   Get.put<GetTodayEventsUseCase>(GetTodayEventsUseCase(Get.find()));
   Get.put<GetCategories>(GetCategories(Get.find()));

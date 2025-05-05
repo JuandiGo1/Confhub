@@ -46,7 +46,26 @@ class EventRemoteDataSource {
     }).toList();
   }
 
+  
   List<int> subscribedEventIds = [];
+
+  Future<void> fetchSubscribedEvents() async {
+  final url = Uri.parse("http://localhost:3000/api/subscribed/");
+
+  try {
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      subscribedEventIds = List<int>.from(data);
+    } else {
+      throw Exception('No se pudieron cargar las suscripciones');
+    }
+  } catch (e) {
+    throw Exception("Error al obtener suscripciones: $e");
+  }
+}
+
 
   Future<bool> subscribeAnEvent(int eventId) async {
     final url = Uri.parse("$baseUrl/subscribe/$eventId");

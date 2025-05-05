@@ -12,6 +12,13 @@ class EventRepositoryImpl implements EventRepository {
 
   EventRepositoryImpl(this.remoteDataSource);
 
+  Future<void> loadSubscribedEvents() async {
+    try {
+      await remoteDataSource.fetchSubscribedEvents();
+    } catch (e) {
+      log("Error cargando eventos suscritos: $e");
+    }
+  }
 
 
   @override
