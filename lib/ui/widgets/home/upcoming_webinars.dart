@@ -89,7 +89,8 @@ class UpcomingWebinars extends StatelessWidget {
                       itemCount: events.length,
                       itemBuilder: (context, index) {
                         final event = events[index];
-                        return SizedBox(
+                        if (event.status != 'Finalizado') {
+                          return SizedBox(
                           width: 370, // Define un ancho para los elementos
                           height: MediaQuery.of(context).size.height * 0.8,
                           child: UpcomingCard(
@@ -101,6 +102,8 @@ class UpcomingWebinars extends StatelessWidget {
                             event: event,
                           ),
                         );
+                        }
+                        return null;
                       },
                     );
                   },
