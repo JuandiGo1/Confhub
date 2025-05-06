@@ -1,93 +1,73 @@
-import 'dart:convert';
-import 'package:confhub/core/utils/date_formatter.dart';
-import 'package:flutter/services.dart';
+import 'package:confhub/core/db_helper.dart';
+import 'package:sqflite/sqflite.dart';
 import '../models/event_model.dart';
 
 class EventLocalDataSource {
+  final DatabaseHelper _dbHelper = DatabaseHelper();
+
   Future<List<EventModel>> getAllEvents() async {
-    final String response = await rootBundle.loadString('assets/data/events.json');
-
-    final List<dynamic> data = json.decode(response);
-
-    return data.map((json) => EventModel.fromJson(json)).toList();
+    final db = await _dbHelper.database;
+    final result = await db.query('events');
+    return result.map((json) => EventModel.fromJson(json)).toList();
   }
 
-  // Nueva función para obtener eventos en la fecha actual
-  Future<List<EventModel>> getEventsForToday() async {
-    final allEvents = await getAllEvents();
-    final today = formatDate(DateTime.now());
+  Future<void> saveEvents(List<EventModel> events) async {
+    final db = await _dbHelper.database;
 
-    // Filtrar eventos cuya fecha coincida con la fecha actual
-    return allEvents.where((event) {
-      return event.date == today; // Compara las fechas formateadas
-    }).toList();
+    // Reemplazar los eventos existentes
+    await db.transaction((txn) async {
+      await txn.delete('events');
+      for (var event in events) {
+        // Convertir campos complejos a cadenas antes de guardar
+        final eventData = event.toJson();
+        eventData['sessionOrder'] = eventData['sessionOrder']?.toString();
+        eventData['tags'] = eventData['tags'] != null
+            ? (eventData['tags'] as List)
+                .join(',') // Convertir lista a cadena separada por comas
+            : null;
+
+        await txn.insert('events', eventData);
+      }
+    });
   }
 
+  Future<void> saveFeedback(
+      int eventId,
+      String title,
+      String comment,
+      double score,
+      String datetime,
+      int likes,
+      int dislikes,
+      String? answer) async {
+    final db = await _dbHelper.database;
 
-  Future<List<String>> getCategories() async {
-    final allEvents = await getAllEvents();
-    Set<String> categories = {};
-
-    for (var event in allEvents) {
-      categories.add(event.category);
-    }
-
-    return categories.toList();
+    // Insertar el feedback en la tabla
+    await db.insert('feedbacks', {
+      'eventid': eventId,
+      'title': title,
+      'comment': comment,
+      'score': score,
+      'datetime': datetime, // Fecha y hora en formato ISO 8601
+      'likes': likes,
+      'dislikes': dislikes,
+      'answer': answer, // Puede ser null
+    });
   }
 
-  Future<List<EventModel>> getEventsByCategory(String category) async {
-    final allEvents = await getAllEvents();
-
-    return allEvents.where((event) {
-      return event.category == category; // Compara las fechas formateadas
-    }).toList();
+  Future<List<Map<String, dynamic>>> getUnpublishedFeedbacks() async {
+    final db = await _dbHelper.database;
+    return await db
+        .query('feedbacks', where: 'isPublished = ?', whereArgs: [0]);
   }
 
-
-List<int> subscribedEventIds = []; // This will store just the event IDs
-
-Future<bool> subscribeAnEvent(int eventId) async {
-  try {
- 
-    if (subscribedEventIds.contains(eventId)) {
-      return false;
-    }
-
-    // Update the event data (if you still want to maintain this)
-    final allEvents = await getAllEvents();
-    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
-    
-    eventSubs.attendees += 1;
-    eventSubs.availableSpots -= 1;
-    
-    // Add to subscribed events list
-    subscribedEventIds.add(eventId);
-    
-    return true;
-  } catch (e) {
-    throw Exception("Hubo un problema: $e");
+  Future<void> markFeedbackAsPublished(int feedbackId) async {
+    final db = await _dbHelper.database;
+    await db.update(
+      'feedbacks',
+      {'isPublished': 1},
+      where: 'feedbackid = ?',
+      whereArgs: [feedbackId],
+    );
   }
-}
-
-bool isSubscribed(int eventId) {
-  return subscribedEventIds.contains(eventId);
-}
-
-Future<bool> unsubscribeFromEvent(int eventId) async {
-  try {
-   
-    final allEvents = await getAllEvents();
-    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
-    
-    eventSubs.attendees -= 1;
-    eventSubs.availableSpots += 1;
-    
-    // Remove from subscribed events list
-    subscribedEventIds.remove(eventId);
-    
-    return true;
-  } catch (e) {
-    throw Exception("Hubo un problema: $e");
-  }
-}
 }
