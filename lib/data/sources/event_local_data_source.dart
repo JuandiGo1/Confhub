@@ -1,93 +1,90 @@
-import 'package:confhub/core/db_helper.dart';
+import 'dart:developer';
+
+import 'package:hive/hive.dart';
 import '../models/event_model.dart';
 
 class EventLocalDataSource {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  static const String eventsBoxName = 'events';
+  static const String feedbacksBoxName = 'feedbacks';
+  static const String apiVersionBoxName = 'api_version';
 
-  Future<List<EventModel>> getAllEvents() async {
-    final db = await _dbHelper.database;
-    final result = await db.query('events');
-    return result.map((json) => EventModel.fromJson(json)).toList();
-  }
-
+  // Guardar eventos
   Future<void> saveEvents(List<EventModel> events) async {
-    final db = await _dbHelper.database;
-
-    // Reemplazar los eventos existentes
-    await db.transaction((txn) async {
-      await txn.delete('events');
-      for (var event in events) {
-        // Convertir campos complejos a cadenas antes de guardar
-        final eventData = event.toJson();
-        eventData['sessionOrder'] = eventData['sessionOrder']?.toString();
-        eventData['tags'] = eventData['tags'] != null
-            ? (eventData['tags'] as List)
-                .join(',') // Convertir lista a cadena separada por comas
-            : null;
-
-        await txn.insert('events', eventData);
-      }
-    });
+    final box = await Hive.openBox(eventsBoxName);
+    await box.clear(); // Limpia los eventos existentes
+    log("GUARDANDO EVENTOS EN LOCAL");
+    for (var event in events) {
+      await box.put(event.eventid, event.toJson());
+    }
   }
 
-  Future<void> saveFeedback(
-      int eventId,
-      String title,
-      String comment,
-      double score,
-      String datetime,
-      int likes,
-      int dislikes,
-      String? answer) async {
-    final db = await _dbHelper.database;
+  // Obtener todos los eventos
+  Future<List<EventModel>> getAllEvents() async {
+    final box = await Hive.openBox(eventsBoxName);
+    return box.values.map((json) => EventModel.fromJson(json)).toList();
+  }
 
-    // Insertar el feedback en la tabla
-    await db.insert('feedbacks', {
+  // Guardar feedback
+  Future<void> saveFeedback(
+    int eventId,
+    String title,
+    String comment,
+    double score,
+    String datetime,
+    int likes,
+    int dislikes,
+    String? answer,
+  ) async {
+
+    final box = await Hive.openBox(feedbacksBoxName);
+    await box.add({
       'eventid': eventId,
       'title': title,
       'comment': comment,
       'score': score,
-      'datetime': datetime, // Fecha y hora en formato ISO 8601
+      'datetime': datetime,
       'likes': likes,
       'dislikes': dislikes,
-      'answer': answer, // Puede ser null
+      'answer': answer,
       'isPublished': 0,
     });
   }
 
+  // Obtener feedbacks no publicados
   Future<List<Map<String, dynamic>>> getUnpublishedFeedbacks() async {
-    final db = await _dbHelper.database;
-    return await db
-        .query('feedbacks', where: 'isPublished = ?', whereArgs: [0]);
+    final box = await Hive.openBox(feedbacksBoxName);
+    return box.values
+        .where((feedback) => feedback['isPublished'] == 0)
+        .cast<Map<String, dynamic>>()
+        .toList();
   }
 
   Future<void> markFeedbackAsPublished(int feedbackId) async {
-    final db = await _dbHelper.database;
-    await db.update(
-      'feedbacks',
-      {'isPublished': 1},
-      where: 'feedbackid = ?',
-      whereArgs: [feedbackId],
+    final box = await Hive.openBox(feedbacksBoxName);
+
+    // Buscar el feedback por su ID
+    final feedbackKey = box.keys.firstWhere(
+      (key) => box.get(key)['feedbackid'] == feedbackId,
+      orElse: () => null,
     );
-  }
 
-  Future<void> saveApiVersion(String apiVersion) async {
-    final db = await _dbHelper.database;
-
-    // Reemplazar la versión existente
-    await db.transaction((txn) async {
-      await txn.delete('api_version'); // Elimina cualquier versión existente
-      await txn.insert('api_version', {'version': apiVersion});
-    });
-  }
-
-  Future<String?> getApiVersion() async {
-    final db = await _dbHelper.database;
-
-    final result = await db.query('api_version', limit: 1);
-    if (result.isNotEmpty) {
-      return result.first['version'] as String;
+    if (feedbackKey != null) {
+      // Actualizar el campo 'isPublished' a 1
+      final feedback = box.get(feedbackKey);
+      feedback['isPublished'] = 1;
+      await box.put(feedbackKey, feedback);
     }
-    return null; // Devuelve null si no hay una versión guardada
+  }
+
+  // Guardar la versión de la API
+  Future<void> saveApiVersion(String version) async {
+    final box = await Hive.openBox(apiVersionBoxName);
+    await box.put('version', version);
+  }
+
+  // Obtener la versión de la API
+  Future<String?> getApiVersion() async {
+    final box = await Hive.openBox(apiVersionBoxName);
+    return box.get('version');
   }
 }

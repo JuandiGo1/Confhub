@@ -8,7 +8,7 @@ import 'package:confhub/data/sources/event_remote_data_source.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
 class EventRepositoryImpl implements EventRepository {
-  EventLocalDataSource localDataSource;
+  final EventLocalDataSource localDataSource;
   final EventRemoteDataSource remoteDataSource;
 
   EventRepositoryImpl(this.remoteDataSource, this.localDataSource);
@@ -29,7 +29,9 @@ class EventRepositoryImpl implements EventRepository {
       return events;
     } catch (e) {
       log('Error obteniendo eventos remotos: $e');
-      return await localDataSource.getAllEvents();
+      final eventsLocal = await localDataSource.getAllEvents();
+      log("Eventos local $eventsLocal");
+      return eventsLocal;
     }
   }
 
