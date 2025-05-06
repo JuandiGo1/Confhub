@@ -7,18 +7,18 @@ class EventLocalDataSource {
   static const String eventsBoxName = 'events';
   static const String feedbacksBoxName = 'feedbacks';
   static const String apiVersionBoxName = 'api_version';
+  static const String subscribedEventsBoxName = 'subscribed_events';
 
   // Guardar eventos
   Future<void> saveEvents(List<dynamic> rawEvents) async {
     final box = await Hive.openBox(eventsBoxName);
     await box.clear(); // Limpia los eventos existentes
-    log("VAMOS A GUARDAR LOS EVENTOS: ${rawEvents.length}");
+    log("VAMOS A GUARDAR LOS EVENTOS EN LOCAL: ${rawEvents.length}");
     for (var rawEvent in rawEvents) {
       try {
         // Guardar los datos crudos directamente como JSON
         final eventId = rawEvent['eventid'];
         await box.put(eventId, rawEvent);
-        log("Evento guardado: ${rawEvent['title']}");
       } catch (e) {
         log("Error al guardar el evento: $e");
       }
@@ -104,12 +104,18 @@ class EventLocalDataSource {
   }
 
   Future<void> saveSubscribedEvent(int eventId) async {
-    final box = await Hive.openBox('subscribedEvents');
+    final box = await Hive.openBox(subscribedEventsBoxName);
     await box.put(eventId, true); // Guardar el evento como suscrito
   }
 
+  Future<void> removeSubscribedEvent(int eventId) async {
+    final box = await Hive.openBox(subscribedEventsBoxName);
+    await box.delete(eventId); // Eliminar el evento de las suscripciones
+    log("Evento desuscrito eliminado localmente: $eventId");
+  }
+
   Future<List<int>> getSubscribedEventIds() async {
-    final box = await Hive.openBox('subscribedEvents');
+    final box = await Hive.openBox(subscribedEventsBoxName);
     return box.keys
         .cast<int>()
         .toList(); // Devolver las claves como IDs de eventos

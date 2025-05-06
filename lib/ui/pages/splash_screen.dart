@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:confhub/core/db_helper.dart';
 import 'package:confhub/ui/pages/content_page.dart';
 import 'package:flutter/material.dart';
 import 'package:confhub/domain/use_cases/sync_data.dart';
@@ -37,9 +35,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _syncAndNavigate() async {
     try {
-       // Inicializar la base de datos
-      final dbHelper = DatabaseHelper();
-      await dbHelper.database;
       
       await syncDataUseCase.execute();
       log("Sincronización completada");
