@@ -25,12 +25,16 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getAllEvents() async {
     try {
       final events = await remoteDataSource.getAllEvents();
-      await localDataSource.saveEvents(events);
+      
       return events;
     } catch (e) {
       log('Error obteniendo eventos remotos: $e');
       final eventsLocal = await localDataSource.getAllEvents();
-      log("Eventos local $eventsLocal");
+      if (eventsLocal.isEmpty) {
+        log("No hay eventos locales disponibles.");
+      } else {
+        log("Eventos locales cargados: ${eventsLocal.length}");
+      }
       return eventsLocal;
     }
   }

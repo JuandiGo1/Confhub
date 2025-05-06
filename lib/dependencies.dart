@@ -22,7 +22,7 @@ import 'package:confhub/ui/controllers/event_lines_controller.dart';
 void initDependencies() {
   // Inyección de dependencias
   Get.put<EventLocalDataSource>(EventLocalDataSource()); // Fuente de datos
-  Get.put<EventRemoteDataSource>(EventRemoteDataSource());
+  Get.put<EventRemoteDataSource>(EventRemoteDataSource( localDataSource: EventLocalDataSource()));
   final eventRepo = EventRepositoryImpl(
     Get.find<EventRemoteDataSource>(),
     Get.find<EventLocalDataSource>(),

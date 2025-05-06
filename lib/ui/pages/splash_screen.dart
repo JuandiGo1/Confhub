@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Inicializar el caso de uso
     syncDataUseCase = SyncDataUseCase(
       localDataSource: EventLocalDataSource(),
-      remoteDataSource: EventRemoteDataSource(),
+      remoteDataSource: EventRemoteDataSource(localDataSource: EventLocalDataSource()),
       feedbackRemoteDataSource: FeedbackRemoteDataSource(),
       feedbackLocalDataSource: FeedbackLocalDataSource(),
     );

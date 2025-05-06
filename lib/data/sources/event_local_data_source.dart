@@ -9,19 +9,47 @@ class EventLocalDataSource {
   static const String apiVersionBoxName = 'api_version';
 
   // Guardar eventos
-  Future<void> saveEvents(List<EventModel> events) async {
+  Future<void> saveEvents(List<dynamic> rawEvents) async {
     final box = await Hive.openBox(eventsBoxName);
     await box.clear(); // Limpia los eventos existentes
-    log("GUARDANDO EVENTOS EN LOCAL");
-    for (var event in events) {
-      await box.put(event.eventid, event.toJson());
+    log("VAMOS A GUARDAR LOS EVENTOS: ${rawEvents.length}");
+    for (var rawEvent in rawEvents) {
+      try {
+        // Guardar los datos crudos directamente como JSON
+        final eventId = rawEvent['eventid'];
+        await box.put(eventId, rawEvent);
+        log("Evento guardado: ${rawEvent['title']}");
+      } catch (e) {
+        log("Error al guardar el evento: $e");
+      }
     }
   }
 
   // Obtener todos los eventos
   Future<List<EventModel>> getAllEvents() async {
     final box = await Hive.openBox(eventsBoxName);
-    return box.values.map((json) => EventModel.fromJson(json)).toList();
+
+    // Log para verificar si el box se abre correctamente
+    log("Box '$eventsBoxName' abierto. Contiene ${box.length} elementos.");
+
+    // Log para inspeccionar los datos crudos en el box
+    for (var key in box.keys) {
+      log("Clave: $key, Valor: ${box.get(key)}");
+    }
+
+    try {
+      // Intentar deserializar los datos
+      final events = box.values
+          .map((json) => EventModel.fromJson(Map<String, dynamic>.from(json)))
+          .toList();
+
+      log("Eventos deserializados correctamente: ${events.length}");
+      return events;
+    } catch (e) {
+      // Log para capturar errores de deserialización
+      log("Error al deserializar eventos locales: $e");
+      return [];
+    }
   }
 
   // Guardar feedback
@@ -35,7 +63,6 @@ class EventLocalDataSource {
     int dislikes,
     String? answer,
   ) async {
-
     final box = await Hive.openBox(feedbacksBoxName);
     await box.add({
       'eventid': eventId,
@@ -74,6 +101,18 @@ class EventLocalDataSource {
       feedback['isPublished'] = 1;
       await box.put(feedbackKey, feedback);
     }
+  }
+
+  Future<void> saveSubscribedEvent(int eventId) async {
+    final box = await Hive.openBox('subscribedEvents');
+    await box.put(eventId, true); // Guardar el evento como suscrito
+  }
+
+  Future<List<int>> getSubscribedEventIds() async {
+    final box = await Hive.openBox('subscribedEvents');
+    return box.keys
+        .cast<int>()
+        .toList(); // Devolver las claves como IDs de eventos
   }
 
   // Guardar la versión de la API
