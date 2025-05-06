@@ -63,5 +63,12 @@ class DatabaseHelper {
       isPublished INTEGER
     )
   ''');
+
+    await db.execute('''
+    CREATE TABLE api_version (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      version TEXT
+    )
+  ''');
   }
 }

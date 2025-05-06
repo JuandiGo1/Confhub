@@ -70,4 +70,24 @@ class EventLocalDataSource {
       whereArgs: [feedbackId],
     );
   }
+
+  Future<void> saveApiVersion(String apiVersion) async {
+    final db = await _dbHelper.database;
+
+    // Reemplazar la versión existente
+    await db.transaction((txn) async {
+      await txn.delete('api_version'); // Elimina cualquier versión existente
+      await txn.insert('api_version', {'version': apiVersion});
+    });
+  }
+
+  Future<String?> getApiVersion() async {
+    final db = await _dbHelper.database;
+
+    final result = await db.query('api_version', limit: 1);
+    if (result.isNotEmpty) {
+      return result.first['version'] as String;
+    }
+    return null; // Devuelve null si no hay una versión guardada
+  }
 }
