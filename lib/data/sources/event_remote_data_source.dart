@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:confhub/core/utils/date_formatter.dart';
 import 'package:http/http.dart' as http;
 import '../models/event_model.dart';
@@ -71,9 +72,9 @@ class EventRemoteDataSource {
     final url = Uri.parse("$baseUrl/subscribe/$eventId");
 
     try {
-      print("Calling subscribe event with id $eventId");
+      log("Calling subscribe event with id $eventId");
       final response = await http.patch(url);
-      print("Response: ${response.statusCode} - ${response.body}");
+      log("Response: ${response.statusCode} - ${response.body}");
 
       if (response.statusCode == 200) {
         subscribedEventIds.add(eventId);
@@ -93,7 +94,7 @@ class EventRemoteDataSource {
   }
 
   Future<bool> unsubscribeFromEvent(int eventId) async {
-    print("Calling unsubscribe event with id $eventId");
+    log("Calling unsubscribe event with id $eventId");
     final url = Uri.parse("$baseUrl/unsubscribe/$eventId");
 
     try {

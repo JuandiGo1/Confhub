@@ -59,7 +59,8 @@ class DatabaseHelper {
       datetime TEXT, -- Fecha y hora en formato ISO 8601
       likes INTEGER,
       dislikes INTEGER,
-      answer TEXT
+      answer TEXT,
+      isPublished INTEGER
     )
   ''');
   }

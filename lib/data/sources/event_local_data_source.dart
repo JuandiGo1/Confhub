@@ -1,5 +1,4 @@
 import 'package:confhub/core/db_helper.dart';
-import 'package:sqflite/sqflite.dart';
 import '../models/event_model.dart';
 
 class EventLocalDataSource {
@@ -52,6 +51,7 @@ class EventLocalDataSource {
       'likes': likes,
       'dislikes': dislikes,
       'answer': answer, // Puede ser null
+      'isPublished': 0,
     });
   }
 
