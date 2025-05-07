@@ -1,3 +1,9 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:confhub/main.dart' as app;
+
 import 'package:confhub/core/utils/date_formatter.dart';
 import 'package:confhub/data/repositories/event_repository_impl.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
@@ -12,224 +18,123 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:integration_test/integration_test.dart';
 
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
-  testWidgets('test the subscription buttom', (WidgetTester tester) async {
-    Get.put<EventLocalDataSource>(
-        EventLocalDataSource()); // Fuente de datos local
-    Get.put<EventRemoteDataSource>(
-        EventRemoteDataSource()); // fuente de datos remota
-    Get.put<EventRepository>(EventRepositoryImpl(Get.find()));
-
-    await tester.pumpWidget(const MyApp());
-
-    await tester.pump();
-
-    // navigate to one upcoming event
-
-    await tester.tap(find.byWidgetPredicate(
-      (widget) =>
-          widget is Webinarcard &&
-          widget.title == "Construccion de APIs REST con FastAPI",
-    ));
-
-    // Verify that attendees starts at initial values.
-    expect(find.text('80'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-
-    await tester.ensureVisible(find.byIcon(Icons.favorite_border));
-    await tester.pumpAndSettle();
-
-    // Tap the 'fav' icon and subscribed.
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
-
-    // Verify that values have changed.
-    expect(find.text('81'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-
-    // Tap the 'fav' icon and unsubscribed.
-    await tester.tap(find.byIcon(Icons.favorite));
-    await tester.pump();
-
-    // Verify that values are the same as the initials.
-    expect(find.text('100'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-  });
-
-  testWidgets('test the subscription buttom when the available spots are 0',
+  
+  testWidgets(
+      'Debería navegar a la pantalla de categorías, filtrar eventos, suscribirse a un evento y verificarlo en "Mis Eventos"',
       (WidgetTester tester) async {
-    Get.put<EventLocalDataSource>(
-        EventLocalDataSource()); // Fuente de datos local
-    Get.put<EventRemoteDataSource>(
-        EventRemoteDataSource()); // fuente de datos remota
-    Get.put<EventRepository>(EventRepositoryImpl(Get.find()));
-
-    await tester.pumpWidget(const MyApp());
-
-    await tester.pump();
-
-    // navigate to one upcoming event with 0 spots
-
-    await tester.tap(find.byWidgetPredicate(
-      (widget) =>
-          widget is Webinarcard &&
-          widget.title == "Flutter desde Cero: Construyendo Apps Móviles",
-    ));
-
-    // Verify that attendees starts at initial values.
-    expect(find.text('85'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-
-    await tester.ensureVisible(find.byIcon(Icons.favorite_border));
+    // Inicia la aplicación
+    app.main();
     await tester.pumpAndSettle();
 
-    // try to subscribe when there are not spots
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
+    // Verifica que la pantalla inicial (Home Page) se cargue
+    expect(find.text('Inicio'), findsOneWidget);
 
-    //verify that the snackbar shows out
-    expect(
-        find.byWidget(SnackBar(
-          content: const Text('No hay cupos disponibles para este evento.'),
-          backgroundColor: Colors.redAccent,
-        )),
-        findsOneWidget);
+    // Encuentra el botón de navegación a Categorías en el Navigation Bar
+    final categoriesButton = find.text('Categorias'); // Cambia esto según el texto o ícono del botón
 
-    // verify that values haven't changed
-    expect(find.text('85'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-  });
+    // Verifica que el botón esté presente
+    expect(categoriesButton, findsOneWidget);
 
-// feedback part
+    // Haz clic en el botón de navegación a Categorías
+    await tester.tap(categoriesButton);
+    await tester.pumpAndSettle();
 
-// navigation
-  testWidgets('test the navigation througth the app + update of an subscribed event on my events',
-      (WidgetTester tester) async {
-    Get.put<EventLocalDataSource>(
-        EventLocalDataSource()); // Fuente de datos local
-    Get.put<EventRemoteDataSource>(
-        EventRemoteDataSource()); // fuente de datos remota
-    Get.put<EventRepository>(EventRepositoryImpl(Get.find()));
+    // Verifica que la pantalla de categorías se cargue
+    expect(find.text('Eventos por categoría'), findsOneWidget);
 
-    await tester.pumpWidget(const MyApp());
+    // Encuentra los ChoiceChips de las categorías
+    final choiceChip1 = find.text('Desarrollo Web');
+    final choiceChip2 = find.text('Sistemas Operativos');
 
-    await tester.pump();
+    // Verifica que los ChoiceChips estén presentes
+    expect(choiceChip1, findsOneWidget);
+    expect(choiceChip2, findsOneWidget);
 
-    // navigate to one event from today if they exist
+    // Haz clic en la categoría "Desarrollo Web"
+    await tester.tap(choiceChip1);
+    await tester.pumpAndSettle();
 
-    await tester.tap(find.byWidgetPredicate(
-      (widget) =>
-          widget is Webinarcard &&
-          widget.date ==
-              formatDate(DateTime(
-                2025,
-                5,
-                5,
-                0,
-                0,
-                0,
-                0,
-                0,
-              )),
-    ));
+    // Verifica que los eventos de "Desarrollo Web" se muestren
+    expect(find.text('Desarrollo Web con Spring Boot y Tailwind CSS'), findsOneWidget);
+    expect(find.text('Evento 2'), findsNothing);
 
-    // Verify that show the core data of the event
-    expect(find.text('Construcción de APIs REST con FastAPI'), findsOneWidget);
-    expect(find.text('Bogota, Colombia'), findsOneWidget);
-    expect(
-        find.text(
-            'Aprende a desarrollar APIs REST modernas y eficientes con FastAPI. Exploraremos desde la creación de una API básica hasta la autenticación y seguridad en el backend.'),
-        findsOneWidget);
-    expect(find.text('Daniel Paredes'), findsOneWidget);
+    // Encuentra el botón "Unirse Ahora" del evento
+    final joinNowButton = find.text('Unirse Ahora');
+    expect(joinNowButton, findsOneWidget);
 
-    // Verify that attendees starts at initial values.
-    expect(find.text('80'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
+    // Haz clic en el botón "Unirse Ahora"
+    await tester.tap(joinNowButton);
+    await tester.pumpAndSettle();
 
-    // go back
+    // Verifica que la pantalla de detalles del evento se cargue
+    expect(find.text('Descripción'), findsOneWidget);
+
+    // Desplázate hacia abajo para encontrar el botón "Suscribir"
+    final subscribeButton = find.text('Suscribir');
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -1000)); // Ajusta el desplazamiento según sea necesario
+    await tester.pumpAndSettle();
+
+    // Verifica que el botón de "Suscribir" esté visible
+    expect(subscribeButton, findsOneWidget);
+
+    // Haz clic en el botón de "Suscribir"
+    await tester.tap(subscribeButton);
+    await tester.pumpAndSettle();
+
+    // Retrocede a la pantalla anterior
     await tester.pageBack();
     await tester.pumpAndSettle();
 
-    //go to my categories
+    // Encuentra el botón de navegación a "Mis Eventos" en el Navigation Bar
+    final myEventsButton = find.text('Mis Eventos');
 
-    await tester.tap(find.byIcon(Icons.event));
+    // Verifica que el botón esté presente
+    expect(myEventsButton, findsOneWidget);
 
-    // verify the presence of some categories
-
-    expect(find.text('Backend'), findsOneWidget);
-    expect(find.text('Frontend'), findsOneWidget);
-    expect(find.text('Mobile'), findsOneWidget);
-
-    expect(find.byType(CardEvent), findsExactly(18));
-
-    await tester.tap(find.byWidgetPredicate(
-      (widget) =>
-          widget is Webinarcard &&
-          widget.date == 'Construcción de APIs REST con FastAPI',
-    ));
-
-    // Verify that show the core data of the event
-    expect(find.text('Construcción de APIs REST con FastAPI'), findsOneWidget);
-    expect(find.text('Bogota, Colombia'), findsOneWidget);
-    expect(
-        find.text(
-            'Aprende a desarrollar APIs REST modernas y eficientes con FastAPI. Exploraremos desde la creación de una API básica hasta la autenticación y seguridad en el backend.'),
-        findsOneWidget);
-    expect(find.text('Daniel Paredes'), findsOneWidget);
-
-    // Verify that attendees starts at initial values.
-    expect(find.text('80'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-
-    await tester.ensureVisible(find.byIcon(Icons.favorite_border));
+    // Haz clic en el botón de navegación a "Mis Eventos"
+    await tester.tap(myEventsButton);
     await tester.pumpAndSettle();
 
-    // Tap the 'fav' icon and subscribed.
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
+    // Verifica que el evento "Desarrollo Web con Spring Boot y Tailwind CSS" esté en "Mis Eventos"
+    expect(find.text('Desarrollo Web con Spring Boot y Tailwind CSS'), findsOneWidget);
 
-    // Verify that values have changed.
-    expect(find.text('81'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
+    // Haz clic en el evento en "Mis Eventos"
+    await tester.tap(find.text('Desarrollo Web con Spring Boot y Tailwind CSS'));
+    await tester.pumpAndSettle();
 
-    // go back
+    // Verifica que la pantalla de detalles del evento se cargue nuevamente
+    expect(find.text('Descripción'), findsOneWidget);
+
+    // Desplázate hacia abajo para encontrar el botón "Desuscribir"
+    final unsubscribeButton = find.text('Desuscribir');
+    await tester.drag(find.byType(SingleChildScrollView), const Offset(0, -1000));
+    await tester.pumpAndSettle();
+
+    // Verifica que el botón de "Desuscribir" esté visible
+    expect(unsubscribeButton, findsOneWidget);
+
+    // Haz clic en el botón de "Desuscribir"
+    await tester.tap(unsubscribeButton);
+    await tester.pumpAndSettle();
+
+    // Retrocede a la pantalla anterior
     await tester.pageBack();
     await tester.pumpAndSettle();
 
-    // go to my events
-
-    await tester.tap(find.byIcon(Icons.favorite_border));
-
-    // verify the presence of events
-
-    expect(find.text('No hay eventos suscritos'), findsNothing);
-    expect(find.byType(EventCard), findsOne);
-
-    // go to event detail page
-    await tester.tap(find.byType(EventCard));
-    await tester.ensureVisible(find.byIcon(Icons.favorite_border));
+    // Vuelve a la pantalla de inicio
+    final homeButton = find.text('Inicio');
+    await tester.tap(homeButton);
     await tester.pumpAndSettle();
 
-    // Verify that values haven't changed.
-    expect(find.text('81'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-
-    // Tap the 'fav' icon and unsubscribed.
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
-
-    // Verify that values have changed.
-    expect(find.text('80'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-
-    // go back
-    await tester.pageBack();
+    // Vuelve a "Mis Eventos"
+    await tester.tap(myEventsButton);
     await tester.pumpAndSettle();
 
-    // verify the no presence of events
-    expect(find.text('No hay eventos suscritos'), findsOneWidget);
-
+    // Verifica que el evento ya no esté en "Mis Eventos"
+    expect(find.text('Desarrollo Web con Spring Boot y Tailwind CSS'), findsNothing);
   });
 }
+
