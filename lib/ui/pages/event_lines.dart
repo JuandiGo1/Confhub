@@ -24,11 +24,11 @@ class EventLines extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-        
+
         ),
         body: Stack(
           children: [
-            const DottedBackground(), 
+            const DottedBackground(),
             SafeArea(
               child: SingleChildScrollView(
                 child: Container(
@@ -41,9 +41,9 @@ class EventLines extends StatelessWidget {
                             if (snapshot.connectionState == ConnectionState.waiting) {
                               return Text('Loading');
                             } else if (snapshot.hasError) {
-                              return Text('Error.');
+                              return Text('No hay eventos a mostrar');
                             }
-              
+
                             List<String> categories = snapshot.data ?? [];
                             return Column(
                               children: [
