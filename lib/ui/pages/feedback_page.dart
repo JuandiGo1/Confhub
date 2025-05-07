@@ -41,7 +41,7 @@ class FeedbackPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             "Calificaciones y comentarios",
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           backgroundColor: principal,
         ),
@@ -77,7 +77,7 @@ class FeedbackPage extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(15)),
                                     color: controller.filtroSelected ==
                                             controller.filtro1
-                                        ? Colors.deepPurple
+                                        ? AppColors.primary
                                         : principal),
                                 child: Row(
                                   mainAxisAlignment:
@@ -95,6 +95,7 @@ class FeedbackPage extends StatelessWidget {
                                       Icons.arrow_downward_rounded,
                                       size: 10,
                                       weight: 20,
+                                      color: Colors.white,
                                     ),
                                     Text(
                                       controller.filtro1,
@@ -123,7 +124,7 @@ class FeedbackPage extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15)),
                                   color: controller.filtroSelected ==
                                           controller.filtro2
-                                      ? Colors.deepPurple
+                                      ? AppColors.primary
                                       : principal),
                               child: Row(
                                 mainAxisAlignment:
@@ -141,6 +142,7 @@ class FeedbackPage extends StatelessWidget {
                                     Icons.arrow_downward_rounded,
                                     size: 10,
                                     weight: 20,
+                                    color: Colors.white,
                                   ),
                                   Text(
                                     controller.filtro2 == "MejorVal"

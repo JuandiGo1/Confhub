@@ -30,7 +30,7 @@ class FeedbackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double starSize = 10.0;
+    final double starSize = 15.0;
     final Color starColor = Colors.yellowAccent;
     final feedbackController =
         Get.find<FeedbackCardController>(tag: "$feedbackid");
@@ -38,14 +38,14 @@ class FeedbackCard extends StatelessWidget {
     return
          Container(
             margin: EdgeInsets.only( top: 15, bottom: 15),
-            height: 70 + (comment.length * 0.4) + (title.length > 45 ? 40 : 20),
+            height: 70 + (comment.length * 0.4) + (title.length > 45 ? 50 : 30),
             child: Stack(
               children: [
                 Container(
                   padding:
                       EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 5),
                   decoration: BoxDecoration(
-                      color: Colors.deepPurple,
+                      color: colorFBC,
                       borderRadius: BorderRadius.all(Radius.circular(15))),
                   child: Row(children: [
                     Expanded(
@@ -57,8 +57,8 @@ class FeedbackCard extends StatelessWidget {
                               Text(
                                 title,
                                 style: TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.textPrimary,
+                                    fontSize: 13,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
                             ])),
@@ -108,11 +108,11 @@ class FeedbackCard extends StatelessWidget {
                   ]),
                 ),
                 Positioned.fill(
-                    top: title.length > 45 ? 40 : 20,
+                    top: title.length > 45 ? 50 : 30,
                     child: Container(
-                        padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+                        padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                         decoration: BoxDecoration(
-                            color: colorFBC,
+                            color: Colors.white,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(15))),
                         child: Column(
@@ -143,7 +143,7 @@ class FeedbackCard extends StatelessWidget {
                                                   size: 10,
                                                   color: feedbackController
                                                           .isLiked()
-                                                      ? AppColors.background
+                                                      ? AppColors.primary
                                                       : AppColors.textPrimary,
                                                 ),
                                                 int.parse(feedbackController
@@ -157,7 +157,7 @@ class FeedbackCard extends StatelessWidget {
                                                             color: feedbackController
                                                                     .isLiked()
                                                                 ? AppColors
-                                                                    .background
+                                                                    .primary
                                                                 : AppColors
                                                                     .textPrimary),
                                                       )

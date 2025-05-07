@@ -26,6 +26,7 @@ class FeedbackRemoteDataSource {
   // Obtener feedbacks de un evento
   Future<List<FeedbackModel>> getAllFeedbacksFromAnEvent(
       int eventId, String filtro) async {
+    log("Id evento a buscar feedbacks: $eventId");
     final url = Uri.parse("$baseUrl/event/$eventId");
 
     try {
