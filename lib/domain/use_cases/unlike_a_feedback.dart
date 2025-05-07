@@ -1,12 +1,11 @@
-
 import 'package:confhub/domain/repositories/feedback_repository.dart';
 
-class DislikeAFeedbackUseCase {
+class UnLikeAFeedbackUseCase {
   final FeedbackRepository repository;
 
-  DislikeAFeedbackUseCase(this.repository);
+  UnLikeAFeedbackUseCase(this.repository);
 
   Future<bool> call (int feedbackid) async {
-    return await repository.dislikeAFeedback(feedbackid);
+    return await repository.unLikeAFeedback(feedbackid);
   }
 }

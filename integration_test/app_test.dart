@@ -1,11 +1,27 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:confhub/main.dart' as app;
 
+import 'package:confhub/core/utils/date_formatter.dart';
+import 'package:confhub/data/repositories/event_repository_impl.dart';
+import 'package:confhub/data/sources/event_local_data_source.dart';
+import 'package:confhub/data/sources/event_remote_data_source.dart';
+import 'package:confhub/domain/repositories/event_repository.dart';
+import 'package:confhub/main.dart';
+import 'package:confhub/ui/widgets/enventLines/card_event.dart';
+import 'package:confhub/ui/widgets/home/webinar_card.dart';
+import 'package:confhub/ui/widgets/timeline/event_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:get/get.dart';
+import 'package:integration_test/integration_test.dart';
+
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
+  
   testWidgets(
       'Debería navegar a la pantalla de categorías, filtrar eventos, suscribirse a un evento y verificarlo en "Mis Eventos"',
       (WidgetTester tester) async {
@@ -121,3 +137,4 @@ void main() {
     expect(find.text('Desarrollo Web con Spring Boot y Tailwind CSS'), findsNothing);
   });
 }
+

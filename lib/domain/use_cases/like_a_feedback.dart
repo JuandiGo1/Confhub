@@ -6,7 +6,7 @@ class LikeAFeedbackUseCase {
 
   LikeAFeedbackUseCase(this.repository);
 
-  Future<bool> call (int eventid) async {
-    return await repository.likeAFeedback(eventid);
+  Future<bool> call (int feedbackid) async {
+    return await repository.likeAFeedback(feedbackid);
   }
 }
