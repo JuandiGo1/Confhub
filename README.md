@@ -5,7 +5,7 @@
 ---
 
 ## Video Promocional (Primera Version)
-[![Watch the video](https://i9.ytimg.com/vi/w-xyymeiW-s/mqdefault.jpg?sqp=CMCs2L8G&rs=AOn4CLBg08dJunI8m2BHBjfRhD8Xxb-HcA&retry=3)](https://youtu.be/w-xyymeiW-s)
+[![Watch the video](https://i9.ytimg.com/vi_webp/w-xyymeiW-s/mq2.webp?sqp=CIir78AG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLAaue9ItG3S26xU1BuFUAa5Is3Zcg)](https://youtu.be/w-xyymeiW-s)
 
 ## Video Demostración (Version Final)
 [![Watch the video](https://i9.ytimg.com/vi/-D44cc9SgaM/mqdefault.jpg?v=681bd4e4&sqp=CNyo78AG&rs=AOn4CLCNwWC4CLuLFPOr0Qvqy-nroDQysA)](https://youtu.be/-D44cc9SgaM)
