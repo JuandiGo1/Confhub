@@ -29,6 +29,7 @@ class EventLines extends StatelessWidget {
             fontSize: 23,
             fontWeight: FontWeight.w600,
           ),
+
         ),
       ),
       body: Stack(
