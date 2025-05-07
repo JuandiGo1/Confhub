@@ -5,7 +5,7 @@ class Feedback {
   String date; //  solo la fecha (YYYY-MM-DD)
   String time; //  solo la hora (HH:MM)
   int eventid;
-  double score;
+  int score;
   int likes;
   int dislikes;
   int feedbackid;

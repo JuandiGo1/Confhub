@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:confhub/data/models/feedback_model.dart';
 import 'package:confhub/core/utils/filter_feedbacks.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ class FeedbackRemoteDataSource {
   // Obtener feedbacks de un evento
   Future<List<FeedbackModel>> getAllFeedbacksFromAnEvent(
       int eventId, String filtro) async {
-    final url = Uri.parse("$baseUrl/$eventId");
+    final url = Uri.parse("$baseUrl/event/$eventId");
 
     try {
       final response = await http.get(url);
@@ -75,10 +76,73 @@ class FeedbackRemoteDataSource {
     }
   }
 
+  // code from edi
+
+  Future<bool> unLikeAFeedback(int feedbackid) async {
+    final response = await http.patch(Uri.parse("$baseUrl/unlike/$feedbackid"));
+
+    if (response.statusCode == 200) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  Future<bool> unDislikeAFeedback(int feedbackid) async {
+    final response =
+        await http.patch(Uri.parse("$baseUrl/undislike/$feedbackid"));
+
+    if (response.statusCode == 200) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  Future<bool> updateAFeedback(int feedbackid, feedback) async {
+    final response = await http.patch(Uri.parse("$baseUrl/$feedbackid"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(feedback));
+
+    if (response.statusCode == 200) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  Future<bool> deleteAFeedback(int feedbackid) async {
+    final response = await http.delete(Uri.parse("$baseUrl/$feedbackid"));
+
+    if (response.statusCode == 200) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  Future<FeedbackModel?> makeAFeedback(feedback) async {
+    final response = await http.post(Uri.parse(baseUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(feedback));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+
+      final feedbackMade = data['feedbackMade'];
+      return FeedbackModel.fromJson(feedbackMade);
+    } else {
+      return null;
+    }
+  }
+
   // Enviar/agregar un feedback
   Future<bool> sendFeedback(feedback) async {
-    final url =
-        Uri.parse(baseUrl); // Cambia la URL según tu API
+    final url = Uri.parse(baseUrl); // Cambia la URL según tu API
 
     try {
       final response = await http.post(
