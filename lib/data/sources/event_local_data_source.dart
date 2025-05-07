@@ -114,6 +114,15 @@ class EventLocalDataSource {
     log("Evento desuscrito eliminado localmente: $eventId");
   }
 
+  Future<void> saveSubscribedEvents(List<int> subscribedEventIds) async {
+    final box = await Hive.openBox(subscribedEventsBoxName);
+    await box.clear(); // Limpia las suscripciones existentes
+    for (var eventId in subscribedEventIds) {
+      await box.put(eventId, true); // Guardar cada ID como suscrito
+    }
+    log("Eventos suscritos guardados localmente: $subscribedEventIds");
+  }
+
   Future<List<int>> getSubscribedEventIds() async {
     final box = await Hive.openBox(subscribedEventsBoxName);
     return box.keys

@@ -104,6 +104,9 @@ class EventRemoteDataSource {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         subscribedEventIds = List<int>.from(data);
+        // Guardar los eventos suscritos localmente
+        await localDataSource.saveSubscribedEvents(subscribedEventIds);
+        log("Eventos suscritos sincronizados con el servidor y guardados localmente.");
       } else {
         throw Exception('No se pudieron cargar las suscripciones');
       }
@@ -153,12 +156,17 @@ class EventRemoteDataSource {
 
       if (response.statusCode == 200) {
         subscribedEventIds.remove(eventId);
+        await localDataSource.removeSubscribedEvent(eventId);
         return true;
       } else {
         throw Exception('Error al desuscribirse del evento');
       }
     } catch (e) {
-      throw Exception("Hubo un problema: $e");
+      log("Error al desuscribirse del evento: $e");
+      log("Guardando desuscripción localmente...");
+      subscribedEventIds.remove(eventId);
+      await localDataSource.removeSubscribedEvent(eventId); // Guardar en local
+      return true;
     }
   }
 

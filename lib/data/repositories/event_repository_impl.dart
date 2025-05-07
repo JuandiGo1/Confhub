@@ -45,7 +45,7 @@ class EventRepositoryImpl implements EventRepository {
     try {
       final allEvents = await remoteDataSource.getAllEvents();
       final subscribedIds = remoteDataSource.subscribedEventIds;
-
+      //Deberia guardar local los suscritos
       log("Subscribed IDs: $subscribedIds");
 
       return allEvents.where((event) {
@@ -55,8 +55,21 @@ class EventRepositoryImpl implements EventRepository {
             eventDate.isBefore(endDate);
       }).toList();
     } catch (e) {
-      log('Error obteniendo eventos suscritos en el rango de fechas: $e');
-      return [];
+      log('Error obteniendo eventos suscritos desde el servidor: $e');
+      log('Intentando cargar eventos suscritos desde el almacenamiento local...');
+
+      // Cargar eventos desde el almacenamiento local
+      final allEventsLocal = await localDataSource.getAllEvents();
+      final subscribedIdsLocal = await localDataSource.getSubscribedEventIds();
+
+      log("Subscribed IDs (local): $subscribedIdsLocal");
+
+      return allEventsLocal.where((event) {
+        final eventDate = event.dateTime;
+        return subscribedIdsLocal.contains(event.eventid) &&
+            eventDate.isAfter(startDate) &&
+            eventDate.isBefore(endDate);
+      }).toList();
     }
   }
 
@@ -99,5 +112,4 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getEventsByCategory(String category) async {
     return await remoteDataSource.getEventsByCategory(category);
   }
-
 }
