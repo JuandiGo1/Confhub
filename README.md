@@ -8,7 +8,7 @@
 [![Watch the video](https://i9.ytimg.com/vi_webp/w-xyymeiW-s/mq2.webp?sqp=CIir78AG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLAaue9ItG3S26xU1BuFUAa5Is3Zcg)](https://youtu.be/w-xyymeiW-s)
 
 ## Video Demostración (Version Final)
-[![Watch the video](https://i9.ytimg.com/vi/-D44cc9SgaM/mqdefault.jpg?v=681bd4e4&sqp=CNyo78AG&rs=AOn4CLCNwWC4CLuLFPOr0Qvqy-nroDQysA)](https://youtu.be/-D44cc9SgaM)
+[![Watch the video](https://i9.ytimg.com/vi/sspjdTbUMpg/mqdefault.jpg?v=681bdf8f&sqp=COi978AG&rs=AOn4CLASc063jJ05NSwQTHlQw9oK0JDF3w)](https://youtu.be/sspjdTbUMpg)
 
 ## Video Demostración Test Integration
 [![Watch the video](https://i9.ytimg.com/vi/zGh1S2ZJpno/mqdefault.jpg?sqp=COS278AG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGCAgWCh_MA8=&rs=AOn4CLBsMjMruhMOkF-Z80dHYi6u_-7u9w)](https://youtu.be/zGh1S2ZJpno)
@@ -26,6 +26,7 @@
 - ✅ **Inscripción a eventos**: Inscribete fácilmente a cualquier evento desde la aplicación.
 - 🧭 **Exploración por categorías**: Filtra los eventos según tus intereses.
 - 📌 **Timeline personalizado**: Visualiza los eventos a los que estás suscrito en una línea de tiempo ordenada.
+- 🦖 **Total funcionalidad offline**
 
 ---
 
