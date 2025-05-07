@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/domain/use_cases/get_all_events.dart';
+import 'package:confhub/ui/pages/event_lines.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'upcoming_card.dart';
@@ -33,34 +36,43 @@ class UpcomingWebinars extends StatelessWidget {
                   Text(
                     "Próximos Webinars",
                     style: TextStyle(
-                      fontSize:(MediaQuery.of(context).size.width > 800) ? 25 : 23,
+                      fontSize:
+                          (MediaQuery.of(context).size.width > 800) ? 25 : 23,
                       fontWeight: FontWeight.bold,
                       color: AppColors.title,
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      // Acción para el botón "Ver más"
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(5),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Ver más",
-                          style: TextStyle(
-                            fontSize: (MediaQuery.of(context).size.width > 900) ? 18 : 16,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
-                          ),
+                      onPressed: () {
+                        // Acción para el botón "Ver más"
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(5),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => EventLines());
+                        },
+                        child: Row(
+                          children: [
+                            Text(
+                              "Ver más",
+                              style: TextStyle(
+                                fontSize:
+                                    (MediaQuery.of(context).size.width > 900)
+                                        ? 18
+                                        : 16,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            SizedBox(
+                                width:
+                                    5), // Espaciado entre el texto y el ícono
+                            Icon(Icons.east, color: AppColors.primary),
+                          ],
                         ),
-                        SizedBox(
-                            width: 5), // Espaciado entre el texto y el ícono
-                        Icon(Icons.east, color: AppColors.primary),
-                      ],
-                    ),
-                  ),
+                      )),
                 ],
               ),
             ),
@@ -82,13 +94,19 @@ class UpcomingWebinars extends StatelessWidget {
                     }
 
                     final events = snapshot.data!;
+                    log("Cantidad de eventos: ${events.length}");
                     //MAPEANDO EVENTOS
+                    final upcomingEvents = events
+                        .where((event) => event.status != 'Finalizado')
+                        .toList();
+
                     return ListView.builder(
                       scrollDirection: Axis.horizontal, // Scroll horizontal
                       physics: BouncingScrollPhysics(),
-                      itemCount: events.length,
+                      itemCount:
+                          upcomingEvents.length, // Usar la lista filtrada
                       itemBuilder: (context, index) {
-                        final event = events[index];
+                        final event = upcomingEvents[index];
                         return SizedBox(
                           width: 370, // Define un ancho para los elementos
                           height: MediaQuery.of(context).size.height * 0.8,

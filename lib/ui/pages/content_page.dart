@@ -40,7 +40,7 @@ class _ContentPageState extends State<ContentPage> {
               label: 'Inicio',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.event),
+              icon: Icon(Icons.category_outlined),
               label: 'Categorias',
             ),
             BottomNavigationBarItem(

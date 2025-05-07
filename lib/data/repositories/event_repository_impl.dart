@@ -8,60 +8,89 @@ import 'package:confhub/data/sources/event_remote_data_source.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 
 class EventRepositoryImpl implements EventRepository {
-  //final EventLocalDataSource localDataSource;
+  final EventLocalDataSource localDataSource;
   final EventRemoteDataSource remoteDataSource;
 
-  final List<int> _subscribedEvents = []; // In-memory cache
+  EventRepositoryImpl(this.remoteDataSource, this.localDataSource);
 
-  EventRepositoryImpl(this.remoteDataSource);
-
-
+  Future<void> loadSubscribedEvents() async {
+    try {
+      await remoteDataSource.fetchSubscribedEvents();
+    } catch (e) {
+      log("Error cargando eventos suscritos: $e");
+    }
+  }
 
   @override
   Future<List<EventModel>> getAllEvents() async {
     try {
-      final events =await remoteDataSource.getAllEvents();
+      final events = await remoteDataSource.getAllEvents();
+
       return events;
     } catch (e) {
-      log('Error obteniendo eventos: $e');
-      return [];
+      log('Error obteniendo eventos remotos: $e');
+      final eventsLocal = await localDataSource.getAllEvents();
+      if (eventsLocal.isEmpty) {
+        log("No hay eventos locales disponibles.");
+      } else {
+        log("Eventos locales cargados: ${eventsLocal.length}");
+      }
+      return eventsLocal;
     }
   }
 
   @override
-  Future<List<EventModel>> getSubscribedEventsInDateRange(DateTime startDate, DateTime endDate) async {
+  Future<List<EventModel>> getSubscribedEventsInDateRange(
+      DateTime startDate, DateTime endDate) async {
     try {
       final allEvents = await remoteDataSource.getAllEvents();
-      log("$_subscribedEvents");
+      final subscribedIds = remoteDataSource.subscribedEventIds;
+      //Deberia guardar local los suscritos
+      log("Subscribed IDs: $subscribedIds");
+
       return allEvents.where((event) {
         final eventDate = event.dateTime;
-        return _subscribedEvents.contains(event.eventid) && eventDate.isAfter(startDate) && eventDate.isBefore(endDate);
+        return subscribedIds.contains(event.eventid) &&
+            eventDate.isAfter(startDate) &&
+            eventDate.isBefore(endDate);
       }).toList();
     } catch (e) {
-      log('Error obteniendo eventos suscritos en el rango de fechas: $e');
-      return [];
+      log('Error obteniendo eventos suscritos desde el servidor: $e');
+      log('Intentando cargar eventos suscritos desde el almacenamiento local...');
+
+      // Cargar eventos desde el almacenamiento local
+      final allEventsLocal = await localDataSource.getAllEvents();
+      final subscribedIdsLocal = await localDataSource.getSubscribedEventIds();
+
+      log("Subscribed IDs (local): $subscribedIdsLocal");
+
+      return allEventsLocal.where((event) {
+        final eventDate = event.dateTime;
+        return subscribedIdsLocal.contains(event.eventid) &&
+            eventDate.isAfter(startDate) &&
+            eventDate.isBefore(endDate);
+      }).toList();
     }
   }
-
-
 
   @override
-  Future<bool> subscribeToEvent(int eventId) async {
-    if (!_subscribedEvents.contains(eventId)) {
-      _subscribedEvents.add(eventId);
-      return true;
+  Future<bool> subscribeAnEvent(int eventid) async {
+    try {
+      log("Vamos a subscribir al evento con ID: $eventid");
+      return await remoteDataSource.subscribeAnEvent(eventid);
+    } catch (e) {
+      throw Exception('Error subscribiendo: $e');
     }
-    return false;
   }
 
-    @override
+  @override
   Future<bool> unsubscribeFromEvent(int eventId) async {
-    return _subscribedEvents.remove(eventId);
+    return await remoteDataSource.unsubscribeFromEvent(eventId);
   }
 
   @override
   Future<bool> isSubscribed(int eventId) async {
-    return _subscribedEvents.contains(eventId);
+    return remoteDataSource.isSubscribed(eventId);
   }
 
   @override
@@ -82,14 +111,5 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<List<EventModel>> getEventsByCategory(String category) async {
     return await remoteDataSource.getEventsByCategory(category);
-  }
-
-  @override
-  Future<bool> subscribeAnEvent(int eventid) async {
-    try {
-      return await remoteDataSource.subscribeAnEvent(eventid);
-    } catch (e) {
-      throw Exception('Error subscribiendo: $e');
-    }
   }
 }
