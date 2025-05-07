@@ -1,4 +1,4 @@
-
+import 'package:confhub/core/colors.dart';
 import 'package:confhub/core/utils/test_utils.dart';
 import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
@@ -26,10 +26,8 @@ class Webinarcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final colorText =
-    //     color == AppColors.primary ? Colors.white : AppColors.secondary;
     final colorText =
-         Colors.white ;
+        color == AppColors.primary ? Colors.white : AppColors.secondary;
 
     return GestureDetector(
       onTap: () {
@@ -63,9 +61,8 @@ class Webinarcard extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(15),
           border: Border.all(
-            // color: color!=AppColors.primary? const Color.fromARGB(255, 53, 80, 126): AppColors.primary,
             color: Colors.white,
-            width: 2,
+            width: 4,
           ),
         ),
         child: Column(

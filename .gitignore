@@ -47,7 +47,3 @@ app.*.map.json
 /linux
 /windows
 *.cc
-/windows/flutter
-/macos/Flutter
-/linux/flutter
-linux/flutter/generated_plugin_registrant.cc

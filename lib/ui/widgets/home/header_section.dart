@@ -1,4 +1,3 @@
-import 'package:confhub/ui/pages/calendar_page.dart';
 import 'package:confhub/ui/pages/event_lines.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,13 +27,13 @@ class HeaderSection extends StatelessWidget {
               ),
             ],
           ),
-          
+          // Icono de notificaciones
           Row(
             children: [
               IconButton(
                 icon: Icon(Icons.event, size: 28),
                 onPressed: () {
-                  Get.to(() => CalendarPage());
+                  Get.to(() => EventLines());
 
                 },
               ),

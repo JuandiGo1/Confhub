@@ -3,10 +3,8 @@ import 'package:confhub/domain/entities/session.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
 import 'package:confhub/ui/controllers/feedback_page_controller.dart';
 import 'package:confhub/ui/pages/feedback_page.dart';
-import 'package:confhub/ui/widgets/eventDetails/session_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:confhub/core/utils/build_stars.dart';
 
 class EventDetailPage extends StatelessWidget {
   final int eventId;
@@ -43,7 +41,7 @@ class EventDetailPage extends StatelessWidget {
       required this.eventstatus,
       required this.eventSessionOrder,
       required this.numberReviews,
-      this.colorName = const Color.fromARGB(255, 53, 80, 126)});
+      this.colorName = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
@@ -51,331 +49,434 @@ class EventDetailPage extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.initializeForEvent(eventId);
     });
-
+    final starSize = 10.0;
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
         backgroundColor: colorName,
       ),
-      backgroundColor: const Color.fromARGB(230, 243, 243, 243),
+      backgroundColor: AppColors.background,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Encabezado del evento
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(color: colorName),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    eventTitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: const Color.fromARGB(255, 218, 218, 218),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    eventLocation,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        eventDate,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        eventTime,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-
-            // Descripción
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Calificación promedio
-                      if (eventstatus == "Finalizado")
-                        Wrap(
-                            spacing:
-                                10, // Espaciado horizontal entre los elementos
-                            runSpacing:
-                                10, // Espaciado vertical entre las filas
-                            alignment: WrapAlignment
-                                .spaceBetween, // Alineación horizontal
-                            crossAxisAlignment: WrapCrossAlignment
-                                .center, // Alineación vertical
-                            children: [
-                              // Calificacion promedio
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
+          child: Stack(
+        children: [
+          Expanded(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  height: 900,
+                  decoration: BoxDecoration(color: colorName),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'Calificación promedio:',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.textPrimary,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(width: 8),
-                                  ...buildStars(
-                                      eventavgScore,
-                                      const Color.fromARGB(255, 224, 186, 15),
-                                      20.0),
-                                ],
-                              ),
-                              // Botón de añadir crítica
-                              TextButton(
-                                onPressed: () {
-                                  Get.to(() => FeedbackPage(
-                                        eventid: eventId,
-                                        principal: colorName,
-                                      ));
-                                  Get.put<FeedbackPageController>(
-                                      FeedbackPageController());
-                                },
-                                style: TextButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: BorderSide(
-                                        color:
-                                            colorName), // Borde del color principal
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Añadir crítica",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: colorName, // Color del texto
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    SizedBox(width: 3),
-                                    Icon(Icons.reviews, color: colorName)
-                                  ],
-                                ),
-                              ),
-                            ]),
-                      SizedBox(height: 10),
-                      Text(
-                        'Descripción',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: colorName,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    eventDescription,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: AppColors.textPrimary,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Orden de la Conferencia
-                  Text(
-                    "Orden de la Conferencia",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: colorName,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: eventSessionOrder.length,
-                    itemBuilder: (context, index) {
-                      final session = eventSessionOrder[index];
-                      return SessionCard(
-                        index: index,
-                        session: session,
-                        color: colorName,
-                      );
-                    },
-                  ),
-                  SizedBox(height: 20),
-
-                  // Asistentes y Disponibles
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            'Asistentes',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: colorName,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Obx(() => Text(
-                                controller.gattendees,
+                              Text(
+                                eventTitle,
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.textPrimary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text(
-                            'Disponibles',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: colorName,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Obx(() => Text(
-                                controller.gspots,
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                eventLocation,
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.textPrimary,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-
-                  // Orador
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.campaign, color: colorName),
-                      SizedBox(width: 10),
-                      Text(
-                        "Orador:",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: colorName,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Flexible(
-                        child: Text(
-                          eventSpeakerName,
+                                    fontSize: 15,
+                                    color: AppColors.textPrimary,
+                                    fontWeight: FontWeight.w700),
+                              )
+                            ])),
+                      ]))),
+          Positioned.fill(
+              top: 130,
+              child: Container(
+                height: 700,
+                decoration: BoxDecoration(
+                    color: AppColors.textPrimary,
+                    borderRadius: BorderRadius.circular(12)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Row(children: [
+                        Text(
+                          eventDate,
                           style: TextStyle(
-                            fontSize: 15,
-                            color: AppColors.textPrimary,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                              fontSize: 15,
+                              color: AppColors.background,
+                              fontWeight: FontWeight.w700),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-
-                  // Botón de suscripción
-                  if (eventstatus == "Por empezar")
-                    Obx(() {
-                      final isSubscribed = controller.isSubscribed(eventId);
-                      return Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            final spots = int.tryParse(controller.gspots) ?? 0;
-                            if (isSubscribed || spots > 0) {
-                              controller.toggleSubscription(eventId);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: const Text(
-                                      'No hay cupos disponibles para este evento.'),
-                                  backgroundColor: Colors.redAccent,
-                                  duration: const Duration(seconds: 2),
-                                ),
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
+                        SizedBox(
+                          width: 180,
+                        ),
+                        Text(eventTime,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: AppColors.background,
+                                fontWeight: FontWeight.w700))
+                      ]),
+                    )
+                  ],
+                ),
+              )),
+          Positioned.fill(
+              top: 175,
+              child: Container(
+                height: 400,
+                padding: EdgeInsets.only(top: 20, right: 30),
+                decoration: BoxDecoration(
+                    color: AppColors.background,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15))),
+                child: Container(
+                    padding: EdgeInsets.only(left: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Descripción',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: colorName,
+                                fontWeight: FontWeight.w700)),
+                        Text(eventDescription,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: AppColors.textPrimary,
+                                fontWeight: FontWeight.w700)),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text("Orden de la Conferencia",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: colorName,
+                                fontWeight: FontWeight.w700)),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            height: 200,
+                            decoration: BoxDecoration(
+                                color: AppColors.textPrimary,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            child: Center(
+                                child: ConstrainedBox(
+                              constraints:
+                                  BoxConstraints(maxHeight: 180, maxWidth: 600),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection:
+                                    Axis.horizontal, // Scroll horizontal
+                                physics: BouncingScrollPhysics(),
+                                itemCount: eventSessionOrder.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(
+                                        right: 20,
+                                        left: 20,
+                                        top: 10,
+                                        bottom: 10),
+                                    padding: EdgeInsets.all(7),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(7)),
+                                        color: colorName),
+                                    width: 100,
+                                    height: 80,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text("${index + 1}",
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.bold)),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(eventSessionOrder[index].name,
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700)),
+                                        Text(
+                                          "${eventSessionOrder[index].duration} min",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            )),
+                          ),
+                        ),
+                        Container(
+                            padding: EdgeInsets.only(top: 50),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  isSubscribed
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: isSubscribed
-                                      ? Colors.red
-                                      : (int.tryParse(controller.gspots) ??
-                                                  0) ==
-                                              0
-                                          ? Colors.grey
-                                          : colorName,
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  isSubscribed ? "Desuscribir" : "Suscribir",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: colorName,
-                                  ),
-                                ),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    Text('Asistentes',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: colorName,
+                                            fontWeight: FontWeight.w700)),
+                                    Obx(() => Text(controller.gattendees,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
+                                  ],
+                                )),
+                                SizedBox(width: 90),
+                                Expanded(
+                                    child: Column(
+                                  children: [
+                                    Text('Disponibles',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: colorName,
+                                            fontWeight: FontWeight.w700)),
+                                    Obx(() => Text(controller.gspots,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: AppColors.textPrimary,
+                                            fontWeight: FontWeight.w700)))
+                                  ],
+                                ))
                               ],
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                            )),
+                        Container(
+                            padding: EdgeInsets.only(top: 70),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.campaign),
+                                  Text("Orador",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: colorName,
+                                          fontWeight: FontWeight.w700)),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(eventSpeakerName,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: AppColors.textPrimary,
+                                          fontWeight: FontWeight.w700)),
+                                ])),
+                        eventstatus == "Finalizado"
+                            ? SizedBox(
+                                height: 40,
+                              )
+                            : Text(""),
+                        eventstatus == "Finalizado"
+                            ? Center(
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Get.to(() => FeedbackPage(
+                                            eventid: eventId,
+                                            principal: colorName,
+                                          ));
+                                      Get.put<FeedbackPageController>(
+                                          FeedbackPageController());
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      width: 450,
+                                      child: Expanded(
+                                          child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Calificación promedio:',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: colorName,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(
+                                            width: 7,
+                                          ),
+                                          eventavgScore > 0
+                                              ? eventavgScore <= 0.5
+                                                  ? Icon(
+                                                      Icons.star_half,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                                  : Icon(
+                                                      Icons.star,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                              : Icon(
+                                                  Icons.star_border,
+                                                  color: colorName,
+                                                  size: starSize,
+                                                ),
+                                          eventavgScore > 1
+                                              ? eventavgScore <= 1.5
+                                                  ? Icon(
+                                                      Icons.star_half,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                                  : Icon(
+                                                      Icons.star,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                              : Icon(
+                                                  Icons.star_border,
+                                                  color: colorName,
+                                                  size: starSize,
+                                                ),
+                                          eventavgScore > 2
+                                              ? eventavgScore <= 2.5
+                                                  ? Icon(
+                                                      Icons.star_half,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                                  : Icon(
+                                                      Icons.star,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                              : Icon(Icons.star_border,
+                                                  color: colorName,
+                                                  size: starSize,),
+                                          eventavgScore > 3
+                                              ? eventavgScore <= 3.5
+                                                  ? Icon(Icons.star_half,
+                                                      color: colorName,
+                                                      size: starSize,)
+                                                  : Icon(Icons.star,
+                                                      color: colorName,
+                                                      size: starSize,)
+                                              : Icon(Icons.star_border,
+                                                  color: colorName,
+                                                  size: starSize,),
+                                          eventavgScore > 4
+                                              ? eventavgScore <= 4.5
+                                                  ? Icon(
+                                                      Icons.star_half,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                                  : Icon(
+                                                      Icons.star,
+                                                      color: colorName,
+                                                      size: starSize,
+                                                    )
+                                              : Icon(Icons.star_border,
+                                                  color: colorName,
+                                                  size: starSize,),
+                                          SizedBox(width: 10),
+                                          Text(
+                                            'Criticas',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: colorName,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          SizedBox(width: 7),
+                                          Icon(Icons.reviews,
+                                              color: AppColors.textPrimary)
+                                        ],
+                                      )),
+                                    )),
+                              )
+                            : Text(""),
+                        eventstatus == "Por empezar"
+                            ? Container(
+                                padding: EdgeInsets.only(top: 25),
+                                child: Obx(() {
+                                  final isSubscribed =
+                                      controller.isSubscribed(eventId);
+                                  return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            final spots = int.tryParse(
+                                                    controller.gspots) ??
+                                                0;
+                                            final isSubscribed = controller
+                                                .isSubscribed(eventId);
+
+                                            if (isSubscribed || spots > 0) {
+                                              controller
+                                                  .toggleSubscription(eventId);
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: const Text(
+                                                      'No hay cupos disponibles para este evento.'),
+                                                  backgroundColor:
+                                                      Colors.redAccent,
+                                                  duration: const Duration(
+                                                      seconds: 2),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                isSubscribed
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                color: isSubscribed
+                                                    ? Colors.red
+                                                    : (int.tryParse(controller
+                                                                    .gspots) ??
+                                                                0) ==
+                                                            0
+                                                        ? Colors.grey
+                                                        : null,
+                                              ),
+                                              SizedBox(width: 8),
+                                              Text(
+                                                  isSubscribed
+                                                      ? "Desuscribir"
+                                                      : "Suscribir",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: colorName,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                      ]);
+                                }))
+                            : Text(""),
+                        SizedBox(
+                          height: 20,
+                        )
+                      ],
+                    )),
+              ))
+        ],
+      )),
     );
   }
 }

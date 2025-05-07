@@ -32,8 +32,8 @@ class FeedbackCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double starSize = 15.0;
-    final Color starColor = const Color.fromARGB(255, 255, 209, 2);
+    final double starSize = 10.0;
+    final Color starColor = Colors.yellowAccent;
     final feedbackController =
         Get.find<FeedbackCardController>(tag: "$feedbackid");
 

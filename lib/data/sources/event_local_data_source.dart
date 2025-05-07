@@ -1,145 +1,93 @@
-import 'dart:developer';
-
-import 'package:hive/hive.dart';
+import 'dart:convert';
+import 'package:confhub/core/utils/date_formatter.dart';
+import 'package:flutter/services.dart';
 import '../models/event_model.dart';
 
 class EventLocalDataSource {
-  static const String eventsBoxName = 'events';
-  static const String feedbacksBoxName = 'feedbacks';
-  static const String apiVersionBoxName = 'api_version';
-  static const String subscribedEventsBoxName = 'subscribed_events';
-
-  // Guardar eventos
-  Future<void> saveEvents(List<dynamic> rawEvents) async {
-    final box = await Hive.openBox(eventsBoxName);
-    await box.clear(); // Limpia los eventos existentes
-    log("VAMOS A GUARDAR LOS EVENTOS EN LOCAL: ${rawEvents.length}");
-    for (var rawEvent in rawEvents) {
-      try {
-        // Guardar los datos crudos directamente como JSON
-        final eventId = rawEvent['eventid'];
-        await box.put(eventId, rawEvent);
-      } catch (e) {
-        log("Error al guardar el evento: $e");
-      }
-    }
-  }
-
-  // Obtener todos los eventos
   Future<List<EventModel>> getAllEvents() async {
-    final box = await Hive.openBox(eventsBoxName);
+    final String response = await rootBundle.loadString('assets/data/events.json');
 
-    // Log para verificar si el box se abre correctamente
-    log("Box '$eventsBoxName' abierto. Contiene ${box.length} elementos.");
+    final List<dynamic> data = json.decode(response);
 
-    // Log para inspeccionar los datos crudos en el box
-    // for (var key in box.keys) {
-    //   log("Clave: $key, Valor: ${box.get(key)}");
-    // }
+    return data.map((json) => EventModel.fromJson(json)).toList();
+  }
 
-    try {
-      // Intentar deserializar los datos
-      final events = box.values
-          .map((json) => EventModel.fromJson(Map<String, dynamic>.from(json)))
-          .toList();
+  // Nueva función para obtener eventos en la fecha actual
+  Future<List<EventModel>> getEventsForToday() async {
+    final allEvents = await getAllEvents();
+    final today = formatDate(DateTime.now());
 
-      log("Eventos deserializados correctamente: ${events.length}");
-      return events;
-    } catch (e) {
-      // Log para capturar errores de deserialización
-      log("Error al deserializar eventos locales: $e");
-      return [];
+    // Filtrar eventos cuya fecha coincida con la fecha actual
+    return allEvents.where((event) {
+      return event.date == today; // Compara las fechas formateadas
+    }).toList();
+  }
+
+
+  Future<List<String>> getCategories() async {
+    final allEvents = await getAllEvents();
+    Set<String> categories = {};
+
+    for (var event in allEvents) {
+      categories.add(event.category);
     }
+
+    return categories.toList();
   }
 
-  // Guardar feedback
-  Future<void> saveFeedback(
-    int eventId,
-    String title,
-    String comment,
-    double score,
-    String datetime,
-    int likes,
-    int dislikes,
-    String? answer,
-  ) async {
-    final box = await Hive.openBox(feedbacksBoxName);
-    await box.add({
-      'eventid': eventId,
-      'title': title,
-      'comment': comment,
-      'score': score,
-      'datetime': datetime,
-      'likes': likes,
-      'dislikes': dislikes,
-      'answer': answer,
-      'isPublished': 0,
-    });
+  Future<List<EventModel>> getEventsByCategory(String category) async {
+    final allEvents = await getAllEvents();
+
+    return allEvents.where((event) {
+      return event.category == category; // Compara las fechas formateadas
+    }).toList();
   }
 
-  // Obtener feedbacks no publicados
-  Future<List<Map<String, dynamic>>> getUnpublishedFeedbacks() async {
-    final box = await Hive.openBox(feedbacksBoxName);
-    return box.values
-        .where((feedback) => feedback['isPublished'] == 0)
-        .cast<Map<String, dynamic>>()
-        .toList();
-  }
 
-  Future<void> markFeedbackAsPublished(int feedbackId) async {
-    final box = await Hive.openBox(feedbacksBoxName);
+List<int> subscribedEventIds = []; // This will store just the event IDs
 
-    // Buscar el feedback por su ID
-    final feedbackKey = box.keys.firstWhere(
-      (key) => box.get(key)['feedbackid'] == feedbackId,
-      orElse: () => null,
-    );
-
-    if (feedbackKey != null) {
-      // Actualizar el campo 'isPublished' a 1
-      final feedback = box.get(feedbackKey);
-      feedback['isPublished'] = 1;
-      await box.put(feedbackKey, feedback);
+Future<bool> subscribeAnEvent(int eventId) async {
+  try {
+ 
+    if (subscribedEventIds.contains(eventId)) {
+      return false;
     }
-  }
 
-  Future<void> saveSubscribedEvent(int eventId) async {
-    final box = await Hive.openBox(subscribedEventsBoxName);
-    await box.put(eventId, true); // Guardar el evento como suscrito
+    // Update the event data (if you still want to maintain this)
+    final allEvents = await getAllEvents();
+    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
+    
+    eventSubs.attendees += 1;
+    eventSubs.availableSpots -= 1;
+    
+    // Add to subscribed events list
+    subscribedEventIds.add(eventId);
+    
+    return true;
+  } catch (e) {
+    throw Exception("Hubo un problema: $e");
   }
+}
 
-  Future<void> removeSubscribedEvent(int eventId) async {
-    final box = await Hive.openBox(subscribedEventsBoxName);
-    await box.delete(eventId); // Eliminar el evento de las suscripciones
-    log("Evento desuscrito eliminado localmente: $eventId");
-  }
+bool isSubscribed(int eventId) {
+  return subscribedEventIds.contains(eventId);
+}
 
-  Future<void> saveSubscribedEvents(List<int> subscribedEventIds) async {
-    final box = await Hive.openBox(subscribedEventsBoxName);
-    await box.clear(); // Limpia las suscripciones existentes
-    for (var eventId in subscribedEventIds) {
-      await box.put(eventId, true); // Guardar cada ID como suscrito
-    }
-    log("Eventos suscritos guardados localmente: $subscribedEventIds");
+Future<bool> unsubscribeFromEvent(int eventId) async {
+  try {
+   
+    final allEvents = await getAllEvents();
+    final eventSubs = allEvents.firstWhere((event) => event.eventid == eventId);
+    
+    eventSubs.attendees -= 1;
+    eventSubs.availableSpots += 1;
+    
+    // Remove from subscribed events list
+    subscribedEventIds.remove(eventId);
+    
+    return true;
+  } catch (e) {
+    throw Exception("Hubo un problema: $e");
   }
-
-  Future<List<int>> getSubscribedEventIds() async {
-    final box = await Hive.openBox(subscribedEventsBoxName);
-    return box.keys
-        .cast<int>()
-        .toList(); // Devolver las claves como IDs de eventos
-  }
-
-  // Guardar la versión de la API
-  Future<void> saveApiVersion(String version) async {
-    log("APIVERSION Guardada $version");
-    final box = await Hive.openBox(apiVersionBoxName);
-    await box.put('version', version);
-  }
-
-  // Obtener la versión de la API
-  Future<String?> getApiVersion() async {
-    final box = await Hive.openBox(apiVersionBoxName);
-    return box.get('version');
-  }
+}
 }
