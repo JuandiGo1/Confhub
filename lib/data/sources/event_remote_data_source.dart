@@ -21,10 +21,9 @@ class EventRemoteDataSource {
       final localApiVersion = await localDataSource.getApiVersion();
 
       //Solo actualizar si hay cambios
-      if (apiVersion != localApiVersion) {
-        await localDataSource.saveEvents(data);
-        log("Eventos guardados en local");
-      }
+
+      await localDataSource.saveEvents(data);
+      log("Eventos guardados en local");
 
       return data.map((json) => EventModel.fromJson(json)).toList();
     } else {

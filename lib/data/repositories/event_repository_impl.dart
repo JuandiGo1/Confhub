@@ -25,7 +25,7 @@ class EventRepositoryImpl implements EventRepository {
   Future<List<EventModel>> getAllEvents() async {
     try {
       final events = await remoteDataSource.getAllEvents();
-      
+
       return events;
     } catch (e) {
       log('Error obteniendo eventos remotos: $e');
@@ -100,42 +100,4 @@ class EventRepositoryImpl implements EventRepository {
     return await remoteDataSource.getEventsByCategory(category);
   }
 
-  //Metodos BD local
-  @override
-  Future<void> saveEvents(List<EventModel> events) async {
-    await localDataSource.saveEvents(events);
-  }
-
-  @override
-  Future<List<Map<String, dynamic>>> getUnpublishedFeedbacks() async {
-    return await localDataSource.getUnpublishedFeedbacks();
-  }
-
-  @override
-  Future<void> markFeedbackAsPublished(int feedbackId) async {
-    await localDataSource.markFeedbackAsPublished(feedbackId);
-  }
-
-  @override
-  Future<void> saveFeedback(
-    int eventId,
-    String title,
-    String comment,
-    double score,
-    String datetime,
-    int likes,
-    int dislikes,
-    String? answer,
-  ) async {
-    await localDataSource.saveFeedback(
-      eventId,
-      title,
-      comment,
-      score,
-      datetime,
-      likes,
-      dislikes,
-      answer,
-    );
-  }
 }

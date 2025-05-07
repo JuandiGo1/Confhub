@@ -33,9 +33,9 @@ class EventLocalDataSource {
     log("Box '$eventsBoxName' abierto. Contiene ${box.length} elementos.");
 
     // Log para inspeccionar los datos crudos en el box
-    for (var key in box.keys) {
-      log("Clave: $key, Valor: ${box.get(key)}");
-    }
+    // for (var key in box.keys) {
+    //   log("Clave: $key, Valor: ${box.get(key)}");
+    // }
 
     try {
       // Intentar deserializar los datos
@@ -123,6 +123,7 @@ class EventLocalDataSource {
 
   // Guardar la versión de la API
   Future<void> saveApiVersion(String version) async {
+    log("APIVERSION Guardada $version");
     final box = await Hive.openBox(apiVersionBoxName);
     await box.put('version', version);
   }
