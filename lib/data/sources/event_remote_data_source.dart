@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:confhub/core/utils/date_formatter.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
 import 'package:http/http.dart' as http;
