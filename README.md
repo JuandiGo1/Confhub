@@ -7,6 +7,8 @@
 ## Video Demostración
 [![Watch the video](https://i9.ytimg.com/vi/w-xyymeiW-s/mqdefault.jpg?sqp=CMCs2L8G&rs=AOn4CLBg08dJunI8m2BHBjfRhD8Xxb-HcA&retry=3)](https://youtu.be/w-xyymeiW-s)
 
+## Video Demostración Test Integration
+[![Watch the video](https://i9.ytimg.com/vi/w-xyymeiW-s/mqdefault.jpg?sqp=CMCs2L8G&rs=AOn4CLBg08dJunI8m2BHBjfRhD8Xxb-HcA&retry=3)](https://youtu.be/w-xyymeiW-s)
 
 ## 🚀 Funcionalidades principales
 
@@ -34,6 +36,12 @@
 ---
 
 ## 📷 Capturas 
+![Captura de pantalla 2025-05-07 031310](https://github.com/user-attachments/assets/14ee2d11-70fe-4b90-8261-63d0b533887b)
+![Captura de pantalla 2025-05-07 031359](https://github.com/user-attachments/assets/928d2955-3a03-4c9f-baee-d11d0481b40a)
+![Captura de pantalla 2025-05-07 031821](https://github.com/user-attachments/assets/7dc4cacb-88a9-49e2-89ed-0eda23ccb06d)
+
+
+### Primera Version
 
 ![image](https://github.com/user-attachments/assets/4f667f72-4713-4250-a399-f486fd3e3210)
 
