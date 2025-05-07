@@ -35,7 +35,7 @@
 - **GetX**: Gestión de estado, rutas y dependencias.
 - **Dart**: Lenguaje de programación principal.
 - **Arquitectura limpia**: Separación por capas (UI, dominio, datos).
-- ** API con TS y PostgreSQL**: link del backend https://github.com/G-dark/Confhub-Backend.git
+- **API con TS y PostgreSQL**: link del backend https://github.com/G-dark/Confhub-Backend.git
 
 ---
 
