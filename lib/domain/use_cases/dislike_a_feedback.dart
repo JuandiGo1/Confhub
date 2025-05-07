@@ -6,7 +6,7 @@ class DislikeAFeedbackUseCase {
 
   DislikeAFeedbackUseCase(this.repository);
 
-  Future<bool> call (int feedbackid) async {
-    return await repository.dislikeAFeedback(feedbackid);
+  Future<bool> call (int eventid) async {
+    return await repository.dislikeAFeedback(eventid);
   }
 }

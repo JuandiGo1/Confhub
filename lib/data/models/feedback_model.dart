@@ -1,21 +1,23 @@
+
+
 import 'package:confhub/core/utils/date_formatter.dart';
 
 import 'package:confhub/domain/entities/feedback.dart';
+
 
 class FeedbackModel extends Feedback {
   FeedbackModel({
     required super.title,
     required super.comment,
     required super.dateTime,
-    super.date,
-    super.time,
+    required super.date,
+    required super.time,
     required super.score,
     required super.eventid,
-    super.likes,
-    super.dislikes,
-    super.feedbackid,
-    super.answer,
-    super.answerDateTime,
+    required super.likes,
+    required super.dislikes,
+    required super.feedbackid,
+
   });
 
   // Convertir JSON a EventModel
@@ -34,9 +36,7 @@ class FeedbackModel extends Feedback {
         eventid: json['eventid'],
         likes: json['likes'],
         dislikes: json['dislikes'],
-        feedbackid: json['id'],
-        answer: json['answer'],
-        answerDateTime: json['answerDate']
+        feedbackid: json['id']
         );
   }
 
@@ -48,11 +48,9 @@ class FeedbackModel extends Feedback {
       'dateTime': "$date $time",
       'score': score,
       'eventid': eventid,
-      'likes': likes,
-      'dislikes': dislikes,
-      'id': feedbackid,
-      'answer':answer,
-      'answerDateTime':answerDateTime,
+      'likes':likes,
+      'dislikes':dislikes,
+      'id':feedbackid,
     };
   }
 }

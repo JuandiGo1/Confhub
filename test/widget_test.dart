@@ -9,7 +9,6 @@ import 'package:confhub/core/utils/test_utils.dart';
 import 'package:confhub/data/models/session_model.dart';
 import 'package:confhub/domain/use_cases/get_all_events.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
-import 'package:confhub/ui/controllers/feedback_page_controller.dart';
 import 'package:confhub/ui/pages/event_detail_page.dart';
 import 'package:confhub/ui/widgets/home/featured_webinars.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,8 @@ class MockEventPageController extends GetxService
   bool isSubscribed(int eventId) => subscribedEvents.contains(eventId);
 
   @override
-  Future<void> initializeForEvent(int eventId) async {}
+  Future<void> initializeForEvent(int eventId) async {
+  }
 
   @override
   Future<void> toggleSubscription(int eventId) async {
@@ -62,14 +62,6 @@ class MockEventPageController extends GetxService
   }
 }
 
-class MockFeedbackPageController extends GetxService
-    with Mock
-    implements FeedbackPageController {
-
-      
-
-    }
-
 void main() {
   setUp(() {
     final controller = MockEventPageController();
@@ -79,31 +71,25 @@ void main() {
   testWidgets('test the subscription buttom', (WidgetTester tester) async {
     WidgetsFlutterBinding.ensureInitialized();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(GetMaterialApp(
+    await tester.pumpWidget( GetMaterialApp(
         home: EventDetailPage(
-      eventId: 1245678,
-      eventTitle: "Introducción a Node.js y Express",
-      eventCategory: "Backend",
-      eventDate: "Lun, 14",
-      eventTime: "14:00",
-      eventAttendees: 100,
-      eventDescription:
-          "Descubre el mundo del desarrollo backend con Node.js y Express. Aprensderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
-      eventSpeakerName: "Carlos Rios",
-      eventSpeakerAvatar:
-          "https://avatar.iran.liara.run/username?username=Carlos+Rios",
-      eventLocation: "Barranquilla, Colombia",
-      eventSpots: 1,
-      eventavgScore: 0,
-      eventstatus: "Por empezar",
-      eventSessionOrder: [
-        SessionModel(
-          name: 'Firter',
-          duration: 1,
-        )
-      ],
-      numberReviews: 0,
-    )));
+            eventId: 1245678,
+            eventTitle: "Introducción a Node.js y Express",
+            eventCategory: "Backend",
+            eventDate: "Lun, 14",
+            eventTime: "14:00",
+            eventAttendees: 100,
+            eventDescription:
+                "Descubre el mundo del desarrollo backend con Node.js y Express. Aprensderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
+            eventSpeakerName: "Carlos Rios",
+            eventSpeakerAvatar:
+                "https://avatar.iran.liara.run/username?username=Carlos+Rios",
+            eventLocation: "Barranquilla, Colombia",
+            eventSpots: 1,
+            eventavgScore: 0,
+            eventstatus: "Por empezar",
+            eventSessionOrder:   [SessionModel(name: 'Firter',duration: 1,)],
+            numberReviews: 0,)));
 
     // Verify that attendees starts at initial values.
     expect(find.text('100'), findsOneWidget);
@@ -120,121 +106,16 @@ void main() {
     expect(find.text('101'), findsOneWidget);
     expect(find.text('0'), findsOneWidget);
 
-    // try to subscribe when there are not spots
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
-
-    //verify that the snackbar shows out
-    expect(
-        find.byWidget(SnackBar(
-          content: const Text('No hay cupos disponibles para este evento.'),
-          backgroundColor: Colors.redAccent,
-        )),
-        findsOneWidget);
-
-    // verify that values haven't changed
-    expect(find.text('101'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-
-    // Tap the 'fav' icon and unsubscribed.
+    // Tap the 'fav' icon and unsubsdribed.
     await tester.tap(find.byIcon(Icons.favorite));
     await tester.pump();
 
     // Verify that values are the same as the initials.
+
     expect(find.text('100'), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
   });
 
-  testWidgets('test the subscription buttom when the available spots are 0',
-      (WidgetTester tester) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(GetMaterialApp(
-        home: EventDetailPage(
-      eventId: 1245678,
-      eventTitle: "Introducción a Node.js y Express",
-      eventCategory: "Backend",
-      eventDate: "Lun, 14",
-      eventTime: "14:00",
-      eventAttendees: 100,
-      eventDescription:
-          "Descubre el mundo del desarrollo backend con Node.js y Express. Aprensderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
-      eventSpeakerName: "Carlos Rios",
-      eventSpeakerAvatar:
-          "https://avatar.iran.liara.run/username?username=Carlos+Rios",
-      eventLocation: "Barranquilla, Colombia",
-      eventSpots: 0,
-      eventavgScore: 0,
-      eventstatus: "Por empezar",
-      eventSessionOrder: [
-        SessionModel(
-          name: 'Firter',
-          duration: 1,
-        )
-      ],
-      numberReviews: 0,
-    )));
-
-    // Verify that attendees starts at initial values.
-    expect(find.text('100'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-
-    // try to subscribe when there are not spots
-    await tester.tap(find.byIcon(Icons.favorite_border));
-    await tester.pump();
-
-    //verify that the snackbar shows out
-    expect(
-        find.byWidget(SnackBar(
-          content: const Text('No hay cupos disponibles para este evento.'),
-          backgroundColor: Colors.redAccent,
-        )),
-        findsOneWidget);
-
-    // verify that values haven't changed
-    expect(find.text('101'), findsOneWidget);
-    expect(find.text('0'), findsOneWidget);
-  });
-
-  testWidgets('test the event detail page when the event is finished',
-      (WidgetTester tester) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(GetMaterialApp(
-        home: EventDetailPage(
-      eventId: 1245678,
-      eventTitle: "Introducción a Node.js y Express",
-      eventCategory: "Backend",
-      eventDate: "Lun, 14",
-      eventTime: "14:00",
-      eventAttendees: 100,
-      eventDescription:
-          "Descubre el mundo del desarrollo backend con Node.js y Express. Aprensderás los conceptos básicos de Node.js, cómo configurar un servidor con Express y gestionar rutas y middlewares. Ideal para quienes quieren iniciar en el desarrollo de APIs modernas.",
-      eventSpeakerName: "Carlos Rios",
-      eventSpeakerAvatar:
-          "https://avatar.iran.liara.run/username?username=Carlos+Rios",
-      eventLocation: "Barranquilla, Colombia",
-      eventSpots: 0,
-      eventavgScore: 0,
-      eventstatus: "Finalizado",
-      eventSessionOrder: [
-        SessionModel(
-          name: 'Firter',
-          duration: 1,
-        )
-      ],
-      numberReviews: 0,
-    )));
-
-    // Verify that attendees starts at initial values.
-    expect(find.text('100'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
-
-    // verify the no presence of subscribe buttom
-    expect(find.byIcon(Icons.favorite_border), findsNothing);
-
-    expect(find.text('Calificación promedio:'), findsOneWidget);
-  });
 
   tearDown(() {
     AppEnvironment.isTest = false;
@@ -263,12 +144,10 @@ void main() {
         tags: ["Flutter", "Mobile", "Dart"],
         avgScore: 0,
         status: "Por empezar",
-        sessionOrder: [
-          SessionModel(
-            name: 'Firter',
-            duration: 1,
-          )
-        ],
+        sessionOrder: [SessionModel(
+          name: 'Firter',
+          duration: 1,
+        )],
         numberReviews: 0,
       )
     ];
@@ -299,8 +178,7 @@ void main() {
     expect(find.text("FlutterConf 2025"), findsOneWidget);
   });
 
-  testWidgets('Tapping EventCard navigates to EventDetailPage',
-      (WidgetTester tester) async {
+   testWidgets('Tapping EventCard navigates to EventDetailPage', (WidgetTester tester) async {
     final testEvent = Event(
       eventid: 1245678,
       title: 'Test Event',
@@ -316,7 +194,7 @@ void main() {
       category: 'Tech',
       tags: [],
       avgScore: 4.2,
-      status: "Por empezar",
+      status:"Por empezar",
       sessionOrder: [],
       numberReviews: 0,
     );

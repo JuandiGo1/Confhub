@@ -3,6 +3,7 @@ import 'package:confhub/domain/use_cases/get_today_events.dart';
 import 'package:confhub/ui/widgets/home/webinar_card.dart';
 import 'package:flutter/material.dart';
 import 'package:confhub/domain/entities/event.dart';
+import 'package:confhub/domain/use_cases/get_all_events.dart';
 import 'package:get/get.dart';
 
 class FeaturedWebinars extends StatelessWidget {
@@ -37,10 +38,10 @@ class FeaturedWebinars extends StatelessWidget {
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No hay eventos disponibles'));
               }
-
+            
               final events = snapshot.data!;
 
-
+            
               return ListView.builder(
 
                 scrollDirection: Axis.horizontal,
@@ -51,7 +52,7 @@ class FeaturedWebinars extends StatelessWidget {
                   // Selecciona el color basado en el índice
                   final color = colorsCard[index % colorsCard.length];
 
-
+                      
                   return Padding(
                     padding: EdgeInsets.only( right: index == events.length - 1 ? 16 : 0),
                     child: Webinarcard(
@@ -60,7 +61,7 @@ class FeaturedWebinars extends StatelessWidget {
                       category: events[index].category,
                       color: color,
                       attendees: events[index].attendees,
-                      speakerAvatar: events[index].speakerAvatar,
+                      speakerAvatar: events[index].speakerAvatar, 
                       event: events[index],
                     ),
 
