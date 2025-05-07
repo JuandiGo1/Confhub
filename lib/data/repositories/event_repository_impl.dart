@@ -45,7 +45,7 @@ class EventRepositoryImpl implements EventRepository {
     try {
       final allEvents = await remoteDataSource.getAllEvents();
       final subscribedIds = remoteDataSource.subscribedEventIds;
-
+  
       log("Subscribed IDs: $subscribedIds");
 
       return allEvents.where((event) {

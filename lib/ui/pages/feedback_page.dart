@@ -57,6 +57,7 @@ class FeedbackPage extends StatelessWidget {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+
                         Text("Filtrar por",
                             style: TextStyle(fontSize: textSize)),
                         GestureDetector(
@@ -82,8 +83,14 @@ class FeedbackPage extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(Icons.arrow_upward_rounded,
-                                        size: 10, weight: 20),
+
+                                    Icon(
+                                      Icons.arrow_upward_rounded,
+                                      size: 10,
+                                      weight: 20,
+                                      color: Colors.white,
+                                    ),
+
                                     Icon(
                                       Icons.arrow_downward_rounded,
                                       size: 10,
@@ -91,7 +98,11 @@ class FeedbackPage extends StatelessWidget {
                                     ),
                                     Text(
                                       controller.filtro1,
-                                      style: TextStyle(fontSize: textSize),
+
+                                      style: TextStyle(
+                                          fontSize: textSize,
+                                          color: Colors.white),
+
                                     ),
                                   ],
                                 ))),
@@ -118,8 +129,14 @@ class FeedbackPage extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(Icons.arrow_upward_rounded,
-                                      size: 10, weight: 20),
+
+                                  Icon(
+                                    Icons.arrow_upward_rounded,
+                                    size: 10,
+                                    weight: 20,
+                                    color: Colors.white,
+                                  ),
+                               
                                   Icon(
                                     Icons.arrow_downward_rounded,
                                     size: 10,
@@ -129,7 +146,11 @@ class FeedbackPage extends StatelessWidget {
                                     controller.filtro2 == "MejorVal"
                                         ? "Mejor valoradas"
                                         : "Peor valoradas",
-                                    style: TextStyle(fontSize: textSize),
+
+                                    style: TextStyle(
+                                        fontSize: textSize,
+                                        color: Colors.white),
+
                                   ),
                                 ],
                               ),
@@ -286,6 +307,7 @@ class FeedbackPage extends StatelessWidget {
                 )),
           ),
           Center(
+
               child: FloatingActionButton(
             onPressed: () {
               showFeedbackModal(
