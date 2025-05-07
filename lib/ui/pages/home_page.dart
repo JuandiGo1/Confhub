@@ -1,12 +1,11 @@
 
 import 'package:confhub/core/colors.dart';
 import 'package:confhub/ui/widgets/dotted_bg.dart';
+
 import 'package:confhub/ui/widgets/home/featured_webinars.dart';
 import 'package:confhub/ui/widgets/home/header_section.dart';
 import 'package:confhub/ui/widgets/home/upcoming_webinars.dart';
 import 'package:flutter/material.dart';
-
-
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

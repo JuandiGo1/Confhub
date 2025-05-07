@@ -1,170 +1,110 @@
 import 'package:confhub/core/colors.dart';
-import 'package:confhub/domain/entities/event.dart';
 import 'package:confhub/ui/controllers/event_page_controller.dart';
 import 'package:confhub/ui/pages/event_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:confhub/domain/entities/event.dart';
 import 'package:get/get.dart';
 
 class CardEvent extends StatelessWidget {
-  final bgCardColor;
   final Event event;
+  final int color;
 
-  const CardEvent({
-    super.key,
-    required this.bgCardColor,
-    required this.event,
-  });
+  const CardEvent({super.key, required this.color, required this.event});
+
+  Color _getColorFromCode(int code) {
+    switch (code) {
+      case 0:
+        return AppColors.primary;
+      case 1:
+        return AppColors.cardSecond;
+      case 2:
+        return AppColors.cardThird;
+      default:
+        return Colors.grey;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 12, top: 0),
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 3))
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min, // Ajusta la altura al contenido
-        children: [
-          // Fondo 
-          Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: bgCardColor,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        event.title,
-                        style: TextStyle(
-                          color: bgCardColor==AppColors.background? AppColors.secondary: const Color.fromARGB(255, 16, 60, 88),
-                          fontSize: (MediaQuery.of(context).size.width > 700)
-                              ? 18
-                              : 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // Acción al presionar el ícono
-                      },
-                      child: Icon(
-                        Icons.more_horiz,
-                        size: 24,
-                        color: AppColors.secondary,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 5),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.schedule,
-                            color: AppColors.textPrimary, size: 20),
-                        SizedBox(width: 4),
-                        Text(
-                          event.date,
-                          style: TextStyle(
-                              color: AppColors.textPrimary, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      event.time,
-                      style:
-                          TextStyle(color: AppColors.textPrimary, fontSize: 16),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.location_on_outlined,
-                        color: AppColors.textPrimary, size: 20),
-                    SizedBox(width: 4),
-                    Text(
-                      event.location,
-                      style:
-                          TextStyle(color: AppColors.textPrimary, fontSize: 16),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () {
-                    //Para entrega 2 modularizar esta funcionalidad
-                    Get.to(
-                      () => EventDetailPage(
-                        eventTitle: event.title,
-                        eventId: event.eventid,
-                        eventDate: event.date,
-                        eventAttendees: event.attendees,
-                        eventCategory: event.category,
-                        eventDescription: event.description,
-                        eventSpeakerAvatar: event.speakerAvatar,
-                        eventTime: event.time,
-                        eventSpeakerName: event.speakerName,
-                        eventLocation: event.location,
-                        eventSpots: event.availableSpots,
-                        eventavgScore: event.avgScore,
-                        eventstatus: event.status,
-                        eventSessionOrder: event.sessionOrder,
-                        numberReviews: event.numberReviews,
-                      ),
-                      transition: Transition.cupertino,
-                    );
+    final Color mColor = _getColorFromCode(color);
 
-                    Get.put<EventPageController>(EventPageController(
-                        initialAttendees: event.attendees,
-                        initialSpots: event.availableSpots));
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(AppColors.primary),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Unirse Ahora",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600),
-                    ),
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          () => EventDetailPage(
+            eventTitle: event.title,
+            eventId: event.eventid,
+            eventDate: event.date,
+            eventAttendees: event.attendees,
+            eventCategory: event.category,
+            eventDescription: event.description,
+            eventSpeakerAvatar: event.speakerAvatar,
+            eventTime: event.time,
+            eventSpeakerName: event.speakerName,
+            eventLocation: event.location,
+            eventSpots: event.availableSpots,
+            colorName: mColor,
+            eventavgScore: event.avgScore,
+            eventstatus: event.status,
+            eventSessionOrder: event.sessionOrder,
+            numberReviews: event.numberReviews,
+          ),
+          transition: Transition.cupertino,
+        );
+
+        Get.put<EventPageController>(EventPageController(
+            initialAttendees: event.attendees,
+            initialSpots: event.availableSpots));
+      },
+      child: Container(
+        width: 160,
+        height: 200,
+        decoration: BoxDecoration(
+          color: mColor,
+          border: Border.all(
+            color: Colors.white, // Color del borde
+            width: 5.0,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+                child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(event.title,
+                        style: TextStyle(
+                            color: mColor == AppColors.primary
+                                ? Colors.white
+                                : AppColors.title,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600)))),
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: mColor == AppColors.primary
+                        ? Colors.white
+                        : AppColors.title, // Color del borde
+                    width: 2.0, // Grosor del borde
                   ),
                 ),
               ),
-            ],
-          )
-        ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  event.date,
+                  style: TextStyle(
+                      color: mColor == AppColors.primary
+                          ? Colors.white
+                          : AppColors.title,
+                      backgroundColor: Colors.transparent,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -40,7 +40,7 @@ class FeedbackPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             "Calificaciones y comentarios",
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20),
           ),
           backgroundColor: principal,
         ),
@@ -57,7 +57,7 @@ class FeedbackPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text("Filtrar por",
-                            style: TextStyle(fontSize: 15)),
+                            style: TextStyle(fontSize: textSize)),
                         GestureDetector(
                             onTap: () {
                               if (controller.filtro1 == "Recientes") {
@@ -75,23 +75,22 @@ class FeedbackPage extends StatelessWidget {
                                         BorderRadius.all(Radius.circular(15)),
                                     color: controller.filtroSelected ==
                                             controller.filtro1
-                                        ? AppColors.primary
+                                        ? Colors.deepPurple
                                         : principal),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Icon(Icons.arrow_upward_rounded,
-                                        size: 10, weight: 20, color: Colors.white,),
+                                        size: 10, weight: 20),
                                     Icon(
                                       Icons.arrow_downward_rounded,
                                       size: 10,
                                       weight: 20,
-                                      color: Colors.white,
                                     ),
                                     Text(
                                       controller.filtro1,
-                                      style: TextStyle(fontSize: textSize, color: Colors.white),
+                                      style: TextStyle(fontSize: textSize),
                                     ),
                                   ],
                                 ))),
@@ -112,25 +111,24 @@ class FeedbackPage extends StatelessWidget {
                                       BorderRadius.all(Radius.circular(15)),
                                   color: controller.filtroSelected ==
                                           controller.filtro2
-                                      ? AppColors.primary
+                                      ? Colors.deepPurple
                                       : principal),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(Icons.arrow_upward_rounded,
-                                      size: 10, weight: 20, color: Colors.white,),
+                                      size: 10, weight: 20),
                                   Icon(
                                     Icons.arrow_downward_rounded,
                                     size: 10,
                                     weight: 20,
-                                    color: Colors.white,
                                   ),
                                   Text(
                                     controller.filtro2 == "MejorVal"
                                         ? "Mejor valoradas"
                                         : "Peor valoradas",
-                                    style: TextStyle(fontSize: textSize, color: Colors.white),
+                                    style: TextStyle(fontSize: textSize),
                                   ),
                                 ],
                               ),
@@ -289,7 +287,6 @@ class FeedbackPage extends StatelessWidget {
                 )),
           ),
           Center(
-
               child: FloatingActionButton(
             onPressed: () {
               showFeedbackModal(
