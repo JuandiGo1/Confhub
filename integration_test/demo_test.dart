@@ -2,6 +2,7 @@ import 'package:confhub/core/utils/date_formatter.dart';
 import 'package:confhub/data/repositories/event_repository_impl.dart';
 import 'package:confhub/data/sources/event_local_data_source.dart';
 import 'package:confhub/data/sources/event_remote_data_source.dart';
+import 'package:confhub/dependencies.dart';
 import 'package:confhub/domain/repositories/event_repository.dart';
 import 'package:confhub/main.dart';
 import 'package:confhub/ui/widgets/enventLines/card_event.dart';
@@ -16,7 +17,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('test the subscription buttom', (WidgetTester tester) async {
-
+    initDependencies(); // Carga todas las dependencias
 
     await tester.pumpWidget(const MyApp());
 
@@ -56,7 +57,7 @@ void main() {
 
   testWidgets('test the subscription buttom when the available spots are 0',
       (WidgetTester tester) async {
-
+    initDependencies(); // Carga todas las dependencias
 
     await tester.pumpWidget(const MyApp());
 
@@ -97,10 +98,10 @@ void main() {
 // feedback part
 
 // navigation
-  testWidgets('test the navigation througth the app + update of an subscribed event on my events',
+  testWidgets(
+      'test the navigation througth the app + update of an subscribed event on my events',
       (WidgetTester tester) async {
-    
-
+    initDependencies(); // Carga todas las dependencias
     await tester.pumpWidget(const MyApp());
 
     await tester.pump();
@@ -218,6 +219,5 @@ void main() {
 
     // verify the no presence of events
     expect(find.text('No hay eventos suscritos'), findsOneWidget);
-
   });
 }
