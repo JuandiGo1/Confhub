@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import '../models/event_model.dart';
 
 class EventRemoteDataSource {
-  final String baseUrl = "http://localhost:3000/api/events";
+  final String baseUrl =
+      "https://confhub-backend-production.up.railway.app/api/events";
   final EventLocalDataSource localDataSource;
 
   EventRemoteDataSource({required this.localDataSource});
@@ -96,7 +97,8 @@ class EventRemoteDataSource {
   List<int> subscribedEventIds = [];
 
   Future<void> fetchSubscribedEvents() async {
-    final url = Uri.parse("http://localhost:3000/api/subscribed/");
+    final url = Uri.parse(
+        "https://confhub-backend-production.up.railway.app/api/subscribed/");
 
     try {
       final response = await http.get(url);
@@ -104,7 +106,7 @@ class EventRemoteDataSource {
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         subscribedEventIds = List<int>.from(data);
-         // Guardar los eventos suscritos localmente
+        // Guardar los eventos suscritos localmente
         await localDataSource.saveSubscribedEvents(subscribedEventIds);
         log("Eventos suscritos sincronizados con el servidor y guardados localmente.");
       } else {
@@ -171,7 +173,8 @@ class EventRemoteDataSource {
   }
 
   Future<String> getApiVersion() async {
-    final url = Uri.parse("http://localhost:3000/apiVersion");
+    final url = Uri.parse(
+        "https://confhub-backend-production.up.railway.app/apiVersion");
 
     try {
       final response = await http.get(url);

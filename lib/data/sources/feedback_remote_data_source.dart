@@ -5,7 +5,7 @@ import 'package:confhub/core/utils/filter_feedbacks.dart';
 import 'package:http/http.dart' as http;
 
 class FeedbackRemoteDataSource {
-  final String baseUrl = "http://localhost:3000/api/feedbacks";
+  final String baseUrl = "https://confhub-backend-production.up.railway.app/api/feedbacks";
 
   // Obtener todos los feedbacks
   Future<List<FeedbackModel>> getAllFeedbacks() async {
@@ -143,7 +143,7 @@ class FeedbackRemoteDataSource {
 
   // Enviar/agregar un feedback
   Future<bool> sendFeedback(feedback) async {
-    final url = Uri.parse(baseUrl); // Cambia la URL según tu API
+    final url = Uri.parse(baseUrl); 
 
     try {
       final response = await http.post(

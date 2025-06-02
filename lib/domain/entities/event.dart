@@ -18,6 +18,8 @@ class Event {
   double avgScore;
   String status;
   int numberReviews;
+  String? track;
+  String? userInfo;
 
   Event({
     required this.title,
@@ -37,5 +39,7 @@ class Event {
     required this.avgScore,
     required this.status,
     required this.numberReviews,
+    required this.track,
+    required this.userInfo,
   });
 }

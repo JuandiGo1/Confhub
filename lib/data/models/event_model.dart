@@ -6,25 +6,26 @@ import 'package:confhub/data/models/session_model.dart';
 import 'dart:io';
 
 class EventModel extends Event {
-  EventModel({
-    required super.title,
-    required super.category,
-    required super.dateTime,
-    required super.date,
-    required super.time,
-    required super.attendees,
-    required super.description,
-    required super.speakerName,
-    required super.speakerAvatar,
-    required super.location,
-    required super.availableSpots,
-    required List<SessionModel> super.sessionOrder,
-    required super.tags,
-    required super.eventid,
-    required super.avgScore,
-    required super.status,
-    required super.numberReviews
-  });
+  EventModel(
+      {required super.title,
+      required super.category,
+      required super.dateTime,
+      required super.date,
+      required super.time,
+      required super.attendees,
+      required super.description,
+      required super.speakerName,
+      required super.speakerAvatar,
+      required super.location,
+      required super.availableSpots,
+      required List<SessionModel> super.sessionOrder,
+      required super.tags,
+      required super.eventid,
+      required super.avgScore,
+      required super.status,
+      required super.numberReviews,
+      required super.track,
+      required super.userInfo});
 
   // Convertir JSON a EventModel
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -51,7 +52,9 @@ class EventModel extends Event {
         eventid: json['eventid'],
         avgScore: json['avgscore'],
         status: json['status'],
-        numberReviews: json['numberreviews']);
+        numberReviews: json['numberreviews'],
+        track: json['track'],
+        userInfo: json['user_info']);
   }
 
   // Convertir EventModel a JSON
@@ -71,20 +74,11 @@ class EventModel extends Event {
       'tags': tags,
       'location': location,
       'eventid': eventid,
-      'avgScore':avgScore,
-      'status':status,
-      'numberReviews':numberReviews
+      'avgScore': avgScore,
+      'status': status,
+      'numberReviews': numberReviews,
+      'track': track,
+      'userInfo': userInfo,
     };
-  }
-
-  static Future<void> saveStringToJsonFile(
-      String jsonString, String filePath) async {
-    try {
-      final file = File(filePath);
-      await file.writeAsString(jsonString);
-      log('Archivo JSON guardado en: $filePath');
-    } catch (e) {
-      throw Exception('Error al guardar el archivo JSON: $e');
-    }
   }
 }
